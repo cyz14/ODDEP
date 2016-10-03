@@ -8,6 +8,7 @@ var session = require('express-session');
 
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
+var editor = require('./routes/editor');
 
 var app = express();
 
@@ -30,13 +31,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 模板装载会话信息
 app.use(function(req, res, next) {
-  console.log(req.session.user);
   res.locals.user = req.session.user || null;
   next();
-})
+});
 
 app.use('/', routes);
 app.use('/auth', auth);
+
+// 权限限制器
+app.use(function(req, res, next) {
+  if (res.locals.user) {
+    next();
+  } else {
+    res.redirect('/auth/login');
+  }
+});
+
+app.use('/editor', editor);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

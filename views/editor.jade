@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  div.container-fluid
+    ul#editorTab.nav.nav-tabs
+      li
+        a(href="#visual", data-toggle="tab") 可视化编辑
+      li
+        a(href="#vhdl", data-toggle="tab") VHDL编辑
+    div#editorTabContent.tab-content
+      div#visual.tab-pane
+        p TODO
+      div#vhdl.tab-pane
+        pre#vhdlCode empty
+  script(src="/javascripts/editor-tab.js")

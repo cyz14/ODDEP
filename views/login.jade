@@ -1,19 +1,23 @@
+//- 登陆页面content 
+//- vim: sw=2 sts=2 
+
 extends layout
 
 block content
-    div.container(role="main")
-        h2= title
-        div.container
-            form.form-horizontal(role="form", method="post")
-                div.form-group
-                    label.control-label.col-sm-2(for="username") 用户名
-                    div.col-md-5
-                        input#username.form-control(name="username", type="text", placeholder="请输入用户名", autofocus, required)
-                div.form-group
-                    label.control-label.col-sm-2(for="password") 密码
-                    div.col-md-5
-                        input#username.form-control(name="password", type="password", placeholder="请输入密码", required)
-                    div.form-group
-                div.form-group
-                    div.col-sm-offset-2.col-sm-10
-                        button.btn.btn-default(type="submit") 登录
+  div.container(role="main")
+    h2= title
+    div.container
+      form.form-horizontal(role="form", method="post")
+        div.form-group
+          label.control-label.col-sm-2(for="username") 用户名
+          div.col-md-5
+            input#username.form-control(name="username", type="text", placeholder="请输入用户名", autofocus, required)
+        div.form-group
+          label.control-label.col-sm-2(for="password") 密码
+          div.col-md-5
+            input#username.form-control(name="password", type="password", placeholder="请输入密码", required)
+          div.form-group
+        div.form-group
+          div.col-sm-offset-2.col-sm-10
+            button.btn.btn-default(type="submit") 登录
+

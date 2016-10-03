@@ -11,7 +11,7 @@ router.get('/login', function(req, res, next) {
         res.redirect('/');
     }
     else {
-        res.render('login');
+        res.render('login', { title: '登录'});
     }
 });
 
@@ -20,7 +20,7 @@ router.post('/login', function(req, res, next) {
     var password = req.body.password;
     console.log('login:' + username);
     req.session.user = username;
-    req.session.token = "kit";
+    //req.session.token = "TODO";
     res.redirect('/');
 });
 
