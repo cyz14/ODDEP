@@ -9,6 +9,8 @@ var session = require('express-session');
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
 var editor = require('./routes/editor');
+var consumer = require('./routes/consumer');
+var watcher = require('./routes/watcher');
 
 var app = express();
 
@@ -38,16 +40,19 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/auth', auth);
 
-// 权限限制器
+/*
+// 权限限制器 
 app.use(function(req, res, next) {
   if (res.locals.user) {
     next();
   } else {
     res.redirect('/auth/login');
   }
-});
+}); // */
 
 app.use('/editor', editor);
+app.use('/submit', consumer);
+app.use('/status', watcher);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

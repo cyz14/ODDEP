@@ -18,7 +18,7 @@ html
             li
               a(href="/editor#visual") 开始编辑
             li
-              a(href="#") STATUS
+              a(href="/status") STATUS
             li
               a(href="#") SUBMISSIONS
         div.navbar-right
@@ -40,3 +40,8 @@ html
                 a(href="/auth/login") 登录
 
     block content
+
+    - if (needPageFooter)
+      div#major-footer
+        h3
+          small author:桃李地下车队

@@ -11,5 +11,20 @@ block content
       div#visual.tab-pane
         p TODO
       div#vhdl.tab-pane
+        h3
+          span.text-info VHDL代码
         pre#vhdlCode empty
+        form(role="form")
+          div.form-group
+            label
+              span.text-danger 输入激励文件
+            textarea#stimCode.form-control(rows="25")
+        button#codeSubmit.btn.btn-warning.btn-lg.col-md-offset-5 提交
+        form#car.hidden(name="car", method="post", action="/submit")
+          input#banana(name="code", type="text")
+          input#kevin(name="stim", type="text")
+        div.container
+          p
+        div.container
+          p
   script(src="/javascripts/editor-tab.js")
