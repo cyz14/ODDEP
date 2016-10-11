@@ -1,11 +1,13 @@
 var hash = window.location.hash;
+var vhdlEditor = ace.edit("vhdlACE");
 if (hash) {
     $('#editorTab a[href=' + hash + ']').tab('show');
 }
 
 function submitCodeToSim() {
     var code = document.getElementById('banana');
-    code.value = document.getElementById('vhdlCode').textContent;
+    //code.value = document.getElementById('vhdlCode').textContent;
+    code.value = vhdlEditor.getValue();
     var stim = document.getElementById('kevin');
     stim.value = document.getElementById('stimCode').value;
     var form = document.getElementById('car');
@@ -23,9 +25,12 @@ $(function() {
         var currentTag = $(e.target).attr("href");
         var previousTag = $(e.relatedTarget).attr("href");
         if (currentTag === "#vhdl" && previousTag === "#visual") {
+            if (screen.availWidth > 700) {
+                document.getElementById("vhdlACE").style.width = Math.floor(screen.availWidth * 0.8);
+            }
             // 将可视化结构转换为VHDL代码
             // 
-            $('#vhdlCode').text("LIBRARY IEEE;\nUSE IEEE.STD_LOGIC_1164.ALL;\nUSE IEEE.STD_LOGIC_ARITH.ALL;\nUSE IEEE.STD_LOGIC_UNSIGNED.ALL;\n\nentity digitalEO is\n    port(\n        oe:in STD_LOGIC;\n        six6:out STD_LOGIC;\n        six7:out STD_LOGIC;\n        egt8:out STD_LOGIC;\n        egt9:out STD_LOGIC;\n        eiA:out STD_LOGIC;\n        eiB:out STD_LOGIC\n        );\nend entity;\n\narchitecture eo_digital of digitalEO is\nbegin\n    six6 <= not oe;\n    egt8 <= not oe;\n    eiA <= not oe;\n    six7 <= oe;\n    egt9 <= oe;\n    eiB <= oe;\nend eo_digital;")
+            vhdlEditor.setValue("library IEEE;\nUSE IEEE.STD_LOGIC_1164.ALL;\nUSE IEEE.STD_LOGIC_ARITH.ALL;\nUSE IEEE.STD_LOGIC_UNSIGNED.ALL;\n\nentity digitalEO is\n    port(\n        oe:in STD_LOGIC;\n        six6:out STD_LOGIC;\n        six7:out STD_LOGIC;\n        egt8:out STD_LOGIC;\n        egt9:out STD_LOGIC;\n        eiA:out STD_LOGIC;\n        eiB:out STD_LOGIC\n        );\nend entity;\n\narchitecture eo_digital of digitalEO is\nbegin\n    six6 <= not oe;\n    egt8 <= not oe;\n    eiA <= not oe;\n    six7 <= oe;\n    egt9 <= oe;\n    eiB <= oe;\nend eo_digital;")
         }
     });
 });
