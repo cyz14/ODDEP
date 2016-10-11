@@ -148,7 +148,7 @@ $(function() {
 	var dragLayer = new Konva.Layer();
 	
 	for(var i = 0; i < 14; i ++) {
-		addStar(layer, stage);
+		//addStar(layer, stage);
 		var info = chipInfos[i];
 		info.position = {
 			x: 10 + Math.floor(i / 5) * 70,
