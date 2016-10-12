@@ -12,16 +12,16 @@ router.post('/', function(req, res, next) {
     console.log(code); // temp
     console.log("!stim:");
     console.log(stim);
-	fs.writeFile('./sim/gen.vhd', code, function(err) {
-		if (err) {
-			throw err;
-		}
-	});
-	fs.writeFile('./sim/in.txt', stim, function(err) {
-		if (err) {
-			throw err;
-		}
-	});
+	// fs.writeFile('./sim/gen.vhd', code, function(err) {
+	// 	if (err) {
+	// 		throw err;
+	// 	}
+	// });
+	// fs.writeFile('./sim/in.txt', stim, function(err) {
+	// 	if (err) {
+	// 		throw err;
+	// 	}
+	// });
 	sim();
     res.redirect('/status');
 });
