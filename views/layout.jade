@@ -5,9 +5,6 @@ html
     link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
     link(rel="stylesheet", href="/stylesheets/style.css")
   body(role="document")
-    script(src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
-    script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")
-    //- script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css")
     //- navigation bar
     nav.navbar.navbar-default.navbar-inverse(role="navigation")
       div.container-fluid
@@ -26,7 +23,7 @@ html
             ul.nav.navbar-nav
               li.dropdown
                 a.dropdown-toggle(href="#", data-toggle="dropdown")
-                  span.glyphicon.glyphicon-off &nbsp;#{ user }
+                  span.glyphicon.glyphicon-off &nbsp;#{ nickname }
                   span.caret
                 ul.dropdown-menu(role="menu", aria-labelledby="userMenuDrop0")
                   li(role="presentation")
@@ -45,3 +42,9 @@ html
       div#major-footer
         h3
           small author:桃李地下车队
+
+    script(src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
+    script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")
+    //- script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css")
+
+    block addscript

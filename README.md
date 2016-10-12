@@ -1,6 +1,6 @@
 # Project 7: Team of Taoli
 
-# Members
+## Members
 | Name         | Email        
 |:------------ |:------------
 | Chen Yazheng |icyz14@163.com
@@ -11,4 +11,7 @@
 
 ## References
 ### Nodejs Express etc.
-	http://blog.danyll.com/setting-up-express-with-nginx-and-pm2/
+[setting-up-express-with-nginx-and-pm2/](http://blog.danyll.com/setting-up-express-with-nginx-and-pm2/)
+
+### Electrical Symbols Library SVG
+[commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg'>https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg'>https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg)</br>

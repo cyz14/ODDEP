@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
   div.container-fluid
     ul#editorTab.nav.nav-tabs
       li
@@ -9,22 +10,44 @@ block content
         a(href="#vhdl", data-toggle="tab") VHDL编辑
     div#editorTabContent.tab-content
       div#visual.tab-pane
-        p TODO
+        div#konvaContainer.konva-container
+          
+        //div
+        //  p TODO
       div#vhdl.tab-pane
-        h3
-          span.text-info VHDL代码
-        pre#vhdlCode empty
-        form(role="form")
-          div.form-group
-            label
-              span.text-danger 输入激励文件
-            textarea#stimCode.form-control(rows="25")
-        button#codeSubmit.btn.btn-warning.btn-lg.col-md-offset-5 提交
+        div.row
+          div.panel.panel-default.col-md-6(style="padding: 5px")
+            div.panel-heading
+              h3.panel-title VHDL代码
+            div#vhdlACE.panel-body
+          div.panel.panel-primary.col-md-6(style="padding: 5px")
+            div.panel-heading 激励文件 - 上传文件优先
+            div.panel-body
+              form#bigbus.form-horizontal(role="form", enctype="multipart/form-data", method="post", action='/upload')
+                div.form-group
+                  label.control-label.col-sm-2 上传文件
+                  div.col-sm-10
+                    input#motUpl.file.form-control(type="file", data-show-upload="false", name="motivate")
+              form.form-horizontal(role="form")
+                div.form-group
+                  label.control-label.col-sm-2 输入文本
+                  div.col-sm-10
+                    textarea#stimCode.form-control(rows="25")
+        button#codeSubmit.btn.btn-warning.btn-lg.center-block 提交
         form#car.hidden(name="car", method="post", action="/submit")
           input#banana(name="code", type="text")
           input#kevin(name="stim", type="text")
+          input#mike(name="token", type="text")
         div.container
           p
         div.container
           p
+
+block addscript
+  script(src="http://cdn.bootcss.com/ace/1.2.5/ace.js", type="text/javascript", charset="utf-8")
+  script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
+  script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
+  script(src="/javascripts/editor-ace-config.js")
   script(src="/javascripts/editor-tab.js")
+  script(src="https://cdn.rawgit.com/konvajs/konva/1.1.0/konva.js")
+  script(src="/javascripts/editor-draw.js")
