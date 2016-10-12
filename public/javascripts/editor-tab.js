@@ -218,7 +218,7 @@ $(function() {
         {"from":"input1","fromPort":"","to":"and1","toPort":"in1"},
         {"from":"input2","fromPort":"","to":"xor1","toPort":"in2"},
         {"from":"input2","fromPort":"","to":"and1","toPort":"in2"},
-        {"from":"input3","fromPort":"","to":"xor","toPort":"in2"},
+        {"from":"input3","fromPort":"","to":"xor2","toPort":"in2"},
         {"from":"input3","fromPort":"","to":"and2","toPort":"in2"},
         {"from":"xor1","fromPort":"out1","to":"xor2","toPort":"in1"},
         {"from":"xor1","fromPort":"out1","to":"and2","toPort":"in1"},
@@ -329,23 +329,27 @@ $(function() {
     }
     //添加实体语句，包括component应用和连线翻译成语句
     function archBegin(string){
-        return string;
-    }
-    /*function archSignal(string){
-        for(var i=0;i<componentList.length;i++)
-        for(var j=1;j<=3;j++)
-        for(var k=0;k<leadList.length;k++){
-            if(((leadList[k][0]==componentList[i][0])&&(leadList[k][1]==j))||((leadList[k][2]==componentList[i][0])&&(leadList[k][3]==j)))
-                string=string+"SIGNAL "+componentList[i][0]+j+":STD_LOGIC;\n";
+        var num=1;
+        for(var i=0;i<List.componentDataArray.length;i++){
+            if((List.componentDataArray[i].category!="input")&&(List.componentDataArray[i].category!="output")){
+                string=string+"    u"+num+":"+List.componentDataArray[i].category+"_0 PORT MAP("+List.componentDataArray[i].name+"_in1,"+List.componentDataArray[i].name+"_in2,"+List.componentDataArray[i].name+"_out1);\n";
+                num++;
+            }
+        }
+        for(var i=0;i<List.linkDataArray.length;i++){
+            var s1;var s2;
+            if(List.linkDataArray[i].toPort=="")
+                s1=List.linkDataArray[i].to;
+            else
+                s1=List.linkDataArray[i].to+"_"+List.linkDataArray[i].toPort;
+            if(List.linkDataArray[i].fromPort=="")
+                s2=List.linkDataArray[i].from;
+            else
+                s2=List.linkDataArray[i].from+"_"+List.linkDataArray[i].fromPort;
+            string=string+"    "+s1+" <= "+s2+";\n";
         }
         return string;
     }
-    function archBegin(string){
-        for(var i=0;i<leadList.length;i++){
-            string=string+leadList[i][0]+leadList[i][1]+" <= "+leadList[i][2]+leadList[i][3]+";\n";
-        }
-        return string;
-    }*/
 
     function toVHDL(){
         var lib="library IEEE;\nUSE IEEE.STD_LOGIC_1164.ALL;\nUSE IEEE.STD_LOGIC_ARITH.ALL;\nUSE IEEE.STD_LOGIC_UNSIGNED.ALL;\n\n";
