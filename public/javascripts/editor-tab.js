@@ -39,6 +39,7 @@ $(function() {
             align: 'center'
         });
 
+        // Draw a rect to represent chip body
         var rect = new Konva.Rect({
             x: chipInfo.position.x,
             y: chipInfo.position.y,
@@ -50,6 +51,7 @@ $(function() {
         });
 
         chip.add(rect);
+        // Text containing chip name should be add after rect to avoid being covered
         chip.add(chipName);
 
         for (var i = 1; i <= 14; i++) {
@@ -73,7 +75,6 @@ $(function() {
 
 
         layer.add(chip);
-        //return chip;
     }
 
     function chipPinX(chip, index) {
@@ -149,8 +150,8 @@ $(function() {
     var layer = new Konva.Layer();
     var dragLayer = new Konva.Layer();
 
-    for (var i = 0; i < 14; i++) {
-        //addStar(layer, stage);
+    // Use array length to avoid IndexOutOfBoundException
+    for (var i = 0; i < chipInfos.length; i++) {
         var info = chipInfos[i];
         info.position = {
             x: 10 + Math.floor(i / 5) * 70,
@@ -160,43 +161,6 @@ $(function() {
     }
 
     stage.add(layer, dragLayer);
-    //
-    //stage.on('dragstart', function(evt) {
-    //	var shape = evt.target;
-    //	// moving to another layer will improve dragging performance
-    //	shape.moveTo(dragLayer);
-    //	stage.draw();
-    //	
-    //	if (tween) {
-    //	  tween.pause();
-    //	}
-    //	shape.setAttrs({
-    //	  shadowOffset: {
-    //	    x: 15,
-    //	    y: 15
-    //	  },
-    //	  scale: {
-    //	    x: shape.getAttr('startScale') * 1.2,
-    //	    y: shape.getAttr('startScale') * 1.2
-    //	  }
-    //	});
-    //});
-
-    //stage.on('dragend', function(evt) {
-    //	var shape = evt.target;
-    //	shape.moveTo(layer);
-    //	stage.draw();
-    //	shape.to({
-    //		duration: 0.5,
-    //		easing: Konva.Easings.ElasticEaseOut,
-    //		scaleX: shape.getAttr('startScale'),
-    //		scaleY: shape.getAttr('startScale'),
-    //		shadowOffsetX: 5,
-    //		shadowOffsetY: 5
-    //	});
-    //});
-
-    // draw codes above
 
     // 提交代码
     $('#codeSubmit').click(function() {
