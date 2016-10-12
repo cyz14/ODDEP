@@ -1,8 +1,12 @@
 var express = require("express");
 var router = express.Router();
+var basic_auth = require("../dbtop").basic_auth;
 
 router.get('/logout', function(req, res, next) {
-    req.session = null;
+    req.session.uid = null;
+    req.session.user = null;
+    req.session.password = null;
+    req.session.nickname = null;
     res.redirect('/');
 });
 
@@ -18,10 +22,18 @@ router.get('/login', function(req, res, next) {
 router.post('/login', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
-    console.log('login:' + username);
-    req.session.user = username;
-    //req.session.token = "TODO";
-    res.redirect('/');
+    basic_auth(username, password, function(line) {
+        if (line) {
+            // 最简单的明文会话
+            req.session.user = username;
+            req.session.password = password;
+            req.session.uid = line.uid;
+            req.session.nickname = line.nickname;
+            res.redirect('/');
+        } else {
+            res.redirect('#err');
+        }
+    });
 });
 
 module.exports = router;
