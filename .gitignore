@@ -1,5 +1,10 @@
 node_modules
 *.swp
 npm-debug.log
-sim/*
+sim/work/*
+sim/out.txt
+sim/*.vcd
+sim/*.vstf
+sim/transcript
+sim/*.wlf
 .vscode/*
