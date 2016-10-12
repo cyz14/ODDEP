@@ -11,3 +11,9 @@ var storage = multer.diskStorage({
 });
 
 var reciever = multer({ storage: storage });
+
+var express = require('express');
+var router = express.Router();
+
+router.post('/:token', reciever.single('motivate'), function(req, res, next) {
+});

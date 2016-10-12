@@ -8,14 +8,18 @@ function getTimeToken() {
     return Math.random().toString(36).substr(2) + ':' + new Date().getTime();
 }
 
+function brTagConvert(str) {
+    return str.replace(/\n|\r\n/g, '<br>');
+}
+
 function submitCodeToSim(token) {
     $('#mike').val(token);
-    $('#banana').val(vhdlEditor.getValue());
+    $('#banana').val(brTagConvert(vhdlEditor.getValue()));
     var stim = $('#kevin');
     if ($('#motUpl').val()) {
         stim.val("#&!upload>");
     } else {
-        stim.val($('#stimCode').val());
+        stim.val(brTagConvert($('#stimCode').val()));
     }
     $('#car').submit();
 }
