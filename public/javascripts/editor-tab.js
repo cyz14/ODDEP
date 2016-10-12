@@ -285,21 +285,48 @@ $(function() {
         return string;
     }
     //添加需要的signal
-    /*function archSignal(string){
+    function archSignal(string){
         var signal={};
         var len=0;
         for (var i=0;i<List.linkDataArray.length;i++){            
-            if((List.linkDataArray[i].fromPort!=""))
+            if(List.linkDataArray[i].fromPort!=""){
                 if(len>0){
                     var flag=0;
                     for(var j=0;j<len;j++){
                         if(signal[j]==List.linkDataArray[i].from+"_"+List.linkDataArray[i].fromPort)
+                            {flag=1;break;}
                     }
+                    if(flag==0)
+                        {signal[len]=List.linkDataArray[i].from+"_"+List.linkDataArray[i].fromPort;len++;}
                 }
-                
+                else
+                {signal[len]=List.linkDataArray[i].from+"_"+List.linkDataArray[i].fromPort;len++;}
+            }
+            if(List.linkDataArray[i].toPort!=""){
+                if(len>0){
+                    var flag=0;
+                    for(var j=0;j<len;j++){
+                        if(signal[j]==List.linkDataArray[i].to+"_"+List.linkDataArray[i].toPort)
+                            {flag=1;break;}
+                    }
+                    if(flag==0)
+                        {signal[len]=List.linkDataArray[i].to+"_"+List.linkDataArray[i].toPort;len++;}
+                }
+                else
+                {signal[len]=List.linkDataArray[i].to+"_"+List.linkDataArray[i].toPort;len++;}
+            }
+        }
+        if(len!=0){
+            string=string+"    SIGNAL ";
+            for(var i=0;i<len;i++){
+                if(i!=0)
+                    string=string+",";
+                string=string+signal[i];
+            }
+            string=string+":STD_LOGIC;\n"
         }
         return string;
-    }*/
+    }
     //添加实体语句，包括component应用和连线翻译成语句
     function archBegin(string){
         return string;
@@ -327,7 +354,7 @@ $(function() {
         entity=entity+"end entity;\n\n";
         var arch="architecture eo_digital of digitalEO is\n";
         arch=archComp(arch);
-        //arch=archSignal(arch);
+        arch=archSignal(arch);
         arch=arch+"begin\n";
         //arch=archBegin(arch);
         arch=arch+"end eo_digital;";
