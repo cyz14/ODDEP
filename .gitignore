@@ -4,3 +4,4 @@ npm-debug.log
 .vscode/*
 sim/work/*
 .vscode/*
+.DS_Store
