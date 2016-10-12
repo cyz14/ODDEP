@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
   div.container-fluid
     ul#editorTab.nav.nav-tabs
       li
@@ -20,13 +21,23 @@ block content
               h3.panel-title VHDL代码
             div#vhdlACE.panel-body
           div.panel.panel-primary.col-md-6(style="padding: 5px")
-            div.panel-heading 激励文件
+            div.panel-heading 激励文件 - 上传文件优先
             div.panel-body
-              textarea#stimCode.form-control(rows="25")
+              form#bigbus.form-horizontal(role="form", enctype="multipart/form-data", method="post", action='/upload')
+                div.form-group
+                  label.control-label.col-sm-2 上传文件
+                  div.col-sm-10
+                    input#motUpl.file.form-control(type="file", data-show-upload="false", name="motivate")
+              form.form-horizontal(role="form")
+                div.form-group
+                  label.control-label.col-sm-2 输入文本
+                  div.col-sm-10
+                    textarea#stimCode.form-control(rows="25")
         button#codeSubmit.btn.btn-warning.btn-lg.center-block 提交
         form#car.hidden(name="car", method="post", action="/submit")
           input#banana(name="code", type="text")
           input#kevin(name="stim", type="text")
+          input#mike(name="token", type="text")
         div.container
           p
         div.container
@@ -34,6 +45,8 @@ block content
 
 block addscript
   script(src="http://cdn.bootcss.com/ace/1.2.5/ace.js", type="text/javascript", charset="utf-8")
+  script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
+  script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
   script(src="/javascripts/editor-ace-config.js")
   script(src="/javascripts/editor-tab.js")
   //TODO: Maybe we need to add a block in layout.jade for this
