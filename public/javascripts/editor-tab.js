@@ -356,7 +356,7 @@ $(function() {
         arch=archComp(arch);
         arch=archSignal(arch);
         arch=arch+"begin\n";
-        //arch=archBegin(arch);
+        arch=archBegin(arch);
         arch=arch+"end eo_digital;";
         var s=lib+entity+arch;
         vhdlEditor.setValue(s);
