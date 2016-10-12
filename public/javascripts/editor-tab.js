@@ -20,6 +20,7 @@ function submitCodeToSim(token) {
     $('#car').submit();
 }
 
+$(function() {
     // 提交代码
     $('#codeSubmit').click(function() {
         var token = getTimeToken();
