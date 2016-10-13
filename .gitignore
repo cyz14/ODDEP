@@ -2,4 +2,11 @@ node_modules
 *.swp
 npm-debug.log
 /public/tmp/
-/.vscode/
+.vscode/*
+.DS_Store
+sim/work/*
+sim/out.txt
+sim/*.vcd
+sim/*.vstf
+sim/transcript
+sim/*.wlf
