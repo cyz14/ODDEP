@@ -3,17 +3,17 @@ extends layout
 block content
   link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
   div.container-fluid
-    ul#editorTab.nav.nav-tabs
+    ul#editorTab.nav.nav-pills
       li
-        a(href="#visual", data-toggle="tab") 可视化编辑
+        a(href="#visual", data-toggle="tab") 可视化编辑&nbsp;
+          span.glyphicon.glyphicon-forward
       li
-        a(href="#vhdl", data-toggle="tab") VHDL编辑
+        a(href="#vhdl", data-toggle="tab") VHDL编辑&nbsp;
+          span.glyphicon.glyphicon-forward
     div#editorTabContent.tab-content
       div#visual.tab-pane
         div#konvaContainer.konva-container
           
-        //div
-        //  p TODO
       div#vhdl.tab-pane
         div.row
           div.panel.panel-default.col-md-6(style="padding: 5px")
@@ -48,6 +48,6 @@ block addscript
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
   script(src="/javascripts/editor-ace-config.js")
-  script(src="/javascripts/editor-tab.js")
   script(src="https://cdn.rawgit.com/konvajs/konva/1.1.0/konva.js")
-  script(src="/javascripts/editor-draw.js")
+  script(src="/javascripts/editor-tab.js")
+  //-script(src="/javascripts/editor-draw.js")

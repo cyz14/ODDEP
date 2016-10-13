@@ -2,36 +2,49 @@ extends layout
 
 block content
   div.container-fluid
-    table.table
-      caption
-        h2= title
-      thead
-        tr
-          th ID
-          th 用户名
-          th 状态
-          th 提交时间
-      tbody
-        - each line in list
-          tr 
-            th 
-              span.label.label-default #{line.id}
-            th 
-              span.label.label-primary #{line.user}
-            case (line.code)
-              when 0 
-                th
-                  span.label.label-success #{line.status}
-              when 1 
-                th
-                  span.label.label-warning #{line.status}
-              when 2 
-                th
-                  span.label.label-default #{line.status}
-              when 100 
-                th
-                  span.label.label-danger #{line.status}
-            th
-              span.label.label-info #{line.time}
+    div.panel.panel-default
+      div.panel-heading= title
+      div.panel-body
+        table.table
+          caption 需要手动刷新
+          thead
+            tr
+              th ID
+              th 用户名
+              th 状态
+              th 提交时间
+          tbody
+            - each line in list
+              tr 
+                th: span.label.label-default #{line.id}
+                th: span.label.label-primary #{line.user}
+                case (line.code)
+                  when 0 
+                    th: span.label.label-success #{line.status}
+                  when 1 
+                    th: span.label.label-warning #{line.status}
+                  when 2 
+                    th: span.label.label-default #{line.status}
+                  when 100 
+                    th: span.label.label-danger #{line.status}
+                th: span.label.label-info #{line.time}
 
-            
+    //- 分页
+    nav(style="text-align:center")
+      ul.pagination
+        - if (pager.left)
+          li: a(href="#backward") &laquo;
+          li: a(href="#left") &lt;
+        - else
+          li.disabled: a(href="#") &lt;
+        - each page in pager.nums
+          - var num = "#" + page
+          - if (page!==pager.now)
+            li: a(href="#{num}")= page
+          - else
+            li.active: a(href="#{num}")= page
+        - if (pager.right)
+          li: a(href="#right") &gt;
+          li: a(href="#forward") &raquo;
+        - else
+          li.disabled: a(href="#") &gt;

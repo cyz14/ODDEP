@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var basic_auth = require("../dbtop").basic_auth;
+var basic_auth = require("../db/dbtop").basic_auth;
 
 router.get('/logout', function(req, res, next) {
     req.session.uid = null;

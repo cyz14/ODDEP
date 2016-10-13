@@ -1,3 +1,4 @@
+var pretest = require('./test/test');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,6 +12,7 @@ var auth = require('./routes/auth');
 var editor = require('./routes/editor');
 var consumer = require('./routes/consumer');
 var watcher = require('./routes/watcher');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -41,7 +43,7 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/auth', auth);
 
-/*
+//*
 // 权限限制器 
 app.use(function(req, res, next) {
   if (res.locals.user) {
@@ -54,6 +56,7 @@ app.use(function(req, res, next) {
 app.use('/editor', editor);
 app.use('/submit', consumer);
 app.use('/status', watcher);
+app.use('/upload', upload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
