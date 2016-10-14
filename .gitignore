@@ -10,3 +10,4 @@ sim/*.vcd
 sim/*.vstf
 sim/transcript
 sim/*.wlf
+/db/tot.db

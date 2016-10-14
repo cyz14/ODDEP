@@ -1,7 +1,10 @@
 doctype html
 html
   head
-    title= title
+    - if (title)
+      title= title + " - 数字电路在线实验系统"
+    - else 
+      title 数字电路在线实验系统
     link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
     link(rel="stylesheet", href="/stylesheets/style.css")
   body(role="document")
@@ -12,12 +15,10 @@ html
           a.navbar-brand(href="/") 数字电路在线实验系统
         div.navbar-left
           ul.nav.navbar-nav
-            li
-              a(href="/editor#visual") 开始编辑
-            li
-              a(href="/status") STATUS
-            li
-              a(href="#") SUBMISSIONS
+            li: a(href="/editor#visual") 开始编辑
+            li: a(href="/status") STATUS
+            - if (user)
+              li: a(href="/status?user=#{user}") SUBMISSIONS
         div.navbar-right
           - if (user)
             ul.nav.navbar-nav
@@ -33,15 +34,16 @@ html
                     a(role="menuitem", href="/auth/logout") 退出
           - else
             ul.nav.navbar-nav
-              li
-                a(href="/auth/login") 登录
+              li: a(href="/register") 注册
+              li: a(href="/auth/login") 登录
 
     block content
 
     - if (needPageFooter)
       div#major-footer
-        h3
-          small author:桃李地下车队
+        h3: small Author:&nbsp;桃李地下车队
+        - if (needPageFooter.time)
+          h4: small 服务器时间：#{needPageFooter.time}
 
     script(src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
     script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")

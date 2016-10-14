@@ -9,6 +9,7 @@ var session = require('express-session');
 
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
+var register = require('./routes/register');
 var editor = require('./routes/editor');
 var consumer = require('./routes/consumer');
 var watcher = require('./routes/watcher');
@@ -42,6 +43,7 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/auth', auth);
+app.use('/register', register);
 
 //*
 // 权限限制器 

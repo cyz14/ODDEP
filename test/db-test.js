@@ -1,3 +1,4 @@
+var assert = require('assert');
 var dabs = require('../db/dbtop');
 var tp = require('../tiny-promise');
 
@@ -8,3 +9,18 @@ tp.promisify.call(db, 'all', 'SELECT id, nickname, status, submit_time from subm
 .then(tp.spread(function(err, rows) {
     console.log(err, rows);
 }));//*/
+
+db.get('select count(*) from user', function(err, row) {
+    assert.strictEqual(err, null);
+    console.log('user amount:', row['count(*)']);
+});
+
+db.get('select count(*) from submission', function(err, row) {
+    assert.strictEqual(err, null);
+    console.log('submission amount:', row['count(*)']);
+});
+
+db.close(function(err) {
+    assert.strictEqual(err, null);
+    console.log('db test done.');
+});
