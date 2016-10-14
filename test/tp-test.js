@@ -73,4 +73,14 @@ tp.promisify(fun1, 1, 2, 3, 4)
     assert.strictEqual(x, 'number');
 });
 
+// 测试cb有1个参数
+var fun2 = function(a, cb) {
+    cb(a);
+}
+tp.promisify(fun2, 99)
+.then(function(a) {
+    assert.strictEqual(a, 99);
+});
+
+
 console.log('tiny-promise test done.');

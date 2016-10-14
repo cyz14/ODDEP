@@ -20,6 +20,11 @@ db.get('select count(*) from submission', function(err, row) {
     console.log('submission amount:', row['count(*)']);
 });
 
+dabs.md5Salt_auth('root', 'root', function(err, row) {
+    assert.strictEqual(err, null);
+    console.log(row.nickname + '认证测试成功');
+})
+
 db.close(function(err) {
     assert.strictEqual(err, null);
     console.log('db test done.');

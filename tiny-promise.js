@@ -4,12 +4,17 @@ var slice = Array.prototype.slice;
 // - promisify.fn(arg0 .. argn, cb)
 // - cb 的参数完全转移，转嫁错误处理
 // - 注意：cb只能被有效调用一次，一次调用后失效
+// - 如果 cb 参数不多于一个，则不 zip 传递
 exports.promisify = function(fn) {
     var ctx = this;
     var args = slice.call(arguments, 1);
     return new Promise(function(resolve, reject) {
         args.push(function() {
-            resolve(arguments);
+            if (Array.prototype.slice.call(arguments).length <= 1) {
+                resolve(arguments[0]);
+            } else {
+                resolve(arguments);
+            }
         });
 
         if (typeof(fn) === 'function') {

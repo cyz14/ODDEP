@@ -5,8 +5,9 @@ block addscript
 
 block content
   div.container-fluid
+    div#failed.alert.alert-danger 注册失败，服务器宕机或者你的登录用户名刚刚不幸被抢注了。
     div#alertusername.alert.alert-danger 登录用户名已存在
-    form.form-horizontal(role="form", method="post")
+    form.form-horizontal(role="form")
       div#usernameinput.form-group
         label.control-label.col-sm-2(for="username") 用户名
         div.col-sm-5
@@ -14,11 +15,11 @@ block content
       div.form-group
         label.control-label.col-sm-2(for="nickname") 昵称
         div.col-sm-5
-          input#nickname.form-control(name="nickname", type="text", placeholde="最多？个字符", required)
+          input#nickname.form-control(name="nickname", type="text", placeholder="最多？个字符", required)
       div.form-group
-        label.control-label.col-sm-2(for="password") 昵称
+        label.control-label.col-sm-2(for="password") 密码
         div.col-sm-5
-          input#password.form-control(name="password", type="password", placeholde="最多？个字符", required)
+          input#password.form-control(name="password", type="password", placeholder="最多？个字符", required)
       div.form-group
-        div.col-sm-offset-5.col-sm-10
-          button.btn.btn-default(type="submit") 注册
+        div.col-sm-offset-2.col-sm-10
+          button#registerbtn.btn.btn-primary(type="button") 注册

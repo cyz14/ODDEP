@@ -35,7 +35,8 @@ router.get('/', function(req, res, next) {
     var query = '';
     if (req.query.user) query = add_query(query, "user.name = '" + req.query.user + "'");
 
-    tp.promisify.call(db, 'get', 'select count(id) from submission inner join user on user.uid = submission.uid ' + deco_query(query))
+    tp.promisify.call(db, 'get', 'select count(id) from submission inner join user \
+        on user.uid = submission.uid ' + deco_query(query))
     .then(tp.spread(function(err, row) {
         console.log('query:', query, deco_query(query));
         if (err) throw err;
@@ -59,7 +60,8 @@ router.get('/', function(req, res, next) {
         query = add_query(query, 'submission.id > ' + (r - page_items));
         console.log('query:', query, deco_query(query));
         return tp.promisify.call(db, 'all',
-             'SELECT id, nickname, status, submit_time from submission inner join user on user.uid = submission.uid ' + deco_query(query) + ' ORDER BY id DESC');
+            'SELECT id, nickname, status, submit_time from submission inner join user \
+            on user.uid = submission.uid ' + deco_query(query) + ' ORDER BY id DESC');
     }))
     .then(tp.spread(function(err, rows) {
         if (err) throw err;

@@ -14,7 +14,26 @@ var db_close = function(dabs) {
 };
 exports.db_close = db_close;
 
-// 最简单的明文验证
+var md5 = require('js-md5');
+// cb(err, row)
+exports.md5Salt_auth = function(username, password, next) {
+    dabs = db();
+    tp.promisify.call(dabs, 'get', 'select * from user where name = ?', username)
+    .then(tp.spread(function(err, row) {
+        if (err) throw err;
+        var passwd = md5(password + row.salt);
+        if (passwd === row.password) {
+            next(null, row);
+        } else {
+            next(null, null);
+        }
+    }))
+    .catch(function(err) {
+        next(err);
+    });
+};
+
+// 最简单的明文验证 (已放弃)
 // next(row)
 exports.basic_auth = function(username, password, next) {
     dabs = db();
@@ -32,7 +51,7 @@ exports.basic_auth = function(username, password, next) {
     });
 };
 
-// 注册token,uid的提交，已存在则无动作
+// 注册token,uid的提交，已存在则无动作 (计划放弃)
 // next(err)
 exports.submissionRegisterIfNotExists = function(token, uid, next) {
     dabs = db();

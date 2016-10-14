@@ -3,8 +3,12 @@
 
 extends layout
 
+block addscript
+  script(src="/javascripts/login-alert.js")
+
 block content
-  div.container(role="main")
+  div.container
+    div.alert.alert-danger 登录用户名不存在或密码错误
     h2= title
     div.container
       form.form-horizontal(role="form", method="post")
