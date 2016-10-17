@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 模板装载会话信息
 app.use(function(req, res, next) {
   res.locals.user = req.session.user || null;
+  res.locals.nickname = req.session.nickname || null;
   next();
 });
 
