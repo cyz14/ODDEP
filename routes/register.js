@@ -10,6 +10,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/nameexists', function(req, res, next) {
     var name = req.query.username;
+    if (!name) {
+        res.send('bad-username');
+        return ;
+    }
     var db = dabs.db();
     tp.promisify.call(db, 'get', 'select uid from user where name = ?', name)
     .then(tp.spread(function(err, row) {

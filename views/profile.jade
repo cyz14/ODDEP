@@ -1,0 +1,33 @@
+extends layout
+
+block addscript
+  script(src="/javascripts/profile-ajax.js")
+
+block content
+  div.container-fluid
+    div#alertbad.alert.alert-danger 服务维护中
+    div#alertpwd.alert.alert-danger 输入新密码不一致
+    span.col-sm-offset-2: h3= title
+    div.panel.panel-primary
+      div.panel-heading 基本信息
+      div.panel-body
+        form.form-horizontal(role="form")
+          div.form-group
+            label.col-sm-2.control-label(for="nickname") 昵称
+            div.col-sm-8
+              input#nickname.form-control(type="text",placeholder="#{nickname}")
+          div.form-group
+            label.col-sm-2.control-label(for="oldpasswd") 旧密码
+            div.col-sm-8
+              input#oldpasswd.form-control(type="password",placeholder="不改密码不需要输入")
+          div.form-group.pwd
+            label.col-sm-2.control-label(for="passwd") 新密码
+            div.col-sm-8
+              input#passwd.form-control(type="password",placeholder="输入第一次")
+          div.form-group.pwd
+            label.col-sm-2.control-label(for="vepasswd") 新密码验证
+            div.col-sm-8
+              input#vepasswd.form-control(type="password",placeholder="输入第二次")
+          div.form-group
+            div.col-sm-offset-2.col-sm-10
+              button#submitbtn.btn.btn-primary(type="button") 编辑

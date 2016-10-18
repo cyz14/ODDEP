@@ -28,7 +28,7 @@ html
                   span.caret
                 ul.dropdown-menu(role="menu", aria-labelledby="userMenuDrop0")
                   li(role="presentation")
-                    a(role="menuitem", href="#") 个人信息
+                    a(role="menuitem", href="/profile") 个人信息
                   li.divider(role="presentation")
                   li(role="presentation")
                     a(role="menuitem", href="/auth/logout") 退出
@@ -45,8 +45,8 @@ html
         - if (needPageFooter.time)
           h4: small 服务器时间：#{needPageFooter.time}
 
-    script(src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
-    script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")
-    //- script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css")
+    script(src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
+    script(src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")
+    //- script(src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css")
 
     block addscript

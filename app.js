@@ -14,6 +14,7 @@ var editor = require('./routes/editor');
 var consumer = require('./routes/consumer');
 var watcher = require('./routes/watcher');
 var upload = require('./routes/upload');
+var profile = require('./routes/profile');
 
 var app = express();
 
@@ -55,6 +56,7 @@ app.use(function(req, res, next) {
   }
 }); // */
 
+app.use('/profile', profile);
 app.use('/editor', editor);
 app.use('/submit', consumer);
 app.use('/status', watcher);

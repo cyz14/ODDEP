@@ -58,4 +58,4 @@ var bundle = function() {
         }
     });
 }
-//exports.bundle = bundle.bundle = bundle;
+exports.bundle = bundle.bundle = bundle;
