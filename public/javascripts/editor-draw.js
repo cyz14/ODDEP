@@ -24,8 +24,8 @@ function addLibrary() {
     // END_OF_CHIP
 
     var stage = new Konva.Stage({
-        container: 'konvaContainer',
-        width: $("#konvaContainer").width(),
+        container: 'container',
+        width: $("#container").width(),
         height: 500
     });
     console.log('Stage: '+stage.container);
@@ -113,4 +113,4 @@ function chipPinY(chip, index) {
     return 50 + chip.attrs.y;
 }
 
-addLibrary();
+// addLibrary();
