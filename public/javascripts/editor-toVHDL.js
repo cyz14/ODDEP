@@ -1,5 +1,49 @@
 
     /*       以下为转VHDL的测试输入       */
+    var chipInfos = [
+        { "id": "74LS00",   "description": "四-二输入与非门",       
+        "pin":["in","in","out","in","in","out","gnd","out","in","in","out","in","in","vcc"]   
+        },
+        { "id": "74LS04",   "description": "六反相器",             
+        "pin":["in","out","in","out","in","out","gnd","out","in","out","in","out","in","vcc"] 
+        },
+        { "id": "74LS11",   "description": "三输入与门",            
+        "pin":["in","in","in","in","in","out","gnd","out","in","in","in","out","in","vcc"]   
+        },
+        { "id": "74LS14",   "description": "六反相器（施密特触发）", 
+        "pin":["in","out","in","out","in","out","gnd","out","in","out","in","out","in","vcc"] 
+        },
+        { "id": "74LS20",   "description": "二-四输入与非门",       
+        "pin":["in","in","in","in","in","out","gnd","out","in","in","in","in","in","vcc"] 
+        },
+        { "id": "74LS27",   "description": "三-三输入与非门",       
+        "pin":["in","in","in","in","in","out","gnd","out","in","in","in","in","in","vcc"] 
+        },
+        { "id": "74LS86",   "description": "四-二输入异或门",       
+        "pin":["in","in","out","in","in","out","gnd","out","in","in","out","in","in","vcc"] 
+        },
+        { "id": "74LS74",   "description": "双D触发器（正沿触发）",  
+        "pin":["in","in","in","in","out","out","gnd","out","out","in","in","in","in","vcc"] 
+        },
+        { "id": "74LS75",   "description": "四位双稳态锁存器",       
+        "pin":["out","in","in","in","vcc","in","in","out","out","out","out","gnd","in","out","out","out"] 
+        },
+        { "id": "74LS85",   "description": "4位数值比较器",         
+        "pin":["in","in","in","in","out","out","out","gnd","in","in","in","in","in","in","in","vcc"] 
+        },
+        { "id": "74LS90",   "description": "二-五-十进制计数器",     
+        "pin":["in","in","in","in","vcc","in","in","buffer","buffer","gnd","buffer","out","in","in"] 
+        },
+        { "id": "74LS125",  "description": "三态输出四总线缓冲器",   
+        "pin":["in","in","out","in","in","out","gnd","out","in","in","out","in","in","vcc"] 
+        },
+        { "id": "74LS161",  "description": "4位二进制同步计数器",    
+        "pin":["in","in","in","in","in","in","in","gnd","in","in","out","out","out","out","in","vcc"] 
+        },
+        { "id": "74LS253",  "description": "双4选1数据选择器",      
+        "pin":["in","in","in","in","in","in","out","gnd","out","in","in","in","in","in","in","vcc"] 
+        }
+    ];
     //测试用全加器元件导线list
     var List={
         "componentDataArray":[
@@ -29,6 +73,8 @@
         {"from":"or1","fromPort":"out1","to":"output","toPort":""}
         ]
     };
+
+
 
     //添加entity中port部分
     function entityPort(string){
