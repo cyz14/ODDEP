@@ -34,6 +34,7 @@ router.post('/update', function(req, res, next) {
                 setObj.password = md5(setObj.password + row.salt);
             }
             var setStmt = dabs.obj2Stmt('set', setObj);
+            console.log(setStmt);
             return tp.promisify.call(db, 'run', 'update user ' + setStmt + whereStmt);
         }))
         .then(function(err) {
@@ -43,8 +44,10 @@ router.post('/update', function(req, res, next) {
         })
         .then(dabs.db_close(db), function(err) {
             db.close();
-            console.log(err);
-            console.log(req.body);
+            if (err !== 'auth err') {
+                console.log(err);
+                console.log(req.body);
+            }
             res.send('bad');
         })
     }

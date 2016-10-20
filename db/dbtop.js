@@ -16,19 +16,34 @@ var isEmptys = function() {
 }
 exports.isEmptys = isEmptys.isEmptys = isEmptys;
 
-exports.obj2Stmt = function(op, args, funs) {
+// opt : { funs:{}, sep:',' }
+exports.obj2Stmt = function(op, args, opt) {
     var str = '';
+    var funs = {};
+    var sep = ',';
+    if (typeof(opt) !== 'undefined') {
+        funs = opt.funs || null;
+        if (opt.sep) {
+            sep = ' ' + opt.sep + ' ';
+        }
+    }
     for (var key in args) 
         if (args[key]) {
+            if (str.length) {
+                str += sep;
+            }
             str += key + '=';
             if (typeof(args[key]) === 'string') {
-                str += '"' + args[key] + '" '
+                str += '"' + args[key] + '"'
             } else {
-                str += args[key] + ' ';
+                str += args[key];
             }
         }
     for (var key in funs) 
         if (funs[key]) {
+            if (str.length) {
+                str += sep;
+            }
             str += key + '=' + funs[key] + ' ';
         }
     if (str) {
@@ -38,6 +53,7 @@ exports.obj2Stmt = function(op, args, funs) {
     }
 };
 
+// 给promise.then(<?>)用的数据库连接关闭器
 var db_close = function(dabs) {
     return function(arg) {
         dabs.close();
