@@ -34,6 +34,8 @@ app.use(session({
   secret: "taolidixiacheduir1",
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+// to use library managed by bower
+app.use(express.static(path.join(__dirname, 'bower_components')));
 
 // 模板装载会话信息
 app.use(function(req, res, next) {
