@@ -1,6 +1,6 @@
 $(function() {
     var editor = ace.edit("vhdlACE");
-    editor.setTheme("ace/theme/white");
+    editor.setTheme("ace/theme/monokai");//white
     editor.getSession().setMode("ace/mode/vhdl");
 
     $("#motUpl").fileinput({

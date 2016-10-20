@@ -5,8 +5,10 @@ html
       title= title + " - 数字电路在线实验系统"
     - else 
       title 数字电路在线实验系统
-    link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/stylesheets/style.css")
+    block stylesheets
+      link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
+      link(rel="stylesheet", href="/stylesheets/style.css")
+    block scripts
   body(role="document")
     //- navigation bar
     nav.navbar.navbar-default.navbar-inverse(role="navigation")
