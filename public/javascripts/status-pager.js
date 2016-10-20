@@ -38,7 +38,13 @@ $(function() {
     // 给filter回填数据
     $('#cIndex').val(parseInt($('#index').text()));
     var arg = location.href.match(/user=\w+/);
-    if (arg.length > 0) {
+    if (arg && arg.length > 0) {
         $('#userfilter').val(arg[0].substr(5));
     }
+    
+    // 给表列做链接
+    $('table > tbody > tr').click(function() {
+        console.log('clicked');
+        window.open($(this).find('a').attr('href'));
+    })
 });

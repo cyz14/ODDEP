@@ -27,6 +27,7 @@ router.post('/login', function(req, res, next) {
             console.log(err);
         }
         if (row) {
+            req.session.uid = row.uid;
             req.session.user = username;
             req.session.nickname = row.nickname;
             res.redirect('/');

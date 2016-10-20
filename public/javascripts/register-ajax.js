@@ -29,7 +29,7 @@ $(function() {
             }, function(data, status) {
                 console.log(data, status);
                 if (data === 'ok') {
-                    location.href = '/';
+                    location.href = '/auth/login';
                 } else {
                     $('#failed').show();
                 }

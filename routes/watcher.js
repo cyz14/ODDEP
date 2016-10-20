@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var dabs = require('../db/dbtop').db;
-var db_cl = require('../db/dbtop').db_close;
+var dabs = require('../db/dbtop');
+var db_cl = dabs.db_close;
 var tp = require('../tiny-promise');
 
 var statusMapCode = {
@@ -14,7 +14,7 @@ var statusMapCode = {
 var page_items = 20;
 
 router.get('/', function(req, res, next) {
-    var db = dabs();
+    var db = dabs.db();
     var index = req.query.index || 1;
     if (typeof(index) === 'string') index = parseInt(index);
     var pager = {now:index};
@@ -89,39 +89,38 @@ router.get('/', function(req, res, next) {
             }
         });
     });
-    /*var example = {
-        title : "STATUS",
-        list : [
-            {
-                id : "4",
-                user : "一二三四五六千",
-                time : "2009-1-1 12:00:00",
-                status : "in queue",
-                code : 2
-            },
-            {
-                id : "3",
-                user : "tom",
-                time : "2009-1-1 10:05:00",
-                status : "running",
-                code : 1
-            },
-            {
-                id : "2",
-                user : "tom",
-                time : "2009-1-1 10:00:00",
-                status : "failed",
-                code : 100
-            },
-            {
-                id : "1",
-                user : "harry",
-                time : "2009-1-1 09:00:00",
-                status : "done",
-                code : 0
-            }
-        ]
-    };*/
 });
+
+router.get('/submission/:id/', function(req, res, next) {
+    db = dabs.db();
+    var id = req.params.id;
+    var result = { title: '提交#' + id + '结果'};
+    tp.promisify.call(db, 'get', 'select * from submission where id = ?', id)
+    .then(tp.spread(function(err, row) {
+        if (err) throw err;
+        result.submission = row;
+        if (row.uid === req.session.uid) {
+            return true;
+        } else {
+            return tp.promisify.call(db, 'get', 'select power from user where name = ?', 
+                req.session.user)
+                .then(tp.spread(function(err, row) {
+                    if (err) throw err;
+                    if (row.power > 0) return true;
+                    else return false;
+                }));
+        }
+    }))
+    .then(function(permit) {
+        if (!permit) {
+            res.send('Permission denied.');
+        } else {
+            res.render('result', result);
+        }
+    }).catch(function(err) {
+        res.send('Bad server.');
+        console.log(err);
+    });
+})
 
 module.exports = router;

@@ -47,8 +47,6 @@ router.post('/', function(req, res, next) {
         if (err) {
             res.send('crash');
         } else {
-            req.session.user = username;
-            req.session.nickname = nickname;
             res.send('ok');
         }
     });

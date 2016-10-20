@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  div.container-fluid
+    table.table.table-bordered
+      thead: tr
+        th ID
+        th 题目id
+        th UID
+        th 状态
+        th 提交时间
+      tbody
+        tr
+          td #{submission.id}
+          td 1000
+          td #{submission.uid}
+          td #{submission.status}
+          td #{submission.submit_time}
+    ul.nav.nav-tabs
+      li.active: a(href="#codeview", data-toggle="tab") 程序查看
+      li: a(href="#dlink", data-toggle="tab") 文件下载
+      li: a(href="#preview", data-toggle="tab") 波形查看
+    div.tab-content
+      div#codeview.tab-pane.fade.in.active
+        span TODO1
+      div#dlink.tab-pane.fade
+        span TODO2
+      div#preview.tab-pane.fade
+        span TODO3
+
+block addscript
+  script $('nav').hide();
+          

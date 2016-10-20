@@ -16,18 +16,19 @@ block content
     div.panel.panel-default
       div.panel-heading= title
       div.panel-body
-        table.table
+        table.table.table-hover.table-condensed
           caption 需要手动刷新
           thead
             tr
               th ID
-              th 用户名
+              th 提交者
               th 状态
               th 提交时间
           tbody
             - each line in list
               tr 
-                th: span.label.label-default #{line.id}
+                th: a(href="status/submission/#{line.id}/")
+                  span.label.label-default #{line.id}
                 th: span.label.label-primary #{line.user}
                 case (line.code)
                   when 0 
