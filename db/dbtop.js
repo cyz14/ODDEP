@@ -5,6 +5,39 @@ var db = function() {
 };
 exports.db = db;
 
+var isEmptys = function() {
+    var obj = this;
+    for (key in obj) {
+        if (typeof(obj[key]) !== 'function' && obj[key]) {
+            return false;
+        }
+    }
+    return true;
+}
+exports.isEmptys = isEmptys.isEmptys = isEmptys;
+
+exports.obj2Stmt = function(op, args, funs) {
+    var str = '';
+    for (var key in args) 
+        if (args[key]) {
+            str += key + '=';
+            if (typeof(args[key]) === 'string') {
+                str += '"' + args[key] + '" '
+            } else {
+                str += args[key] + ' ';
+            }
+        }
+    for (var key in funs) 
+        if (funs[key]) {
+            str += key + '=' + funs[key] + ' ';
+        }
+    if (str) {
+        return ' ' + op + ' ' + str + ' ';
+    } else {
+        return ' ';
+    }
+};
+
 var db_close = function(dabs) {
     return function(arg) {
         dabs.close();
@@ -53,6 +86,7 @@ exports.basic_auth = function(username, password, next) {
 
 // 注册token,uid的提交，已存在则无动作 (计划放弃)
 // next(err)
+//*
 exports.submissionRegisterIfNotExists = function(token, uid, next) {
     dabs = db();
     console.log('register pending...');
@@ -74,4 +108,4 @@ exports.submissionRegisterIfNotExists = function(token, uid, next) {
     }))
     .then(db_close(dabs), db_close(dabs));
     next(null);
-};
+}; // */

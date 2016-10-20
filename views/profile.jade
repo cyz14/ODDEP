@@ -5,8 +5,10 @@ block addscript
 
 block content
   div.container-fluid
+    div#alertok.alert.alert-success 设定修改成功
     div#alertbad.alert.alert-danger 服务维护中
     div#alertpwd.alert.alert-danger 输入新密码不一致
+    div#alertpwdsend.alert.alert-danger 修改失败；未填写内容或密码验证失败
     span.col-sm-offset-2: h3= title
     div.panel.panel-primary
       div.panel-heading 基本信息
@@ -16,7 +18,7 @@ block content
             label.col-sm-2.control-label(for="nickname") 昵称
             div.col-sm-8
               input#nickname.form-control(type="text",placeholder="#{nickname}")
-          div.form-group
+          div#eldpwdf.form-group
             label.col-sm-2.control-label(for="oldpasswd") 旧密码
             div.col-sm-8
               input#oldpasswd.form-control(type="password",placeholder="不改密码不需要输入")

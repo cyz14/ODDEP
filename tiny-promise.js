@@ -33,6 +33,13 @@ exports.spread = function(cb) {
     };
 };
 
+// 封装成promise，直接传递参数给 tp.spread 的结果使用
+exports.pickle = function() {
+    return new Promise(function(resolve, reject) {
+        resolve(arguments);
+    });
+}
+
 /*  !未测试!
     title: 为了进行用户单线程、单束任务转多束任务转单束任务，规定bundle多束包装协议
     >>>
@@ -58,4 +65,4 @@ var bundle = function() {
         }
     });
 }
-exports.bundle = bundle.bundle = bundle;
+//exports.bundle = bundle.bundle = bundle;
