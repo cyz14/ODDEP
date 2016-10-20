@@ -1,5 +1,5 @@
 /**
- * Created by apple on 16/10/19.
+ * Created by Chen Yazheng on 16/10/20.
  */
 
 tot.Toolbar = Class.extend({
@@ -46,5 +46,33 @@ tot.Toolbar = Class.extend({
 			var command= new draw2d.command.CommandDelete(node);
 			this.view.getCommandStack().execute(command);
 		},this)).button( "option", "disabled", true );
-    }
+    },
+
+	/**
+	 * @method
+	 * Called if the selection in the cnavas has been changed. You must register this
+	 * class on the canvas to receive this event.
+	 *
+     * @param {draw2d.Canvas} emitter
+     * @param {Object} event
+     * @param {draw2d.Figure} event.figure
+	 */
+	onSelectionChanged : function(emitter, event){
+		this.deleteButton.button( "option", "disabled", event.figure===null );
+	},
+	
+	/**
+	 * @method
+	 * Sent when an event occurs on the command stack. draw2d.command.CommandStackEvent.getDetail() 
+	 * can be used to identify the type of event which has occurred.
+	 * 
+	 * @template
+	 * 
+	 * @param {draw2d.command.CommandStackEvent} event
+	 **/
+	stackChanged:function(event)
+	{
+		this.undoButton.button( "option", "disabled", !event.getStack().canUndo() );
+		this.redoButton.button( "option", "disabled", !event.getStack().canRedo() );
+	}
 });

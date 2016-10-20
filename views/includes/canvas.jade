@@ -2,7 +2,16 @@ div#container.container
 	div.row.row-offcanvas.row-offcanvas-left
 		//- editor: content 
 		div#editor.editor.col-xs-12
+			div#toolbar.toolbar
+				span.group
+					span#editDelete.ion-ios-close-empty.icon.disabled
+				span.group
+					span#editUndo.ion-ios-arrow-left.icon.disabled
+					span#editRedo.ion-ios-arrow-right.icon.disabled
 			div#palette.palette.sidebar-offcanvas
+				//- div#paletteElementsScroll
+				//- 	div#paletteElements.row
+				//- 	div#paletteElementsOverlay 
 				div#sidebar.col-xs-6.col-sm-3
 					div.list-group
 						span.list-group-item
@@ -20,15 +29,10 @@ div#container.container
 						span.list-group-item
 							a(href="http://localhost:3000/editor#visual").list-group-item 74LS75
 			//- <!--/.sidebar-offcanvas-->
-			div#toolbar.toolbar
-				span.group
-					span#editDelete.ion-ios-close-empty.icon.disabled
-				span.group
-					span#editUndo.ion-ios-arrow-left.icon.disabled
-					span#editRedo.ion-ios-arrow-right.icon.disabled
 			div#canvasWrapper.content
+				//- style="width: 3000px; height: 3000px;"
 				div#canvas.canvas(oncontextmenu="return false;")
-			div#canvas_zoom.btn-group
-				button#canvas_zoom_in.btn.highlight(type="button") &#8210
-				button#canvas_zoom_normal.btn.highlight(type="button") 100%
-				button#canvas_zoom_out.btn.highlight(type="button") &#xFF0B
+				div#canvas_zoom.btn-group
+					button#canvas_zoom_in.btn.highlight(type="button") &#8210
+					button#canvas_zoom_normal.btn.highlight(type="button") 100%
+					button#canvas_zoom_out.btn.highlight(type="button") &#xFF0B

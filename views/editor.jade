@@ -6,27 +6,11 @@ head
     link(type="text/css" rel="stylesheet", href="/stylesheets/canvas.css")
     //- ToDo: Customize vhdl editor's UI with bootstrap to adapt to more device size
     link(type="text/css" rel="stylesheet", href="/stylesheets/vhdleditor.css")
-  block scripts
-    //- bower_components: draw2d
-    script(src="/draw2d/dist/shifty.js")
-    script(src="/draw2d/dist/patched_raphael.js")
-    script(src="/jquery/jquery.min.js")
-    script(src="/draw2d/dist/jquery-touch_punch.js")
-    script(src="/draw2d/dist/jquery.autoresize.js")
-    script(src="/draw2d/dist/jquery.contextmenu.js")
-    script(src="/draw2d/dist/rgbcolor.js")
-    script(src="/draw2d/dist/patched_canvg.js")
-    script(src="/draw2d/dist/patched_Class.js")
-    script(src="/draw2d/dist/json2.js")
-    script(src="/draw2d/dist/pathfinding-browser.min.js")
-    script(src="/draw2d/dist/draw2d_core.js")
-
-    //- draw2d Classes for the GUI editor application
-    script(src="/javascripts/draw2d/Application.js")
-    script(src="/javascripts/draw2d/Palette.js")
-    script(src="/javascripts/draw2d/View.js")
-    script(src="/javascripts/draw2d/Toolbar.js")
-
+    //- include dependencies: javascript files 
+    include includes/editorjs
+    script
+      $(window).load(function() {var app = new tot.Application();});
+  
 block content
   link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
   div.container-fluid
@@ -39,8 +23,10 @@ block content
           span.glyphicon.glyphicon-forward
     div#editorTabContent.tab-content
       div#visual.tab-pane
+        //- canvas html template file
         include includes/canvas
       div#vhdl.tab-pane
+        //- vhdl editor page html template file
         include includes/vhdleditor
 
 block addscript

@@ -32,13 +32,14 @@ tot.Application = Class.extend({
 
         }
 
-        this.palette = new Palette();
-        this.view    = new View(this, "canvas");
+        this.palette = new tot.Palette();
+        this.view    = new tot.View(this, "canvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
 
 		/*
          * Replace all SVG images with inline SVG
          */
+        // Now Chen Yazheng doesn't know what this mean
         $('img.svg').each(function(){
             var $img = $(this);
             var imgURL = $img.attr('src');
