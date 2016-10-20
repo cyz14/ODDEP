@@ -1,0 +1,27 @@
+div.row
+  div.panel.panel-default.col-md-6(style="padding: 5px")
+    div.panel-heading
+      h3.panel-title VHDL代码
+    div#vhdlACE.panel-body
+  div.panel.panel-primary.col-md-6(style="padding: 5px")
+    div.panel-heading 激励文件 - 上传文件优先
+    div.panel-body
+      form#bigbus.form-horizontal(role="form", enctype="multipart/form-data", method="post", action='/upload')
+        div.form-group
+          label.control-label.col-sm-2 上传文件
+          div.col-sm-10
+            input#motUpl.file.form-control(type="file", data-show-upload="false", name="motivate")
+      form.form-horizontal(role="form")
+        div.form-group
+          label.control-label.col-sm-2 输入文本
+          div.col-sm-10
+            textarea#stimCode.form-control(rows="25")
+  button#codeSubmit.btn.btn-warning.btn-lg.center-block 提交
+  form#car.hidden(name="car", method="post", action="/submit")
+    input#banana(name="code", type="text")
+    input#kevin(name="stim", type="text")
+    input#mike(name="token", type="text")
+  div.container
+    p
+  div.container
+    p
