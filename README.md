@@ -1,5 +1,18 @@
 # Project 7: Team of Taoli
 
+## Set Up and Run
+### Install npm dependencies and bower dependencies
+```
+$ npm install
+$ npm install -g bower
+$ bower install
+```
+### Config sqlite database
+```
+$ cd db
+// To Complete
+```
+
 ## Members
 | Name         | Email        
 |:------------ |:------------
