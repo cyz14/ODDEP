@@ -6,12 +6,28 @@ body{
  overflow: hidden;
 }
 
+#container {
+  margin: 0;
+  padding: 5px;
+}
 
+#palette {
+  position: relative;
+  top: 30px;
+  left: 10px;
+  width: 50%; /* 6 columns */
+}
+
+#palette #sidebar .list-group-item {
+  min-width: 40px;
+}
 
 #canvas {
- padding:0px;
- margin:0px;
- background-color:#FAFAFA;
+  padding:0px;
+  margin:0px;
+  width: 3000px;
+  height: 3000px; 
+  background-color:#FAFAFA;
 }
 
 #canvas_zoom {
@@ -23,6 +39,7 @@ body{
 #canvas_zoom button {
   background-color: transparent;
   font-weight: 300;
+  font-size: 25px;
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
