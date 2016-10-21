@@ -7,62 +7,12 @@ tot.View = draw2d.Canvas.extend({
 	/**
 	 * @constructor
 	 */
-	init: function(app, id) {
-		this._super(id);
-		this.setScrollArea("#"+id);
-        this.installEditPolicy(
-            new draw2d.policy.connection.DragConnectionCreatePolicy({
-                createConnection: function(){ return new HoverConnection(); }
-            })
-        );
+	init: function(id) {
+	    var _this = this;
+		this._super(id, 2000, 2000); 
 
-        var router = new ConnectionRouter();
-        router.abortRoutingOnFirstVertexNode=false;
-        var createConnection=function(sourcePort, targetPort){
-            var c = new Connection({
-                color:"#000000",
-                router: router,
-                stroke:1.5,
-                radius:2
-            });
-            if(sourcePort) {
-                c.setSource(sourcePort);
-                c.setTarget(targetPort);
-            }
-            return c;
-        };
+        
 
-        this.installEditPolicy( new DropInterceptorPolicy());
-
-        // install a Connection create policy which matches to a "circuit like"
-        // connections
-        this.connectionPolicy = new draw2d.policy.connection.ComposedConnectionCreatePolicy(
-                [
-                    // create a connection via Drag&Drop of ports
-                    new draw2d.policy.connection.DragConnectionCreatePolicy({
-                        createConnection:createConnection
-                    }),
-                    // or via click and point
-                    new draw2d.policy.connection.OrthogonalConnectionCreatePolicy({
-                        createConnection:createConnection
-                    })
-                ]);
-        this.installEditPolicy(this.connectionPolicy);
-
-        // show the ports of the elements only if the mouse cursor is close to the shape.
-        this.coronaFeedback = new draw2d.policy.canvas.CoronaDecorationPolicy({diameterToBeVisible:50});
-        this.installEditPolicy(this.coronaFeedback);
-
-        // nice grid decoration for the canvas paint area
-        this.grid =  new draw2d.policy.canvas.ShowGridEditPolicy(20);
-        this.installEditPolicy( this.grid);
-
-        // add some SnapTo policy for better shape/figure alignment
-        this.installEditPolicy( new draw2d.policy.canvas.SnapToGeometryEditPolicy());
-        this.installEditPolicy( new draw2d.policy.canvas.SnapToCenterEditPolicy());
-        this.installEditPolicy( new draw2d.policy.canvas.SnapToInBetweenEditPolicy());
-
-        this.installEditPolicy(new EditEditPolicy());
 	},
 
 	/**

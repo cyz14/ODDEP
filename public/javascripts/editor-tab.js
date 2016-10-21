@@ -46,5 +46,12 @@ $(function() {
             vhdlEditor.setValue(s);
             vhdlEditor.clearSelection();
         }
+        if (currentTag === "#visual") {
+            $('nav').hide();
+        } else {
+            $('nav').show();
+        }
     });
+
+    $('nav').hide();
 });

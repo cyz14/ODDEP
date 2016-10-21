@@ -21,38 +21,79 @@ tot.Application = Class.extend({
 	 * @param {String} canvasId the is of the DOM element to use as paint container
 	 */
 	init: function() {
-		var _this = this;
-		this.localStorage = [];
-
-		try {
-            if( 'localStorage' in window && window.localStorage !== null){
-                this.localStorage = localStorage;
-            }
-        } catch(e) {
-
-        }
-
-        this.palette = new tot.Palette();
-        this.view    = new tot.View(this, "canvas");
+        this.view    = new tot.View("canvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
+		this.palette = new tot.Palette();
 
-		/*
-         * Replace all SVG images with inline SVG
-         */
-        // Now Chen Yazheng doesn't know what this mean
-        $('img.svg').each(function(){
-            var $img = $(this);
-            var imgURL = $img.attr('src');
+        this.view.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
+            createConnection: this.createConnection
+          }));
 
-            jQuery.get(imgURL, function(data) {
-                // Get the SVG tag, ignore the rest
-                var $svg = $(data).find('svg');
-                // Remove any invalid XML tags as per http://validator.w3.org
-                $svg = $svg.removeAttr('xmlns:a');
-                // Replace image with new SVG
-                $img.replaceWith($svg);
-            }, 'xml');
+        this.view.setScrollArea("#canvas");
 
-        });
+        var layout = {
+			west: {
+				resizable:true,
+				closable:true,
+				resizeWhileDragging:true,
+				paneSelector: "#navigation"
+			},
+			center: {
+				resizable:true,
+				closable:true,
+				resizeWhileDragging:true,
+				paneSelector: "#content"
+			}
+		};
+		this.contentLayout = $('#content').layout({
+			north: {
+				resizable:false,
+				closable:false,
+				spacing_open:0,
+				spacing_closed:0,
+				size:50,
+				paneSelector: "#toolbar"
+			},
+			center: {
+				resizable:false,
+				closable:false,
+				spacing_open:0,
+				spacing_closed:0,
+				paneSelector: "#canvas"
+			}
+		});
+		// layout FIRST the body
+		this.appLayout = $('#container').layout(layout);
+	},
+
+    /**
+	 * Load the JSON data into the view/canvas
+	 */
+	load: function(jsonDocument){
+	    this.view.clear();
+	    
+	    // unmarshal the JSON document into the canvas
+	    // (load)
+	    var reader = new draw2d.io.json.Reader();
+	    reader.unmarshal(this.view, jsonDocument);
+	    
+	},
+
+    setDefaultRouterClassName: function(  defaultRouterClassName){
+	    defaultRouterClassName=  defaultRouterClassName;
+        defaultRouter = eval("new "+defaultRouterClassName+"()");
+	},
+	
+	createConnection: function(){
+
+	    var conn = new draw2d.Connection();
+	    conn.setRouter(defaultRouter);
+	    conn.setOutlineStroke(1);
+	    conn.setOutlineColor("#303030");
+	    conn.setStroke(3);
+	    conn.setRadius(5);
+	    conn.setColor('#00A8F0');
+	    return conn;
 	}
+
 });

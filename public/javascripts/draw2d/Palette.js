@@ -11,7 +11,5 @@ tot.Palette = Class.extend({
 	init: function(app)
 	{
 		var _this = this;
-		var $grid = $('#paletteElements');
-		
 	}
 });

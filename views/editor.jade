@@ -1,40 +1,32 @@
-extends layout
+doctype html
 head 
-  block stylesheets
-    link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/stylesheets/style.css")
-    link(type="text/css" rel="stylesheet", href="/stylesheets/canvas.css")
-    //- ToDo: Customize vhdl editor's UI with bootstrap to adapt to more device size
-    link(type="text/css" rel="stylesheet", href="/stylesheets/vhdleditor.css")
-    //- include dependencies: javascript files 
-    include includes/editorjs
-    script
-      $(window).load(function() {var app = new tot.Application();});
-  
-block content
-  link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
-  div.container-fluid
-    ul#editorTab.nav.nav-pills
-      li
-        a(href="#visual", data-toggle="tab") 可视化编辑&nbsp;
-          span.glyphicon.glyphicon-forward
-      li
-        a(href="#vhdl", data-toggle="tab") VHDL编辑&nbsp;
-          span.glyphicon.glyphicon-forward
-    div#editorTabContent.tab-content
-      div#visual.tab-pane
-        //- canvas html template file
-        include includes/canvas
-      div#vhdl.tab-pane
-        //- vhdl editor page html template file
-        include includes/vhdleditor
+  title Visual Editor
+  block addstylesheets
+    link(rel="stylesheet", href="/stylesheets/aristo/jquery-ui-1.8.16.custom.css")
+    link(rel="stylesheet", href="/stylesheets/jquery.layout.css")
+    link(rel="stylesheet", href="/stylesheets/visual-editor.css")
 
-block addscript
-  script(src="http://cdn.bootcss.com/ace/1.2.5/ace.js", type="text/javascript", charset="utf-8")
-  script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
-  script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
-  script(src="/javascripts/editor-ace-config.js")
-  script(src="https://cdn.rawgit.com/konvajs/konva/1.1.0/konva.js")
-  script(src="/javascripts/editor-tab.js")
-  script(src="/javascripts/editor-draw.js")
-  script(src="/javascripts/editor-toVHDL.js")
+body#container
+  div#content
+    div#toolbar
+      div#radio
+        input#radio1(type="radio", name="radio", data-router="draw2d.layout.connection.ManhattanConnectionRouter")
+        label(for="radio1") Manhattan
+        input#radio2(type="radio", name="radio", data-router="draw2d.layout.connection.ManhattanBridgedConnectionRouter")
+        label(for="radio2") Manhattan Bridged
+    div#canvas
+  div#navigation
+    p.palette_node_element.draw2d_droppable Hello
+    p.palette_node_element.draw2d_droppable World
+
+
+  block addscript
+    include includes/visual-js
+    script(src="/javascripts/draw2d/figure/example.json")
+    script.
+      $(window).load(function(){
+        var app = new tot.Application();
+        app.load(jsonDocument);
+      });
+    
+    
