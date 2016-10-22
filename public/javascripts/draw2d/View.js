@@ -9,10 +9,18 @@ tot.View = draw2d.Canvas.extend({
 	 */
 	init: function(id) {
 	    var _this = this;
-		this._super(id, 2000, 2000); 
-
+		this._super(id, 2000, 2000);
         
+        // nice grid decoration for the canvas paint area
+        //
+        this.grid =  new draw2d.policy.canvas.ShowGridEditPolicy(20);
+        this.installEditPolicy( this.grid);
 
+        // add some SnapTo policy for better shape/figure alignment
+        //
+        this.installEditPolicy( new draw2d.policy.canvas.SnapToGeometryEditPolicy());
+        this.installEditPolicy( new draw2d.policy.canvas.SnapToCenterEditPolicy());
+        this.installEditPolicy( new draw2d.policy.canvas.SnapToInBetweenEditPolicy());
 	},
 
 	/**
@@ -53,5 +61,37 @@ tot.View = draw2d.Canvas.extend({
         // create a command for the undo/redo support
         var command = new draw2d.command.CommandAdd(this, figure, x, y);
         this.getCommandStack().execute(command);
+    },
+
+        /**
+     * @method
+     * Transforms a document coordinate to canvas coordinate.
+     *
+     * @param {Number} x the x coordinate relative to the window
+     * @param {Number} y the y coordinate relative to the window
+     *
+     * @returns {draw2d.geo.Point} The coordinate in relation to the canvas [0,0] position
+     */
+    fromDocumentToCanvasCoordinate: function(x, y)
+    {
+        return new draw2d.geo.Point(
+            (x - this.getAbsoluteX())*this.zoomFactor,
+            (y - this.getAbsoluteY())*this.zoomFactor);
+    },
+
+    /**
+     * @method
+     * Transforms a canvas coordinate to document coordinate.
+     *
+     * @param {Number} x the x coordinate in the canvas
+     * @param {Number} y the y coordinate in the canvas
+     *
+     * @returns {draw2d.geo.Point} the coordinate in relation to the document [0,0] position
+     */
+    fromCanvasToDocumentCoordinate: function(x,y)
+    {
+        return new draw2d.geo.Point(
+            ((x*(1/this.zoomFactor)) + this.getAbsoluteX()),
+            ((y*(1/this.zoomFactor)) + this.getAbsoluteY()));
     }
 });

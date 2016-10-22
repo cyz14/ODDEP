@@ -2,15 +2,33 @@
 
 ## Set Up and Run
 ### Install npm dependencies and bower dependencies
+In project path, /path/to/prj7_tot/ , run
 ```
-$ npm install
-$ npm install -g bower
-$ bower install
+/path/to/prj7_tot $ npm install
+```
+Install bower if not installed yet
+```
+ $ npm install -g bower
+```
+Then install dependencies managed by bower
+```
+/path/to/prj7_tot $ bower install
 ```
 ### Config sqlite database
+#### 1. Install sqlite3 
+sqlite3 should have be installed by ``` npm install ```
+To install sqlite3 globally
 ```
-$ cd db
-// To Complete
+ $ npm install sqlite3 -g
+```
+#### 2. SetUp and Test database
+```
+/path/to/prj7_tot $ cd db
+/path/to/prj7_tot/db $ sqlite3
+sqlite> .read dbinit.sql
+sqlite> .read dbtest-load.sql
+sqlite> .save tot.db
+sqlite> .exit
 ```
 
 ## Members

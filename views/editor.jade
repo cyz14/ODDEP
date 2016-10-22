@@ -14,10 +14,18 @@ body#container
         label(for="radio1") Manhattan
         input#radio2(type="radio", name="radio", data-router="draw2d.layout.connection.ManhattanBridgedConnectionRouter")
         label(for="radio2") Manhattan Bridged
-    div#canvas
+    div#canvasWrapper
+      div#canvas
+      //- ToDo: add zoom_in and zoom_out and zoom_normal functions
+      div#canvas_zoom.btn-group
+        button(type="button")#canvas_zoom_in.btn.highlight -
+        button(type="button")#canvas_zoom_normal.btn.highlight 100%
+        button(type="button")#canvas_zoom_out.btn.highlight +
+    
   div#navigation
-    p.palette_node_element.draw2d_droppable Hello
-    p.palette_node_element.draw2d_droppable World
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Start") Start
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.End") End
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") Between
 
 
   block addscript
