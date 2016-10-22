@@ -16,9 +16,9 @@ body#container
         label(for="radio2") Manhattan Bridged
     div#canvas
   div#navigation
-    p.palette_node_element.draw2d_droppable Hello
-    p.palette_node_element.draw2d_droppable World
-
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Start") Start
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.End") End
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") Between
 
   block addscript
     include includes/visual-js
@@ -27,6 +27,7 @@ body#container
       $(window).load(function(){
         var app = new tot.Application();
         app.load(jsonDocument);
+        app.view.add(new draw2d.shape.basic.Circle({diameter: 80, x: 50, y: 150}));
       });
     
     

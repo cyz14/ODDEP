@@ -23,13 +23,7 @@ tot.Application = Class.extend({
 	init: function() {
         this.view    = new tot.View("canvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
-		this.palette = new tot.Palette();
-
-        this.view.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
-            createConnection: this.createConnection
-          }));
-
-        this.view.setScrollArea("#canvas");
+		this.palette = new tot.Palette("navigation", this);
 
         var layout = {
 			west: {
