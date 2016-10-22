@@ -12,30 +12,61 @@ var statusMapCode = {
 };
 
 var page_items = 20;
+var ioffset = 4;
 
 router.get('/', function(req, res, next) {
     var db = dabs.db();
     var index = req.query.index || 1;
     if (typeof(index) === 'string') index = parseInt(index);
-    var pager = {now:index};
+    var pager = {};
     var list = [];
-    var total = 0;
     // 处理fileter
-    deco_query = function(q) {
-        if (q) {
-            return 'WHERE ' + q;
-        } else {
-            return '';
-        }
-    };
-    add_query = function(q, qa) {
-        if (q) return q + ' and ' + qa;
-        else return qa;
-    }
-    var query = '';
-    if (req.query.user) query = add_query(query, "user.name = '" + req.query.user + "'");
+    var query = {};
+    if (req.query.user) query['user.name'] = req.query.user;
+    if (req.query.pid) query['submission.pid'] = req.query.pid;
+    if (req.query.tag) query['submission.tag'] = req.query.tag;
 
-    tp.promisify.call(db, 'get', 'select count(id) from submission inner join user \
+    var qhead = 'select * from submission inner join user on user.uid = submission.uid'
+    tp.promisify.call(db, 'all', qhead + dabs.obj2Stmt('where', query, {sep:'and'}) + 'ORDER BY id DESC')
+    .then(tp.spread(function(err, rows) {
+        if (err) throw err;
+        var la = Math.ceil(rows.length / page_items);
+        if (index === 0) index = la;
+        var r = (index - 1) * page_items;
+        // build pager
+        pager.now = index;
+        if (index > 1) pager.left = true;
+        if (index < la) pager.right = true;
+        pager.nums = [];
+        for (var i = index - ioffset; i < index + ioffset; ++i)
+        {
+            if (i > 0 && i <= la) pager.nums.push(i);
+        }
+        // build list
+        for (var i = 0; i < 20 && i + r < rows.length; ++i) {
+            var j = i + r;
+            list[i] = {
+                id : rows[j].id,
+                user : rows[j].nickname,
+                pid : rows[j].pid,
+                tag : rows[j].tag,
+                status : rows[j].status,
+                code: statusMapCode[rows[j].status],
+                time : rows[j].submit_time
+            }
+        }
+        res.render('status', {
+            title: 'STATUS',
+            list: list,
+            pager: pager,
+            needPageFooter: {
+                time: new Date().toString()
+            }
+        });
+    }))
+    .then(db_cl(db), db_cl(db));
+
+    /*tp.promisify.call(db, 'get', 'select count(id) from submission inner join user \
         on user.uid = submission.uid ' + deco_query(query))
     .then(tp.spread(function(err, row) {
         console.log('query:', query, deco_query(query));
@@ -88,7 +119,7 @@ router.get('/', function(req, res, next) {
                 time: new Date().toString()
             }
         });
-    });
+    });//*/
 });
 
 router.get('/submission/:id/', function(req, res, next) {

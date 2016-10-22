@@ -1,5 +1,5 @@
 BEGIN TRANSACTION;
-insert into submission (token, uid) values ('sqpayiqr940io1or:1476339593927', 1);
+insert into submission (token, uid, tag) values ('sqpayiqr940io1or:1476339593927', 1, '再吸一口 屁股');
 insert into submission (token, uid) values ('caf4vztmr3aw0zfr:1476348271482', 1);
 insert into submission (token, uid, status) values ('lk039ax39e3lerk9:1476348300969', 1, 'done');
 insert into submission (token, uid, status) values ('lk039ax39e3lerk9:1476348300969', 1, 'done');
@@ -32,4 +32,5 @@ insert into submission (token, uid, status) values ('lk039ax39e3lerk9:1476348300
 insert into submission (token, uid, status) values ('lk039ax39e3lerk9:1476348300969', 1, 'failed');
 insert into submission (token, uid, status) values ('lk039ax39e3lerk9:1476348300969', 1, 'running');
 insert into submission (token, uid, status) values ('lk039ax39e3lerk9:1476348300969', 1, 'in queue');
+insert into submission (token, uid, status, tag) values ('lk039ax39e3lerk9:1476348300969', 1, 'in queue', '三五瓶');
 COMMIT;

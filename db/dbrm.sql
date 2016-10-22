@@ -1,2 +1,3 @@
-drop table  user;
+drop table user;
 drop table submission;
+drop table problem;

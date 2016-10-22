@@ -9,9 +9,15 @@ block content
       form#car.form-inline(name="car", method="get", action="")
         div.form-group.hidden
           input#cIndex(name="index", type='text')
-        div.form-group
+        div.form-group(style="margin-right:10px;")
           label(for="userfilter") 用户名：
           input#userfilter.form-control(type="text", name="user", placeholder="非昵称")
+        div.form-group(style="margin-right:10px;")
+          label(for="pidfilter") 题目id：
+          input#pidfilter.form-control(type="text", name="pid", placeholder="四位数字")
+        div.form-group(style="margin-right:10px;")
+          label(for="tagfilter") 标签：
+          input#tagfilter.form-control(type="text", name="tag", placeholder="可当成文件名使用")
         button.btn.btn-primary.pull-right(type="submit") 过滤
     div.panel.panel-default
       div.panel-heading= title
@@ -22,6 +28,8 @@ block content
             tr
               th ID
               th 提交者
+              th 题目id
+              th 标签
               th 状态
               th 提交时间
           tbody
@@ -30,6 +38,8 @@ block content
                 th: a(href="status/submission/#{line.id}/")
                   span.label.label-default #{line.id}
                 th: span.label.label-primary #{line.user}
+                th: span.label.label-default #{line.pid}
+                th: span.label.label-primary #{line.tag}
                 case (line.code)
                   when 0 
                     th: span.label.label-success #{line.status}

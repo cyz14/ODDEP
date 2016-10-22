@@ -36,11 +36,30 @@ $(function() {
     };
 
     // 给filter回填数据
-    $('#cIndex').val(parseInt($('#index').text()));
-    var arg = location.href.match(/user=\w+/);
-    if (arg && arg.length > 0) {
-        $('#userfilter').val(arg[0].substr(5));
+    getArgs = function() {
+        var args = {};
+        var qs = location.search.substr(1);
+        var pairs = qs.split('&');
+        for (var i = 0; i < pairs.length; ++i) {
+            console.log(pairs[i]);
+            var pos = pairs[i].indexOf('=');
+            if (pos === -1) continue;
+            var u1 = pairs[i].substr(0, pos);
+            var u2 = pairs[i].substr(pos + 1);
+            u2 = u2.replace(/\+/g, ' ');
+            u2 = decodeURIComponent(u2);
+            args[u1] = u2;
+        }
+        return args;
     }
+
+    if ($('#index').text()) $('#cIndex').val(parseInt($('#index').text()));
+    else $('#cIndex').val(1);
+    args = getArgs();
+    console.log(args);
+    if (args.user) $('#userfilter').val(args.user);
+    if (args.pid) $('#pidfilter').val(args.pid);
+    if (args.tag) $('#tagfilter').val(args.tag);
     
     // 给表列做链接
     $('table > tbody > tr').click(function() {

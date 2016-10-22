@@ -9,20 +9,21 @@ block content
   link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
   div.container-fluid
     ul#editorTab.nav.nav-pills
-      li
+      li.active
         a(href="#visual", data-toggle="tab") 可视化编辑&nbsp;
           span.glyphicon.glyphicon-forward
       li
         a(href="#vhdl", data-toggle="tab") VHDL编辑&nbsp;
           span.glyphicon.glyphicon-forward
     div#editorTabContent.tab-content
-      div#visual.tab-pane
+      div#visual.tab-pane.in.active
         include includes/canvas
       div#vhdl.tab-pane
         include includes/vhdleditor
 
 block addscript
   script(src="http://cdn.bootcss.com/ace/1.2.5/ace.js", type="text/javascript", charset="utf-8")
+  script(src="http://cdn.bootcss.com/ace/1.2.5/ext-language_tools.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
   script(src="/javascripts/editor-ace-config.js")

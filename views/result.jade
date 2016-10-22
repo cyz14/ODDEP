@@ -7,13 +7,15 @@ block content
         th ID
         th 题目id
         th UID
+        th 标签
         th 状态
         th 提交时间
       tbody
         tr
           td #{submission.id}
-          td 1000
+          td #{submission.pid}
           td #{submission.uid}
+          td #{submission.tag}
           td #{submission.status}
           td #{submission.submit_time}
     ul.nav.nav-tabs
