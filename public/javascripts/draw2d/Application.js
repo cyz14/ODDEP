@@ -39,7 +39,7 @@ tot.Application = Class.extend({
 				paneSelector: "#content"
 			}
 		};
-		this.contentLayout = $('#content').layout({
+		var contentLayout =  {
 			north: {
 				resizable:false,
 				closable:false,
@@ -55,7 +55,17 @@ tot.Application = Class.extend({
 				spacing_closed:0,
 				paneSelector: "#canvas"
 			}
-		});
+		};
+
+		if (showJSON === true) {
+			contentLayout.east = {
+				size:250,
+				resizable: true,
+				closable: false,
+				paneSelector: "#json"
+			};
+		}
+		this.contentLayout = $('#content').layout(contentLayout);
 		// layout FIRST the body
 		this.appLayout = $('#container').layout(layout);
 	},
@@ -73,7 +83,7 @@ tot.Application = Class.extend({
 	    
 	},
 
-    setDefaultRouterClassName: function(  defaultRouterClassName){
+    setDefaultRouterClassName: function(defaultRouterClassName){
 	    defaultRouterClassName=  defaultRouterClassName;
         defaultRouter = eval("new "+defaultRouterClassName+"()");
 	},
