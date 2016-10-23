@@ -2,6 +2,7 @@
  * Created by Chen Yazheng on 16/10/20
  */
 
+// ToDo: 添加缩放按钮的功能，并指定css样式，使之固定在canvas右下角可视处
 tot.View = draw2d.Canvas.extend({
 
 	/**
@@ -15,7 +16,7 @@ tot.View = draw2d.Canvas.extend({
           }));
 
         this.setScrollArea("#canvasWrapper");
-        
+
         // nice grid decoration for the canvas paint area
         //
         this.grid =  new draw2d.policy.canvas.ShowGridEditPolicy(20);

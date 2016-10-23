@@ -1,6 +1,9 @@
 /**
  * Created by Chen Yazheng on 16/10/20
  */
+
+//ToDo: add 74ls series chips to support 1 bit adder circuit 
+
 // declare the namespace for this prj7
 var tot = {}; // Team of Taoli
 
