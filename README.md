@@ -27,4 +27,4 @@ $ cd db
 [setting-up-express-with-nginx-and-pm2/](http://blog.danyll.com/setting-up-express-with-nginx-and-pm2/)
 
 ### Electrical Symbols Library SVG
-[commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg'>https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg'>https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg)</br>
+[commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg)</br>
