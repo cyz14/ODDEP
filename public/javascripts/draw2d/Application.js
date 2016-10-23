@@ -23,7 +23,8 @@ tot.Application = Class.extend({
 	init: function() {
         this.view    = new tot.View("canvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
-		this.palette = new tot.Palette();
+		this.palette = new tot.Palette("navigation", this);
+
 
         var layout = {
 			west: {
@@ -39,7 +40,7 @@ tot.Application = Class.extend({
 				paneSelector: "#content"
 			}
 		};
-		this.contentLayout = $('#content').layout({
+		var contentLayout =  {
 			north: {
 				resizable:false,
 				closable:false,
@@ -53,9 +54,19 @@ tot.Application = Class.extend({
 				closable:false,
 				spacing_open:0,
 				spacing_closed:0,
-				paneSelector: "#canvas"
+				paneSelector: "#canvasWrapper"
 			}
-		});
+		};
+
+		if (showJSON === true) {
+			contentLayout.east = {
+				size:250,
+				resizable: true,
+				closable: false,
+				paneSelector: "#json"
+			};
+		}
+		this.contentLayout = $('#content').layout(contentLayout);
 		// layout FIRST the body
 		this.appLayout = $('#container').layout(layout);
 	},
@@ -73,7 +84,7 @@ tot.Application = Class.extend({
 	    
 	},
 
-    setDefaultRouterClassName: function(  defaultRouterClassName){
+    setDefaultRouterClassName: function(defaultRouterClassName){
 	    defaultRouterClassName=  defaultRouterClassName;
         defaultRouter = eval("new "+defaultRouterClassName+"()");
 	},

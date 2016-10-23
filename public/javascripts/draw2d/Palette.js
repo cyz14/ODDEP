@@ -8,7 +8,7 @@ tot.Palette = Class.extend({
 	 * 
 	 * @param {String} canvasId the id of the DOM element to use as paint container
 	 */
-	init: function(app)
+	init: function(id, app)
 	{
 		var _this = this;
 	}

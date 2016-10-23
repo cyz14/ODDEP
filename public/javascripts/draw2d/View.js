@@ -15,6 +15,7 @@ tot.View = draw2d.Canvas.extend({
           }));
 
         this.setScrollArea("#canvasWrapper");
+        
         // nice grid decoration for the canvas paint area
         //
         this.grid =  new draw2d.policy.canvas.ShowGridEditPolicy(20);
@@ -98,4 +99,5 @@ tot.View = draw2d.Canvas.extend({
             ((x*(1/this.zoomFactor)) + this.getAbsoluteX()),
             ((y*(1/this.zoomFactor)) + this.getAbsoluteY()));
     }
+
 });
