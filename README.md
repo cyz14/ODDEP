@@ -6,17 +6,16 @@ In project path, /path/to/prj7_tot/ , run
 ```
 /path/to/prj7_tot $ npm install
 ```
-Install bower if not installed yet
+Install *bower* globally if not installed yet
 ```
  $ npm install -g bower
 ```
-Then install dependencies managed by bower
+Then install dependencies managed by *bower*
 ```
 /path/to/prj7_tot $ bower install
 ```
 ### Config sqlite database
-#### 1. Install sqlite3 
-sqlite3 should have be installed by ``` npm install ```
+#### 1. Install sqlite3 globally
 To install sqlite3 globally
 ```
  $ npm install sqlite3 -g
@@ -45,4 +44,7 @@ sqlite> .exit
 [setting-up-express-with-nginx-and-pm2/](http://blog.danyll.com/setting-up-express-with-nginx-and-pm2/)
 
 ### Electrical Symbols Library SVG
-[commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg'>https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg'>https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg)</br>
+[commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg](https://commons.wikimedia.org/wiki/File:Electrical_symbols_library.svg)</br>
+
+### Draw2d Library
+[Draw2d touch](http://www.draw2d.org/draw2d/)

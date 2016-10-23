@@ -25,12 +25,6 @@ tot.Application = Class.extend({
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
 		this.palette = new tot.Palette();
 
-        this.view.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
-            createConnection: this.createConnection
-          }));
-
-        this.view.setScrollArea("#canvas");
-
         var layout = {
 			west: {
 				resizable:true,

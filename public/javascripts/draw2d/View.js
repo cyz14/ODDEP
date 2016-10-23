@@ -9,8 +9,12 @@ tot.View = draw2d.Canvas.extend({
 	 */
 	init: function(id) {
 	    var _this = this;
-		this._super(id, 2000, 2000);
-        
+		this._super(id);
+        this.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
+            createConnection: this.createConnection
+          }));
+
+        this.setScrollArea("#canvasWrapper");
         // nice grid decoration for the canvas paint area
         //
         this.grid =  new draw2d.policy.canvas.ShowGridEditPolicy(20);
