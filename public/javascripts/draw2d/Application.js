@@ -1,6 +1,9 @@
 /**
  * Created by Chen Yazheng on 16/10/20
  */
+
+//ToDo: add 74ls series chips to support 1 bit adder circuit 
+
 // declare the namespace for this prj7
 var tot = {}; // Team of Taoli
 
@@ -24,6 +27,7 @@ tot.Application = Class.extend({
         this.view    = new tot.View("canvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
 		this.palette = new tot.Palette("navigation", this);
+
 
         var layout = {
 			west: {
@@ -53,7 +57,7 @@ tot.Application = Class.extend({
 				closable:false,
 				spacing_open:0,
 				spacing_closed:0,
-				paneSelector: "#canvas"
+				paneSelector: "#canvasWrapper"
 			}
 		};
 
