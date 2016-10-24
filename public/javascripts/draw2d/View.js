@@ -15,7 +15,7 @@ tot.View = draw2d.Canvas.extend({
             createConnection: this.createConnection
           }));
 
-        this.setScrollArea("#canvasWrapper");
+        this.setScrollArea("#canvas"); // if use canvasWrapper here, zoom function will not work properly
 
         // nice grid decoration for the canvas paint area
         //
@@ -27,7 +27,49 @@ tot.View = draw2d.Canvas.extend({
         this.installEditPolicy( new draw2d.policy.canvas.SnapToGeometryEditPolicy());
         this.installEditPolicy( new draw2d.policy.canvas.SnapToCenterEditPolicy());
         this.installEditPolicy( new draw2d.policy.canvas.SnapToInBetweenEditPolicy());
+
+        var setZoom = function(newZoom){
+            var bb = _this.getBoundingBox().getCenter();
+            var c = $("#draw2dCanvasWrapper");
+            _this.setZoom(newZoom);
+            _this.scrollTo((bb.y/newZoom- c.height()/2), (bb.x/newZoom- c.width()/2));
+        };
+
+        //  ZoomIn Button and the callbacks
+        //
+        $("#canvas_zoom_in").on("click",function(){
+            setZoom(_this.getZoom()*1.2);
+        });
+
+        // OneToOne Button
+        //
+        $("#canvas_zoom_normal").on("click",function(){
+            setZoom(1.0);
+        });
+
+        //ZoomOut Button and the callback
+        //
+        $("#canvas_zoom_out").on("click",function(){
+            setZoom(_this.getZoom()*0.8);
+        });
 	},
+
+    getBoundingBox: function()
+    {
+        var xCoords = [];
+        var yCoords = [];
+        this.getFigures().each(function(i,f){
+           var b = f.getBoundingBox();
+            xCoords.push(b.x, b.x+b.w);
+            yCoords.push(b.y, b.y+b.h);
+        });
+        var minX   = Math.min.apply(Math, xCoords);
+        var minY   = Math.min.apply(Math, yCoords);
+        var width  = Math.max(100,Math.max.apply(Math, xCoords)-minX);
+        var height = Math.max(100,Math.max.apply(Math, yCoords)-minY);
+
+        return new draw2d.geo.Rectangle(minX,minY,width,height);
+    },
 
 	/**
      * @method

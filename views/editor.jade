@@ -12,9 +12,11 @@ head
 
 body#container
   div#navigation
-    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Start") Start
-    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.End") End
-    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") Between
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Start") Switch
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.End") Led
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") 74LS00
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") 74LS04
+    div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") 74LS86
   div#content
     div#toolbar
       div#radio
@@ -49,8 +51,9 @@ body#container
       //- ToDo: load draw2d buildin shapes of Circuit
       script(src="/javascripts/draw2d/circuit/test.circuit")
 
+      //- 为了显示右下角的zoom button需要把json显示栏隐藏
       script.
-        var showJSON = true;
+        var showJSON = false;
         $(window).load( function(){
           var app = new tot.Application();
           app.load(jsonDocument);

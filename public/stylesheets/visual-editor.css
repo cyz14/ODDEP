@@ -29,6 +29,24 @@ input{
  margin:0px;
  background-color:#FAFAFA;
 }
+#canvas_zoom {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: transparent;
+}
+#canvas_zoom button {
+  background-color: transparent;
+  font-weight: 300;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid transparent;
+  outline: none;
+}
+#canvas_zoom button:hover {
+  border: 1px solid #1c9bab !important;
+}
 
 #navigation{
  padding:0px;
