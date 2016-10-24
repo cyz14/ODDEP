@@ -11,9 +11,11 @@ block stylesheets
 block content
   div#container
     div#navigation
-      div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Start") Start
-      div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.End") End
-      div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") Between
+      div.palette_node_element.draw2d_droppable(data-shape="draw2d_circuit_switch_HighLow") Switch
+      div.palette_node_element.draw2d_droppable(data-shape="draw2d_circuit_display_Led") Led
+      div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") 74LS00
+      div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") 74LS04
+      div.palette_node_element.draw2d_droppable(data-shape="C74LS86") 74LS86
     div#content
       div#toolbar
         div#radio

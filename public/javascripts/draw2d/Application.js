@@ -2,7 +2,7 @@
  * Created by Chen Yazheng on 16/10/20
  */
 
-//ToDo: add 74ls series chips to support 1 bit adder circuit 
+//ToDo: add 74ls series chips to support 1 bit adder circuit
 
 // declare the namespace for this prj7
 var tot = {}; // Team of Taoli
@@ -20,7 +20,7 @@ tot.Application = Class.extend({
 
 	/**
 	 * @constructor
-	 * 
+	 *
 	 * @param {String} canvasId the is of the DOM element to use as paint container
 	 */
 	init: function() {
@@ -57,7 +57,7 @@ tot.Application = Class.extend({
 				closable:false,
 				spacing_open:0,
 				spacing_closed:0,
-				paneSelector: "#canvasWrapper"
+				paneSelector: "#canvas"
 			}
 		};
 
@@ -79,19 +79,19 @@ tot.Application = Class.extend({
 	 */
 	load: function(jsonDocument){
 	    this.view.clear();
-	    
+
 	    // unmarshal the JSON document into the canvas
 	    // (load)
 	    var reader = new draw2d.io.json.Reader();
 	    reader.unmarshal(this.view, jsonDocument);
-	    
+
 	},
 
     setDefaultRouterClassName: function(defaultRouterClassName){
 	    defaultRouterClassName=  defaultRouterClassName;
         defaultRouter = eval("new "+defaultRouterClassName+"()");
 	},
-	
+
 	createConnection: function(){
 
 	    var conn = new draw2d.Connection();
