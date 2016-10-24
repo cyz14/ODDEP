@@ -1,8 +1,8 @@
 /**
  * Created by Chen Yazheng on 16/10/20
  */
+var scrollAreaId = "#canvasWrapper";
 
-// ToDo: 添加缩放按钮的功能，并指定css样式，使之固定在canvas右下角可视处
 tot.View = draw2d.Canvas.extend({
 
 	/**
@@ -15,7 +15,7 @@ tot.View = draw2d.Canvas.extend({
             createConnection: this.createConnection
           }));
 
-        this.setScrollArea("#canvas"); // if use canvasWrapper here, zoom function will not work properly
+        this.setScrollArea(scrollAreaId);
 
         // nice grid decoration for the canvas paint area
         //
@@ -30,7 +30,7 @@ tot.View = draw2d.Canvas.extend({
 
         var setZoom = function(newZoom){
             var bb = _this.getBoundingBox().getCenter();
-            var c = $("#draw2dCanvasWrapper");
+            var c = $(scrollAreaId);
             _this.setZoom(newZoom);
             _this.scrollTo((bb.y/newZoom- c.height()/2), (bb.x/newZoom- c.width()/2));
         };
