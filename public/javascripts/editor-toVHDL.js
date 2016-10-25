@@ -214,9 +214,9 @@ var List={
             }
         }
         for(var i=0;i<len;i++){
-            string=string+"    COMPONENT "+"C"+comp[i]+"\n        PORT(\n";
             for(var j=0;j<chipInfos.length;j++){
                 if(chipInfos[j].id==comp[i]){
+                    string=string+"    COMPONENT "+"C"+chipInfos[j].id+"\n        PORT(\n";
                     string=string+"            "+chipInfos[j].pin.in +":in STD_LOGIC;\n            "+chipInfos[j].pin.out+":out STD_LOGIC";
                     if(chipInfos[j].pin.buffer.length!=0){
                         string=string+";\n            "+chipInfos[j].pin.buffer+":buffer STD_LOGIC";
@@ -250,6 +250,7 @@ var List={
         string=string+":STD_LOGIC;\n"
         return string;
     }
+    
     //添加实体语句，包括component应用和连线翻译成语句
     function archBegin(string){
         var num=1;
@@ -258,14 +259,14 @@ var List={
             if((List.components[i].type!="input")&&(List.components[i].type!="output")&&(List.components[i].type!="vcc")&&(List.components[i].type!="gnd")){
                 string=string+"    u"+num+":C"+List.components[i].type+" PORT MAP(";
                 //+List.components[i].id+"_in1,"+List.components[i].id+"_in2,"+List.components[i].id+"_out1"
-                for(var j in List.components[i].pin){
+                for(var j in List.components[i].ports){
                     if(j!="port1")
                         string=string+",";
                     string=string+"\n        "
                     string=string+j+"=>";
-                    if(List.components[i].pin[j].length!=0){
+                    if(List.components[i].ports[j].length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].pin[j][0]==signalList[k].id){
+                            if(List.components[i].ports[j][0]==signalList[k].id){
                                 string=string+"signal_"+signalList[k].signalid;
                             }
                         }
@@ -298,9 +299,9 @@ var List={
         for(var i=0;i<List.components.length;i++){
             if(List.components[i].type=="vcc"){
                 string=string+"    ";
-                if(List.components[i].pin.port1.length!=0){
+                if(List.components[i].ports.port1.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].pin.port1[0]==signalList[k].id){
+                            if(List.components[i].ports.port1[0]==signalList[k].id){
                                 string=string+"signal_"+signalList[k].signalid+" <= '1';";
                             }
                         }
@@ -313,9 +314,9 @@ var List={
         for(var i=0;i<List.components.length;i++){
             if(List.components[i].type=="gnd"){
                 string=string+"    ";
-                if(List.components[i].pin.port1.length!=0){
+                if(List.components[i].ports.port1.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].pin.port1[0]==signalList[k].id){
+                            if(List.components[i].ports.port1[0]==signalList[k].id){
                                 string=string+"signal_"+signalList[k].signalid+" <= '0';";
                             }
                         }
@@ -328,9 +329,9 @@ var List={
         for(var i=0;i<List.components.length;i++){
             if(List.components[i].type=="input"){
                 string=string+"    ";
-                if(List.components[i].pin.port1.length!=0){
+                if(List.components[i].ports.port1.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].pin.port1[0]==signalList[k].id){
+                            if(List.components[i].ports.port1[0]==signalList[k].id){
                                 string=string+"signal_"+signalList[k].signalid+" <= "+List.components[i].id+";";
                             }
                         }
@@ -343,9 +344,9 @@ var List={
         for(var i=0;i<List.components.length;i++){
             if(List.components[i].type=="output"){
                 string=string+"    ";
-                if(List.components[i].pin.port1.length!=0){
+                if(List.components[i].ports.port1.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].pin.port1[0]==signalList[k].id){
+                            if(List.components[i].ports.port1[0]==signalList[k].id){
                                 string=string+List.components[i].id+" <= "+"signal_"+signalList[k].signalid+";";
                             }
                         }
@@ -377,7 +378,7 @@ var List={
             }
             else{
                 for(var j=0;j<i;j++){
-                    if(((List.connections[j].from==List.connections[i].from)&&(List.connections[j].fromPort==List.connections[i].fromPort))||((List.connections[j].from==List.connections[i].to)&&(List.connections[j].fromPort==List.connections[i].toPort))||((List.connections[j].to==List.connections[i].from)&&(List.connections[j].toPort==List.connections[i].fromPort))||((List.connections[j].to==List.connections[i].to)&&(List.connections[j].toPort==List.connections[i].toPort))){
+                    if(((List.connections[j].source.node==List.connections[i].source.node)&&(List.connections[j].source.port==List.connections[i].source.port))||((List.connections[j].source.node==List.connections[i].target.node)&&(List.connections[j].source.port==List.connections[i].target.port))||((List.connections[j].target.node==List.connections[i].source.node)&&(List.connections[j].target.port==List.connections[i].source.port))||((List.connections[j].target.node==List.connections[i].target.node)&&(List.connections[j].target.port==List.connections[i].target.port))){
                         List.connections[i].signalid=List.connections[j].signalid;
                         break;
                     }
