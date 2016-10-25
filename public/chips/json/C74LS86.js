@@ -272,37 +272,3 @@ var C74LS86 = draw2d.SetFigure.extend({
  *
  *
  */
-testShape = testShape.extend({
-
-    init: function(attr, setter, getter){
-         this._super(attr, setter, getter);
-
-         // your special code here
-    },
-
-    /**
-     *  Called by the simulator for every calculation
-     *  loop
-     *  @required
-     **/
-    calculate:function()
-    {
-    },
-
-
-    /**
-     *  Called if the simulation mode is starting
-     *  @required
-     **/
-    onStart:function()
-    {
-    },
-
-    /**
-     *  Called if the simulation mode is stopping
-     *  @required
-     **/
-    onStop:function()
-    {
-    }
-});
