@@ -5,7 +5,7 @@ var storage = multer.diskStorage({
         cb(null, './public/tmp/motivate'); // . 是项目根目录，与require不同
     },
     filename: function(req, file, cb) {
-        var name = req.params.token.replace(':', '-');
+        var name = req.params.token.replace(':', '-') + '.vhd';
         cb(null, name);
     }
 });

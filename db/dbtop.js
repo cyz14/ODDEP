@@ -103,7 +103,7 @@ exports.basic_auth = function(username, password, next) {
 // 注册token,uid的提交，已存在则无动作 (计划放弃)
 // next(err)
 //*
-exports.submissionRegisterIfNotExists = function(token, uid, next) {
+exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
     dabs = db();
     console.log('register pending...');
     tp.promisify.call(dabs, 'get', 'select (id) from submission where token = ? and uid = ?', 
@@ -112,12 +112,10 @@ exports.submissionRegisterIfNotExists = function(token, uid, next) {
         if (err) throw err;
         if (!row) {
             return tp.promisify.call(dabs, 'run',
-            'insert into submission (token, uid) values (?, ?)',
-            token, uid);
+            'insert into submission (token, uid, pid, tag) values (?, ?)',
+            token, uid, pid, tag);
         }
-        console.log('exist?');
-        console.log(row);
-        return null;
+        next(row);
     })).then(tp.spread(function(err) {
         if (!err) console.log('register done.');
         next(err);
