@@ -13,3 +13,19 @@ tot.Palette = Class.extend({
 		var _this = this;
 	}
 });
+
+function dumpJSON(canvas) {
+	var writer = new draw2d.io.json.Writer();
+	writer.unmarshal(canvas, function(json) {
+		simplifyJSON(json);
+	});
+};
+
+function simplifyJSON(circuit) {
+	var newCircuit = {
+		
+	};
+	for (var object in circuit) {
+
+	}
+}

@@ -2,9 +2,20 @@
  * Created by Chen Yazheng on 16/10/20
  */
 var scrollAreaId = "#canvasWrapper";
+var defaultRouter = new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
 
 tot.View = draw2d.Canvas.extend({
+	createConnection: function(){
 
+	    var conn = new draw2d.Connection();
+	    conn.setRouter(defaultRouter);
+	    conn.setOutlineStroke(1);
+	    conn.setOutlineColor("#303030");
+	    conn.setStroke(3);
+	    conn.setRadius(5);
+	    conn.setColor('#00A8F0');
+	    return conn;
+	},
 	/**
 	 * @constructor
 	 */
@@ -77,24 +88,24 @@ tot.View = draw2d.Canvas.extend({
      * <br>
      * Graphiti use the jQuery draggable/droppable lib. Please inspect
      * http://jqueryui.com/demos/droppable/ for further information.
-     * 
+     *
      * @param {HTMLElement} droppedDomNode The dragged DOM element.
      * @param {Number} x the x coordinate of the drag
      * @param {Number} y the y coordinate of the drag
-     * 
+     *
      * @template
      **/
     onDrag:function(droppedDomNode, x, y )
     {
     },
-    
+
     /**
      * @method
      * Called if the user drop the droppedDomNode onto the canvas.<br>
      * <br>
      * Draw2D use the jQuery draggable/droppable lib. Please inspect
      * http://jqueryui.com/demos/droppable/ for further information.
-     * 
+     *
      * @param {HTMLElement} droppedDomNode The dropped DOM element.
      * @param {Number} x the x coordinate of the drop
      * @param {Number} y the y coordinate of the drop
