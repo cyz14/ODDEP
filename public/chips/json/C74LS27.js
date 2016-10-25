@@ -6,9 +6,9 @@
 // Go to the Designer http://www.draw2d.org
 // to design your own shape or download user generated
 //
-var C74LS04 = draw2d.SetFigure.extend({
+var C74LS27 = draw2d.SetFigure.extend({
 
-   NAME: "C74LS04",
+   NAME: "C74LS27",
 
    init:function(attr, setter, getter)
    {
@@ -132,8 +132,8 @@ var C74LS04 = draw2d.SetFigure.extend({
         shape.data("name","Rectangle");
         
         // Chip Label
-        shape = this.canvas.paper.text(0,0,'74LS04');
-        shape.attr({"x":65,"y":37,"text-anchor":"start","text":"74LS04","font-family":"\"Arial\"","font-size":16,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape = this.canvas.paper.text(0,0,'74LS27');
+        shape.attr({"x":65,"y":37,"text-anchor":"start","text":"74LS27","font-family":"\"Arial\"","font-size":16,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
         shape.data("name","Label");
 
         return this.canvas.paper.setFinish();
