@@ -1,6 +1,6 @@
 var C74LS00 = draw2d.SetFigure.extend({            
 
-	NAME: "testShape",
+	NAME: "C74LS00",
 
 	init:function(attr, setter, getter)
 	{

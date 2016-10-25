@@ -129,7 +129,7 @@ var 1bit_adder = {
 				"port": "Port"
 			},
 			"target": {
-				"node": "c74ls00h",
+				"node": "c74ls00",
 				"port": "port02"
 			}
 		},
@@ -153,7 +153,7 @@ var 1bit_adder = {
 				"port": "port03"
 			},
 			"target": {
-				"node": "c74ls04s",
+				"node": "c74ls04",
 				"port": "port01"
 			}
 		},
@@ -161,8 +161,8 @@ var 1bit_adder = {
 			"type": "draw2d.Connection",
 			"id": "outputc0",
 			"source": {
-				"node": "c74ls86",
-				"port": "port03"
+				"node": "c74ls04",
+				"port": "port02"
 			},
 			"target": {
 				"node": "c0",
