@@ -3,14 +3,33 @@ bower_components
 *.swp
 *.db
 npm-debug.log
-/public/tmp/
+/public/tmp/*
 /.vscode/
 .DS_Store
 /.idea/
 /sim/*
 ./db/tot.db
 
+# 驱动模拟需要的文件
 !/sim/env.sh
 !/sim/lemon.js
 !/sim/sim.do
 !/sim/sim.sh
+
+# 测试需要的文件
+!/public/tmp/code
+/public/tmp/code/*
+!/public/tmp/motivate
+/public/tmp/motivate/*
+!/public/tmp/log
+/public/tmp/log/*
+!/public/tmp/vcd
+/public/tmp/vcd/*
+!/public/tmp/code/test.vhd
+!/public/tmp/code/test1.vhd
+!/public/tmp/code/test2.vhd
+!/public/tmp/motivate/test.vhd
+!/public/tmp/motivate/test1.vhd
+!/public/tmp/motivate/test2.vhd
+!/public/tmp/log/test.log
+!/public/tmp/vcd/test.vcd

@@ -22,15 +22,17 @@ var lemon = (function() {
     var queue = [];
     var obj = {};
     var touch = function() {
-        if (status === 0) {
+        if (status === 0 && queue.length > 0) {
             status = 1;
             var token = queue.shift();
+            console.log('Submit Running:', token);
             sim({
                 codePath : './public/tmp/code/' + token + '.vhd',
                 stimPath : './public/tmp/motivate/' + token + '.vhd',
                 resPath : './public/tmp/vcd/' + token + '.vcd',
                 logPath : './public/tmp/log/' + token + '.log'
             }, function() {
+                console.log('Submit Done:', token);
                 status = 0;
                 touch();
             })
@@ -40,6 +42,7 @@ var lemon = (function() {
         queue.push(token);
         touch();
     }
-});
+    return obj;
+}());
 
 module.exports = lemon;

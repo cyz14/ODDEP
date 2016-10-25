@@ -10,7 +10,7 @@ $(function() {
 
     $("#motUpl").fileinput({
         language: "zh",
-        allowedFileExtensions: ['txt'],
+        allowedFileExtensions: ['vhd'],
         maxFileSize: 50
     });
 
