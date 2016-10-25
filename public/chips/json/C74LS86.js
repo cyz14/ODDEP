@@ -13,6 +13,9 @@ var C74LS86 = draw2d.SetFigure.extend({
    init:function(attr, setter, getter)
    {
      this._super( $.extend({stroke:0, bgColor:null, width:184,height:70},attr), setter, getter);
+
+     this.attr({resizeable:false});
+
      var port;
      // 14
      port = this.createPort("hybrid", new draw2d.layout.locator.XYRelPortLocator(15.217391304347824, 1.4285714285714286));
@@ -123,6 +126,10 @@ var C74LS86 = draw2d.SetFigure.extend({
         shape.attr({"stroke":"#303030","stroke-width":1,"fill":"#FFFFFF","dasharray":null,"opacity":1});
         shape.data("name","Rectangle");
 
+        // Chip Label
+        shape = this.canvas.paper.text(0,0,'74LS86');
+        shape.attr({"x":65,"y":37,"text-anchor":"start","text":"74LS86","font-family":"\"Arial\"","font-size":16,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label");
 
         return this.canvas.paper.setFinish();
    },
