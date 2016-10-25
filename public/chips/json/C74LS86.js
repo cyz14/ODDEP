@@ -122,10 +122,15 @@ var C74LS86 = draw2d.SetFigure.extend({
         shape.data("name","BoundingBox");
 
         // Rectangle
-        shape = this.canvas.paper.path('M184 70L0 70L0 0L184 0Z');
+        //shape = this.canvas.paper.path('M184 70L0 70L0 0L184 0Z');
+        //shape.attr({"stroke":"#303030","stroke-width":1,"fill":"#FFFFFF","dasharray":null,"opacity":1});
+        //shape.data("name","Rectangle");
+
+        // Rectangle
+        shape = this.canvas.paper.path('M0 45L0 70L184 70L184 0L0 0L0 25L1.7364817766692937 25.151922469877917L3.4202014332566932 25.60307379214092L5 26.339745962155604L6.42787609686539 27.339555568810226L7.660444431189774 28.57212390313461L8.660254037844396 30L9.396926207859082 31.579798566743307L9.848077530122083 33.26351822333069L10 35L9.848077530122083 36.73648177666931L9.396926207859082 38.42020143325669L8.660254037844382 40L7.660444431189774 41.42787609686539L6.42787609686539 42.660444431189774L5 43.660254037844396L3.4202014332566932 44.39692620785908L1.736481776669308 44.84807753012208L0 45Z');
         shape.attr({"stroke":"#303030","stroke-width":1,"fill":"#FFFFFF","dasharray":null,"opacity":1});
         shape.data("name","Rectangle");
-
+        
         // Chip Label
         shape = this.canvas.paper.text(0,0,'74LS86');
         shape.attr({"x":65,"y":37,"text-anchor":"start","text":"74LS86","font-family":"\"Arial\"","font-size":16,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
