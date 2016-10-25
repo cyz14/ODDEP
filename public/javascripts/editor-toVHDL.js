@@ -50,13 +50,13 @@ var chipInfos = [
 //测试用全加器元件导线list
 var List={
     "components":[
-    {"id":"vcc","type":"vcc","pin":{
+    {"id":"vcc","type":"vcc","ports":{
         "port1":["line1","line2","line3"]
     }},
-    {"id":"gnd","type":"gnd","pin":{
+    {"id":"gnd","type":"gnd","ports":{
         "port1":["line9","line14"]
     }},
-    {"id":"74LS00_1","type":"74LS00","pin":{
+    {"id":"74LS00_1","type":"74LS00","ports":{
         "port1":["line4"],
         "port2":["line5"],
         "port3":["line6"],
@@ -72,7 +72,7 @@ var List={
         "port13":["line10"],
         "port14":["line2"]
     }},
-    {"id":"74LS86_1","type":"74LS86","pin":{
+    {"id":"74LS86_1","type":"74LS86","ports":{
         "port1":["line15"],
         "port2":["line16"],
         "port3":["line17"],
@@ -88,7 +88,7 @@ var List={
         "port13":["line4","line23"],
         "port14":["line7","line24","line15","line1"]
     }},
-    {"id":"74LS27_1","type":"74LS27","pin":{
+    {"id":"74LS27_1","type":"74LS27","ports":{
         "port1":["line13"],
         "port2":["line25"],
         "port3":["line16"],
@@ -104,48 +104,48 @@ var List={
         "port13":["line8"],
         "port14":["line24"]
     }},
-    {"id":"input_1","type":"input","pin":{
+    {"id":"input_1","type":"input","ports":{
         "port1":["line23"]
     }},
-    {"id":"input_2","type":"input","pin":{
+    {"id":"input_2","type":"input","ports":{
         "port1":["line22"]
     }},
-    {"id":"input_3","type":"input","pin":{
+    {"id":"input_3","type":"input","ports":{
         "port1":["line20"]
     }},
-    {"id":"output_1","type":"output","pin":{
+    {"id":"output_1","type":"output","ports":{
         "port1":["line19"]
     }},
-    {"id":"output_2","type":"output","pin":{
+    {"id":"output_2","type":"output","ports":{
         "port1":["line17"]
     }}
     ],
     "connections":[
-    {"type": "draw2d.Connection","id":"line1","from":"vcc","fromPort":"port1","to":"74LS86_1","toPort":"port14"},
-    {"type": "draw2d.Connection","id":"line2","from":"vcc","fromPort":"port1","to":"74LS00_1","toPort":"port14"},
-    {"type": "draw2d.Connection","id":"line3","from":"vcc","fromPort":"port1","to":"74LS00_1","toPort":"port12"},
-    {"type": "draw2d.Connection","id":"line4","from":"74LS00_1","fromPort":"port1","to":"74LS86_1","toPort":"port13"},
-    {"type": "draw2d.Connection","id":"line5","from":"74LS00_1","fromPort":"port2","to":"74LS86_1","toPort":"port12"},
-    {"type": "draw2d.Connection","id":"line6","from":"74LS00_1","fromPort":"port3","to":"74LS00_1","toPort":"port4"},
-    {"type": "draw2d.Connection","id":"line7","from":"74LS00_1","fromPort":"port5","to":"74LS86_1","toPort":"port14"},
-    {"type": "draw2d.Connection","id":"line8","from":"74LS00_1","fromPort":"port6","to":"74LS27_1","toPort":"port13"},
-    {"type": "draw2d.Connection","id":"line9","from":"74LS00_1","fromPort":"port7","to":"gnd","toPort":"port1"},
-    {"type": "draw2d.Connection","id":"line10","from":"74LS00_1","fromPort":"port8","to":"74LS00_1","toPort":"port13"},
-    {"type": "draw2d.Connection","id":"line11","from":"74LS00_1","fromPort":"port9","to":"74LS86_1","toPort":"port9"},
-    {"type": "draw2d.Connection","id":"line12","from":"74LS00_1","fromPort":"port10","to":"74LS86_1","toPort":"port10"},
-    {"type": "draw2d.Connection","id":"line13","from":"74LS00_1","fromPort":"port11","to":"74LS27_1","toPort":"port1"},
-    {"type": "draw2d.Connection","id":"line14","from":"gnd","fromPort":"port1","to":"74LS86_1","toPort":"port7"},
-    {"type": "draw2d.Connection","id":"line15","from":"74LS86_1","fromPort":"port1","to":"74LS86_1","toPort":"port14"},
-    {"type": "draw2d.Connection","id":"line16","from":"74LS86_1","fromPort":"port2","to":"74LS27_1","toPort":"port3"},
-    {"type": "draw2d.Connection","id":"line17","from":"74LS86_1","fromPort":"port3","to":"output_2","toPort":"port1"},
-    {"type": "draw2d.Connection","id":"line18","from":"74LS86_1","fromPort":"port7","to":"74LS27_1","toPort":"port7"},
-    {"type": "draw2d.Connection","id":"line19","from":"74LS86_1","fromPort":"port8","to":"output_1","toPort":"port1"},
-    {"type": "draw2d.Connection","id":"line20","from":"74LS86_1","fromPort":"port9","to":"input_3","toPort":"port1"},
-    {"type": "draw2d.Connection","id":"line21","from":"74LS86_1","fromPort":"port10","to":"74LS86_1","toPort":"port11"},
-    {"type": "draw2d.Connection","id":"line22","from":"74LS86_1","fromPort":"port12","to":"input_2","toPort":"port1"},
-    {"type": "draw2d.Connection","id":"line23","from":"74LS86_1","fromPort":"port13","to":"input_1","toPort":"port1"},
-    {"type": "draw2d.Connection","id":"line24","from":"74LS86_1","fromPort":"port14","to":"74LS27_1","toPort":"port14"},
-    {"type": "draw2d.Connection","id":"line25","from":"74LS27_1","fromPort":"port2","to":"74LS27_1","toPort":"port7"}
+    {"type": "draw2d.Connection","id":"line1","source":{"node":"vcc","port":"port1"},"target":{"node":"74LS86_1","port":"port14"}},
+    {"type": "draw2d.Connection","id":"line2","source":{"node":"vcc","port":"port1"},"target":{"node":"74LS00_1","port":"port14"}},
+    {"type": "draw2d.Connection","id":"line3","source":{"node":"vcc","port":"port1"},"target":{"node":"74LS00_1","port":"port12"}},
+    {"type": "draw2d.Connection","id":"line4","source":{"node":"74LS00_1","port":"port1"},"target":{"node":"74LS86_1","port":"port13"}},
+    {"type": "draw2d.Connection","id":"line5","source":{"node":"74LS00_1","port":"port2"},"target":{"node":"74LS86_1","port":"port12"}},
+    {"type": "draw2d.Connection","id":"line6","source":{"node":"74LS00_1","port":"port3"},"target":{"node":"74LS00_1","port":"port4"}},
+    {"type": "draw2d.Connection","id":"line7","source":{"node":"74LS00_1","port":"port5"},"target":{"node":"74LS86_1","port":"port14"}},
+    {"type": "draw2d.Connection","id":"line8","source":{"node":"74LS00_1","port":"port6"},"target":{"node":"74LS27_1","port":"port13"}},
+    {"type": "draw2d.Connection","id":"line9","source":{"node":"74LS00_1","port":"port7"},"target":{"node":"gnd","port":"port1"}},
+    {"type": "draw2d.Connection","id":"line10","source":{"node":"74LS00_1","port":"port8"},"target":{"node":"74LS00_1","port":"port13"}},
+    {"type": "draw2d.Connection","id":"line11","source":{"node":"74LS00_1","port":"port9"},"target":{"node":"74LS86_1","port":"port9"}},
+    {"type": "draw2d.Connection","id":"line12","source":{"node":"74LS00_1","port":"port10"},"target":{"node":"74LS86_1","port":"port10"}},
+    {"type": "draw2d.Connection","id":"line13","source":{"node":"74LS00_1","port":"port11"},"target":{"node":"74LS27_1","port":"port1"}},
+    {"type": "draw2d.Connection","id":"line14","source":{"node":"gnd","port":"port1"},"target":{"node":"74LS86_1","port":"port7"}},
+    {"type": "draw2d.Connection","id":"line15","source":{"node":"74LS86_1","port":"port1"},"target":{"node":"74LS86_1","port":"port14"}},
+    {"type": "draw2d.Connection","id":"line16","source":{"node":"74LS86_1","port":"port2"},"target":{"node":"74LS27_1","port":"port3"}},
+    {"type": "draw2d.Connection","id":"line17","source":{"node":"74LS86_1","port":"port3"},"target":{"node":"output_2","port":"port1"}},
+    {"type": "draw2d.Connection","id":"line18","source":{"node":"74LS86_1","port":"port7"},"target":{"node":"74LS27_1","port":"port7"}},
+    {"type": "draw2d.Connection","id":"line19","source":{"node":"74LS86_1","port":"port8"},"target":{"node":"output_1","port":"port1"}},
+    {"type": "draw2d.Connection","id":"line20","source":{"node":"74LS86_1","port":"port9"},"target":{"node":"input_3","port":"port1"}},
+    {"type": "draw2d.Connection","id":"line21","source":{"node":"74LS86_1","port":"port10"},"target":{"node":"74LS86_1","port":"port11"}},
+    {"type": "draw2d.Connection","id":"line22","source":{"node":"74LS86_1","port":"port12"},"target":{"node":"input_2","port":"port1"}},
+    {"type": "draw2d.Connection","id":"line23","source":{"node":"74LS86_1","port":"port13"},"target":{"node":"input_1","port":"port1"}},
+    {"type": "draw2d.Connection","id":"line24","source":{"node":"74LS86_1","port":"port14"},"target":{"node":"74LS27_1","port":"port14"}},
+    {"type": "draw2d.Connection","id":"line25","source":{"node":"74LS27_1","port":"port2"},"target":{"node":"74LS27_1","port":"port7"}}
     ]
 };
     var signalList=signalListMake();
