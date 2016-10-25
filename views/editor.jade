@@ -11,12 +11,19 @@ head
     link(rel="stylesheet", href="/stylesheets/visual-editor.css")
 
 body#container
+  //- navigation bar, has bug here. Layout should be controlled in Application.js by jquery layout library.
+  //- include includes/navbar
   div#navigation
     div.palette_node_element.draw2d_droppable(data-shape="draw2d_circuit_switch_HighLow") Switch
     div.palette_node_element.draw2d_droppable(data-shape="draw2d_circuit_display_Led") Led
     div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") 74LS00
     div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") 74LS04
     div.palette_node_element.draw2d_droppable(data-shape="draw2d.shape.node.Between") 74LS86
+    //- ToDO: 添加跳转Button to VHDL editor
+    div#VHDL
+      button.btn.btn-lg.btn-link(type="button")
+        a(href="/vhdl", onclick="") VHDL
+
   div#content
     div#toolbar
       div#radio
@@ -53,7 +60,7 @@ body#container
 
       //- 为了显示右下角的zoom button需要把json显示栏隐藏
       script.
-        var showJSON = false;
+        var showJSON = true;
         $(window).load( function(){
           var app = new tot.Application();
           app.load(jsonDocument);
