@@ -56,13 +56,14 @@ app.use(function(req, res, next) {
   } else {
     res.redirect('/auth/login');
   }
+  console.warn(req.originalUrl);
 }); // */
 
+app.use('/upload', upload);
 app.use('/profile', profile);
 app.use('/editor', editor);
 app.use('/submit', consumer);
 app.use('/status', watcher);
-app.use('/upload', upload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -11,17 +11,20 @@ router.post('/', function(req, res, next) {
 	var uid = req.session.uid;
 	var pid = req.body.prob;
 	var tag = req.body.tag;
+	console.log('submit:', {
+		token: token,
+		uid: uid,
+		pid: pid,
+		tag: tag
+	});
 	dbtop.submissionRegisterIfNotExists(token, uid, pid, tag, function(err) {
 		if (err) {
-			console.log('exist!', err);
+			console.error(err);
 			return ;
 		}
 		var code = req.body.code.replace(/<br>/g, '\n');
 		var stim = req.body.stim.replace(/<br>/g, '\n');
 		// 将提交加入队列 TODO
-		console.log("!code:", code);
-		console.log("!stim:", stim);
-		console.log("!token:", token);
 		var codePath = './public/tmp/code/' + token + '.vhd';
 		var stimPath = './public/tmp/motivate/' + token + '.vhd';
 		tp.promisify.call(fs, fs.writeFile, codePath, code)
@@ -34,13 +37,21 @@ router.post('/', function(req, res, next) {
 			}
 		}).then(function(err) {
 			if (err) throw err;
-			else lemon.submit(token);
+			else {
+				if (stim === '#&!upload>') {
+					console.log(stim);
+					lemon.submit(token, 1);
+				} else {
+					console.error('RRRRR');
+					lemon.submit(token, 2);
+				}
+			}
 		}).catch(function(err) {
 			console.error(err);
+		}).then(function() {
+			res.redirect('/status');
 		});
 	});
-	
-    res.redirect('/status');
 });
 
 module.exports = router;

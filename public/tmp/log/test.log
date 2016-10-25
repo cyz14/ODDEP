@@ -1,4 +1,16 @@
-Start time: 20:32:24 on Oct 25,2016
+37nf4vaxcgkchaor-1477410225080.vhd
+6dhtl0wyayusdcxr-1477408344981.vhd
+i3o3u2s7foagu8fr-1477410486711.vhd
+test1.vhd
+test2.vhd
+test.vhd
+37nf4vaxcgkchaor-1477410225080.vhd
+6dhtl0wyayusdcxr-1477408344981.vhd
+i3o3u2s7foagu8fr-1477410486711.vhd
+test1.vhd
+test2.vhd
+test.vhd
+Start time: 23:54:48 on Oct 25,2016
 vcom testbench.vhd main.vhd 
 Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading package STANDARD
@@ -9,14 +21,14 @@ Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
 -- Loading package NUMERIC_STD
 -- Compiling entity main
 -- Compiling architecture RTL of main
-End time: 20:32:24 on Oct 25,2016, Elapsed time: 0:00:00
+End time: 23:54:48 on Oct 25,2016, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0
 Reading pref.tcl
 
 # 10.4d
 
 # vsim -c -do "sim.do" testbench 
-# Start time: 20:32:24 on Oct 25,2016
+# Start time: 23:54:49 on Oct 25,2016
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -24,6 +36,6 @@ Reading pref.tcl
 # Loading ieee.numeric_std(body)
 # Loading work.main(rtl)
 # do sim.do
-# End time: 20:32:25 on Oct 25,2016, Elapsed time: 0:00:01
+# End time: 23:54:49 on Oct 25,2016, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 

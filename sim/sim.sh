@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ls ./public/tmp/code
+ls ./public/tmp/motivate
 source ./sim/env.sh
 cp $1 ./sim/main.vhd || exit
 cp $2 ./sim/testbench.vhd || exit

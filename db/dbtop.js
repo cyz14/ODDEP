@@ -106,20 +106,25 @@ exports.basic_auth = function(username, password, next) {
 exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
     dabs = db();
     console.log('register pending...');
-    tp.promisify.call(dabs, 'get', 'select (id) from submission where token = ? and uid = ?', 
+    tp.promisify.call(dabs, 'get', 'select * from submission where token = ? and uid = ?', 
         token, uid)
     .then(tp.spread(function(err, row) {
         if (err) throw err;
         if (!row) {
             return tp.promisify.call(dabs, 'run',
-            'insert into submission (token, uid, pid, tag) values (?, ?)',
+            'insert into submission (token, uid, pid, tag) values (?, ?, ?, ?)',
             token, uid, pid, tag);
         }
-        next(row);
-    })).then(tp.spread(function(err) {
+        console.log(row);
+    })).then(function(err) {
         if (!err) console.log('register done.');
         next(err);
-    }))
+    })
     .then(db_close(dabs), db_close(dabs));
-    next(null);
 }; // */
+
+exports.updStatPromise = function(token, status) {
+    dabs = db();
+    return tp.promisify.call(dabs, 'run', 'UPDATE submission SET status = ? WHERE token = ?', status, token)
+    .then(db_close(dabs));
+}

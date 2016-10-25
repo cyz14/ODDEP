@@ -40,3 +40,8 @@ db.close(function(err) {
 
 //console.log(dabs.obj2Stmt('set', {uid:1,name:'root'},{funs:{'u.u':'root'}}));
 //console.log(dabs.obj2Stmt('set', {uid:1,name:'root'},{funs:{'u.u':'root'},sep:'and'}));
+dabs.submissionRegisterIfNotExists('lk039ax39e3lerk9:1476348300969',
+    1, 1000, '', function(err) {
+        assert.strictEqual(err, null);
+        console.log('submission register tested.');
+    })

@@ -15,7 +15,7 @@ $(function() {
     });
 
     function getTimeToken() {
-        return Math.random().toString(36).substr(2) + ':' + new Date().getTime();
+        return Math.random().toString(36).substr(2) + '-' + new Date().getTime();
     };
 
     function brTagConvert(str) {
@@ -25,6 +25,8 @@ $(function() {
     function submitCodeToSim(token) {
         $('#mike').val(token);
         $('#banana').val(brTagConvert(editor.getValue()));
+        $('#prob').val($('#probid').val());
+        $('#tagn').val($('#tagname').val());
         var stim = $('#kevin');
         if ($('#motUpl').val() || $('#probid').val() !== '1000') {
             stim.val("#&!upload>");
@@ -45,11 +47,25 @@ $(function() {
         if ($('#motUpl').val()) {
             var uurl = $('#bigbus').attr('action');
             $('#bigbus').attr('action', uurl + '/' + token);
+            console.log($('#bigbus').attr('action'));
             console.log('file upload!');
-            $('#bigbus').submit();
+            var data = new FormData($('#bigbus')[0]);
+            $.ajax({
+                url : $('#bigbus').attr('action'),
+                type : 'POST',
+                cache : false,
+                data : data,
+                processData : false,
+                contentType : false
+            }).done(function(res) {
+                submitCodeToSim(token);
+            }).fail(function(res) {
+                alert('Upload Error!');
+            });
+        } else {
+            console.log('code submit!');
+            submitCodeToSim(token);
         }
-        console.log('code submit!');
-        submitCodeToSim(token);
     });
 
     function checkProbID() {

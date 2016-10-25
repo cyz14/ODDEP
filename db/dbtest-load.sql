@@ -1,4 +1,7 @@
 BEGIN TRANSACTION;
+insert into submission (token, uid, tag) values ('test', 1, "测试1");
+insert into submission (token, uid, tag) values ('test1', 1, "测试2");
+insert into submission (token, uid, tag) values ('test2', 1, "测试3");
 insert into submission (token, uid, tag) values ('sqpayiqr940io1or:1476339593927', 1, '再吸一口 屁股');
 insert into submission (token, uid) values ('caf4vztmr3aw0zfr:1476348271482', 1);
 insert into submission (token, uid, status) values ('lk039ax39e3lerk9:1476348300969', 1, 'done');
