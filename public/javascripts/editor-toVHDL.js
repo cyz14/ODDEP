@@ -1,6 +1,6 @@
-//var fs=require('fs');
-//fs.writeFileSync('./output.json',JSON.stringify({a:1,b:2}));
-//var file="/Users/ning/Desktop/SwPrj/prj7_tot/public/chips/json/one_bit_adder.json";
+//var fs=require("fs");
+//var file='/chips/json/1bit_adder.json';
+//var result=fs.readFileSync(file);
 //var result=JSON.parse(fs.readFileSync(file));
 /*       以下为转VHDL的测试输入       */
 var chipInfos = [
@@ -35,13 +35,13 @@ var chipInfos = [
     "pin":{"in":["port1","port2","port3","port4","port8","port9","port10","port11","port12","port13","port14","port15","port16"],"out":["port5","port6","port7"],"buffer":[]}
     },
     { "id": "74LS90",   "description": "二-五-十进制计数器",     
-    "pin":{"in":["port1","port2","port3","port4","port5","port6","port7","port10","port13","port14"],"out":["port8","port9","port11","port12"],"buffer":[]}
+    "pin":{"in":["port1","port2","port3","port4","port5","port6","port7","port10","port13","port14"],"out":["port12"],"buffer":["port8","port9","port11"]}
     },
     { "id": "74LS125",  "description": "三态输出四总线缓冲器",   
     "pin":{"in":["port1","port2","port4","port5","port7","port9","port10","port12","port13","port14"],"out":["port3","port6","port8","port11"],"buffer":[]}
     },
     { "id": "74LS161",  "description": "4位二进制同步计数器",    
-    "pin":{"in":["port1","port2","port3","port4","port5","port6","port7","port8","port9","port10","port16"],"out":["port11","port12","port13","port14","port15"],"buffer":[]}
+    "pin":{"in":["port1","port2","port3","port4","port5","port6","port7","port8","port9","port10","port16"],"out":["port15"],"buffer":["port11","port12","port13","port14"]}
     },
     { "id": "74LS253",  "description": "双4选1数据选择器",      
     "pin":{"in":["port1","port2","port3","port4","port5","port6","port8","port10","port11","port12","port13","port14","port15","port16"],"out":["port7","port9"],"buffer":[]}
@@ -49,14 +49,14 @@ var chipInfos = [
 ];
 //测试用全加器元件导线list
 var List={
-    "componentDataArray":[
-    {"name":"vcc","category":"vcc","pin":{
+    "components":[
+    {"id":"vcc","type":"vcc","pin":{
         "port1":["line1","line2","line3"]
     }},
-    {"name":"gnd","category":"gnd","pin":{
+    {"id":"gnd","type":"gnd","pin":{
         "port1":["line9","line14"]
     }},
-    {"name":"74LS00_1","category":"74LS00","pin":{
+    {"id":"74LS00_1","type":"74LS00","pin":{
         "port1":["line4"],
         "port2":["line5"],
         "port3":["line6"],
@@ -72,7 +72,7 @@ var List={
         "port13":["line10"],
         "port14":["line2"]
     }},
-    {"name":"74LS86_1","category":"74LS86","pin":{
+    {"id":"74LS86_1","type":"74LS86","pin":{
         "port1":["line15"],
         "port2":["line16"],
         "port3":["line17"],
@@ -88,7 +88,7 @@ var List={
         "port13":["line4","line23"],
         "port14":["line7","line24","line15","line1"]
     }},
-    {"name":"74LS27_1","category":"74LS27","pin":{
+    {"id":"74LS27_1","type":"74LS27","pin":{
         "port1":["line13"],
         "port2":["line25"],
         "port3":["line16"],
@@ -104,48 +104,48 @@ var List={
         "port13":["line8"],
         "port14":["line24"]
     }},
-    {"name":"input_1","category":"input","pin":{
+    {"id":"input_1","type":"input","pin":{
         "port1":["line23"]
     }},
-    {"name":"input_2","category":"input","pin":{
+    {"id":"input_2","type":"input","pin":{
         "port1":["line22"]
     }},
-    {"name":"input_3","category":"input","pin":{
+    {"id":"input_3","type":"input","pin":{
         "port1":["line20"]
     }},
-    {"name":"output_1","category":"output","pin":{
+    {"id":"output_1","type":"output","pin":{
         "port1":["line19"]
     }},
-    {"name":"output_2","category":"output","pin":{
+    {"id":"output_2","type":"output","pin":{
         "port1":["line17"]
     }}
     ],
-    "linkDataArray":[
-    {"name":"line1","from":"vcc","fromPort":"port1","to":"74LS86_1","toPort":"port14"},
-    {"name":"line2","from":"vcc","fromPort":"port1","to":"74LS00_1","toPort":"port14"},
-    {"name":"line3","from":"vcc","fromPort":"port1","to":"74LS00_1","toPort":"port12"},
-    {"name":"line4","from":"74LS00_1","fromPort":"port1","to":"74LS86_1","toPort":"port13"},
-    {"name":"line5","from":"74LS00_1","fromPort":"port2","to":"74LS86_1","toPort":"port12"},
-    {"name":"line6","from":"74LS00_1","fromPort":"port3","to":"74LS00_1","toPort":"port4"},
-    {"name":"line7","from":"74LS00_1","fromPort":"port5","to":"74LS86_1","toPort":"port14"},
-    {"name":"line8","from":"74LS00_1","fromPort":"port6","to":"74LS27_1","toPort":"port13"},
-    {"name":"line9","from":"74LS00_1","fromPort":"port7","to":"gnd","toPort":"port1"},
-    {"name":"line10","from":"74LS00_1","fromPort":"port8","to":"74LS00_1","toPort":"port13"},
-    {"name":"line11","from":"74LS00_1","fromPort":"port9","to":"74LS86_1","toPort":"port9"},
-    {"name":"line12","from":"74LS00_1","fromPort":"port10","to":"74LS86_1","toPort":"port10"},
-    {"name":"line13","from":"74LS00_1","fromPort":"port11","to":"74LS27_1","toPort":"port1"},
-    {"name":"line14","from":"gnd","fromPort":"port1","to":"74LS86_1","toPort":"port7"},
-    {"name":"line15","from":"74LS86_1","fromPort":"port1","to":"74LS86_1","toPort":"port14"},
-    {"name":"line16","from":"74LS86_1","fromPort":"port2","to":"74LS27_1","toPort":"port3"},
-    {"name":"line17","from":"74LS86_1","fromPort":"port3","to":"output_2","toPort":"port1"},
-    {"name":"line18","from":"74LS86_1","fromPort":"port7","to":"74LS27_1","toPort":"port7"},
-    {"name":"line19","from":"74LS86_1","fromPort":"port8","to":"output_1","toPort":"port1"},
-    {"name":"line20","from":"74LS86_1","fromPort":"port9","to":"input_3","toPort":"port1"},
-    {"name":"line21","from":"74LS86_1","fromPort":"port10","to":"74LS86_1","toPort":"port11"},
-    {"name":"line22","from":"74LS86_1","fromPort":"port12","to":"input_2","toPort":"port1"},
-    {"name":"line23","from":"74LS86_1","fromPort":"port13","to":"input_1","toPort":"port1"},
-    {"name":"line24","from":"74LS86_1","fromPort":"port14","to":"74LS27_1","toPort":"port14"},
-    {"name":"line25","from":"74LS27_1","fromPort":"port2","to":"74LS27_1","toPort":"port7"}
+    "connections":[
+    {"type": "draw2d.Connection","id":"line1","from":"vcc","fromPort":"port1","to":"74LS86_1","toPort":"port14"},
+    {"type": "draw2d.Connection","id":"line2","from":"vcc","fromPort":"port1","to":"74LS00_1","toPort":"port14"},
+    {"type": "draw2d.Connection","id":"line3","from":"vcc","fromPort":"port1","to":"74LS00_1","toPort":"port12"},
+    {"type": "draw2d.Connection","id":"line4","from":"74LS00_1","fromPort":"port1","to":"74LS86_1","toPort":"port13"},
+    {"type": "draw2d.Connection","id":"line5","from":"74LS00_1","fromPort":"port2","to":"74LS86_1","toPort":"port12"},
+    {"type": "draw2d.Connection","id":"line6","from":"74LS00_1","fromPort":"port3","to":"74LS00_1","toPort":"port4"},
+    {"type": "draw2d.Connection","id":"line7","from":"74LS00_1","fromPort":"port5","to":"74LS86_1","toPort":"port14"},
+    {"type": "draw2d.Connection","id":"line8","from":"74LS00_1","fromPort":"port6","to":"74LS27_1","toPort":"port13"},
+    {"type": "draw2d.Connection","id":"line9","from":"74LS00_1","fromPort":"port7","to":"gnd","toPort":"port1"},
+    {"type": "draw2d.Connection","id":"line10","from":"74LS00_1","fromPort":"port8","to":"74LS00_1","toPort":"port13"},
+    {"type": "draw2d.Connection","id":"line11","from":"74LS00_1","fromPort":"port9","to":"74LS86_1","toPort":"port9"},
+    {"type": "draw2d.Connection","id":"line12","from":"74LS00_1","fromPort":"port10","to":"74LS86_1","toPort":"port10"},
+    {"type": "draw2d.Connection","id":"line13","from":"74LS00_1","fromPort":"port11","to":"74LS27_1","toPort":"port1"},
+    {"type": "draw2d.Connection","id":"line14","from":"gnd","fromPort":"port1","to":"74LS86_1","toPort":"port7"},
+    {"type": "draw2d.Connection","id":"line15","from":"74LS86_1","fromPort":"port1","to":"74LS86_1","toPort":"port14"},
+    {"type": "draw2d.Connection","id":"line16","from":"74LS86_1","fromPort":"port2","to":"74LS27_1","toPort":"port3"},
+    {"type": "draw2d.Connection","id":"line17","from":"74LS86_1","fromPort":"port3","to":"output_2","toPort":"port1"},
+    {"type": "draw2d.Connection","id":"line18","from":"74LS86_1","fromPort":"port7","to":"74LS27_1","toPort":"port7"},
+    {"type": "draw2d.Connection","id":"line19","from":"74LS86_1","fromPort":"port8","to":"output_1","toPort":"port1"},
+    {"type": "draw2d.Connection","id":"line20","from":"74LS86_1","fromPort":"port9","to":"input_3","toPort":"port1"},
+    {"type": "draw2d.Connection","id":"line21","from":"74LS86_1","fromPort":"port10","to":"74LS86_1","toPort":"port11"},
+    {"type": "draw2d.Connection","id":"line22","from":"74LS86_1","fromPort":"port12","to":"input_2","toPort":"port1"},
+    {"type": "draw2d.Connection","id":"line23","from":"74LS86_1","fromPort":"port13","to":"input_1","toPort":"port1"},
+    {"type": "draw2d.Connection","id":"line24","from":"74LS86_1","fromPort":"port14","to":"74LS27_1","toPort":"port14"},
+    {"type": "draw2d.Connection","id":"line25","from":"74LS27_1","fromPort":"port2","to":"74LS27_1","toPort":"port7"}
     ]
 };
     var signalList=signalListMake();
@@ -155,34 +155,34 @@ var List={
     function entityPort(string){
         var flagIn=0;
         var flagOut=0;
-        for(var i=0;i<List.componentDataArray.length;i++){
-            if (List.componentDataArray[i].category=="input"){
+        for(var i=0;i<List.components.length;i++){
+            if (List.components[i].type=="input"){
                 if(flagIn==0){
-                    List.componentDataArray[i].name="input_"+(flagIn+1);
-                    string=string+"    PORT(\n        "+List.componentDataArray[i].name;
+                    List.components[i].id="input_"+(flagIn+1);
+                    string=string+"    PORT(\n        "+List.components[i].id;
                 }
                 else{
-                    List.componentDataArray[i].name="input_"+(flagIn+1);
-                    string=string+","+List.componentDataArray[i].name;
+                    List.components[i].id="input_"+(flagIn+1);
+                    string=string+","+List.components[i].id;
                 }
                 flagIn++;
             }
         }
         if(flagIn!=0)
             string=string+":in STD_LOGIC";
-        for(var i=0;i<List.componentDataArray.length;i++){
-            if(List.componentDataArray[i].category=="output"){
+        for(var i=0;i<List.components.length;i++){
+            if(List.components[i].type=="output"){
                 if(flagIn+flagOut==0){
-                    List.componentDataArray[i].name="output_"+(flagOut+1);
-                    string=string+"    PORT(\n        "+List.componentDataArray[i].name;
+                    List.components[i].id="output_"+(flagOut+1);
+                    string=string+"    PORT(\n        "+List.components[i].id;
                 }
                 else if(flagOut==0){
-                    List.componentDataArray[i].name="output_"+(flagOut+1);
-                    string=string+";\n        "+List.componentDataArray[i].name;
+                    List.components[i].id="output_"+(flagOut+1);
+                    string=string+";\n        "+List.components[i].id;
                 }
                 else{
-                    List.componentDataArray[i].name="output_"+(flagOut+1);
-                    string=string+","+List.componentDataArray[i].name;
+                    List.components[i].id="output_"+(flagOut+1);
+                    string=string+","+List.components[i].id;
                 }
                 flagOut++;
             }
@@ -198,19 +198,19 @@ var List={
     function archComp(string){
         var comp={};
         var len=0;
-        for(var i=0;i<List.componentDataArray.length;i++){
-            if((List.componentDataArray[i].category!="input")&&(List.componentDataArray[i].category!="output")&&(List.componentDataArray[i].category!="vcc")&&(List.componentDataArray[i].category!="gnd")){
+        for(var i=0;i<List.components.length;i++){
+            if((List.components[i].type!="input")&&(List.components[i].type!="output")&&(List.components[i].type!="vcc")&&(List.components[i].type!="gnd")){
                 if(len>0){
                     var flag=0;
                     for(var j=0;j<len;j++){
-                        if(comp[j]==List.componentDataArray[i].category)
+                        if(comp[j]==List.components[i].type)
                         {flag=1;break;}
                     }
                     if(flag==0)
-                    {comp[len]=List.componentDataArray[i].category;len++; }                    
+                    {comp[len]=List.components[i].type;len++; }                    
                 }
                 else
-                {comp[len]=List.componentDataArray[i].category;len++; }           
+                {comp[len]=List.components[i].type;len++; }           
             }
         }
         for(var i=0;i<len;i++){
@@ -232,8 +232,8 @@ var List={
     function archSignal(string){
         var num=0;
         for(var i=0;i<signalList.length;i++){
-            if(signalList[i].signalname>num){
-                num=signalList[i].signalname;
+            if(signalList[i].signalid>num){
+                num=signalList[i].signalid;
             }
         }
         
@@ -250,72 +250,30 @@ var List={
         string=string+":STD_LOGIC;\n"
         return string;
     }
-    /*{
-        var signal={};
-        var len=0;
-        for (var i=0;i<List.linkDataArray.length;i++){            
-            if(List.linkDataArray[i].fromPort!=""){
-                if(len>0){
-                    var flag=0;
-                    for(var j=0;j<len;j++){
-                        if(signal[j]==List.linkDataArray[i].from+"_"+List.linkDataArray[i].fromPort)
-                            {flag=1;break;}
-                    }
-                    if(flag==0)
-                        {signal[len]=List.linkDataArray[i].from+"_"+List.linkDataArray[i].fromPort;len++;}
-                }
-                else
-                {signal[len]=List.linkDataArray[i].from+"_"+List.linkDataArray[i].fromPort;len++;}
-            }
-            if(List.linkDataArray[i].toPort!=""){
-                if(len>0){
-                    var flag=0;
-                    for(var j=0;j<len;j++){
-                        if(signal[j]==List.linkDataArray[i].to+"_"+List.linkDataArray[i].toPort)
-                            {flag=1;break;}
-                    }
-                    if(flag==0)
-                        {signal[len]=List.linkDataArray[i].to+"_"+List.linkDataArray[i].toPort;len++;}
-                }
-                else
-                {signal[len]=List.linkDataArray[i].to+"_"+List.linkDataArray[i].toPort;len++;}
-            }
-        }
-        if(len!=0){
-            string=string+"    SIGNAL ";
-            for(var i=0;i<len;i++){
-                if(i!=0)
-                    string=string+",";
-                string=string+signal[i];
-            }
-            string=string+":STD_LOGIC;\n"
-        }
-        return string;
-    }*/
     //添加实体语句，包括component应用和连线翻译成语句
     function archBegin(string){
         var num=1;
         //加component
-        for(var i=0;i<List.componentDataArray.length;i++){
-            if((List.componentDataArray[i].category!="input")&&(List.componentDataArray[i].category!="output")&&(List.componentDataArray[i].category!="vcc")&&(List.componentDataArray[i].category!="gnd")){
-                string=string+"    u"+num+":C"+List.componentDataArray[i].category+" PORT MAP(";
-                //+List.componentDataArray[i].name+"_in1,"+List.componentDataArray[i].name+"_in2,"+List.componentDataArray[i].name+"_out1"
-                for(var j in List.componentDataArray[i].pin){
+        for(var i=0;i<List.components.length;i++){
+            if((List.components[i].type!="input")&&(List.components[i].type!="output")&&(List.components[i].type!="vcc")&&(List.components[i].type!="gnd")){
+                string=string+"    u"+num+":C"+List.components[i].type+" PORT MAP(";
+                //+List.components[i].id+"_in1,"+List.components[i].id+"_in2,"+List.components[i].id+"_out1"
+                for(var j in List.components[i].pin){
                     if(j!="port1")
                         string=string+",";
                     string=string+"\n        "
                     string=string+j+"=>";
-                    if(List.componentDataArray[i].pin[j].length!=0){
+                    if(List.components[i].pin[j].length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.componentDataArray[i].pin[j][0]==signalList[k].name){
-                                string=string+"signal_"+signalList[k].signalname;
+                            if(List.components[i].pin[j][0]==signalList[k].id){
+                                string=string+"signal_"+signalList[k].signalid;
                             }
                         }
-                        //List.componentDataArray[i].pin[j][0];
+                        //List.components[i].pin[j][0];
                     }
                     else{
                         for(var k=0;k<chipInfos.length;k++){
-                            if(chipInfos[k].id==List.componentDataArray[i].category){
+                            if(chipInfos[k].id==List.components[i].type){
                                 var isIn=false;
                                 for(var p=0;p<chipInfos[k].pin.in.length;p++){
                                     if(chipInfos[k].pin.in[p]==j){
@@ -335,62 +293,63 @@ var List={
                 num++;
             }
         }
+        string=string+"    signal_empty <= '0';\n";
         //vcc
-        for(var i=0;i<List.componentDataArray.length;i++){
-            if(List.componentDataArray[i].category=="vcc"){
+        for(var i=0;i<List.components.length;i++){
+            if(List.components[i].type=="vcc"){
                 string=string+"    ";
-                if(List.componentDataArray[i].pin.port1.length!=0){
+                if(List.components[i].pin.port1.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.componentDataArray[i].pin.port1[0]==signalList[k].name){
-                                string=string+"signal_"+signalList[k].signalname+" <= '1';";
+                            if(List.components[i].pin.port1[0]==signalList[k].id){
+                                string=string+"signal_"+signalList[k].signalid+" <= '1';";
                             }
                         }
-                        //List.componentDataArray[i].pin[j][0];
+                        //List.components[i].pin[j][0];
                     }
                 string=string+"\n";
             }
         }
         //gnd
-        for(var i=0;i<List.componentDataArray.length;i++){
-            if(List.componentDataArray[i].category=="gnd"){
+        for(var i=0;i<List.components.length;i++){
+            if(List.components[i].type=="gnd"){
                 string=string+"    ";
-                if(List.componentDataArray[i].pin.port1.length!=0){
+                if(List.components[i].pin.port1.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.componentDataArray[i].pin.port1[0]==signalList[k].name){
-                                string=string+"signal_"+signalList[k].signalname+" <= '0';";
+                            if(List.components[i].pin.port1[0]==signalList[k].id){
+                                string=string+"signal_"+signalList[k].signalid+" <= '0';";
                             }
                         }
-                        //List.componentDataArray[i].pin[j][0];
+                        //List.components[i].pin[j][0];
                     }
                 string=string+"\n";
             }
         }
         //input
-        for(var i=0;i<List.componentDataArray.length;i++){
-            if(List.componentDataArray[i].category=="input"){
+        for(var i=0;i<List.components.length;i++){
+            if(List.components[i].type=="input"){
                 string=string+"    ";
-                if(List.componentDataArray[i].pin.port1.length!=0){
+                if(List.components[i].pin.port1.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.componentDataArray[i].pin.port1[0]==signalList[k].name){
-                                string=string+"signal_"+signalList[k].signalname+" <= "+List.componentDataArray[i].name+";";
+                            if(List.components[i].pin.port1[0]==signalList[k].id){
+                                string=string+"signal_"+signalList[k].signalid+" <= "+List.components[i].id+";";
                             }
                         }
-                        //List.componentDataArray[i].pin[j][0];
+                        //List.components[i].pin[j][0];
                     }
                 string=string+"\n";
             }
         }
         //output
-        for(var i=0;i<List.componentDataArray.length;i++){
-            if(List.componentDataArray[i].category=="output"){
+        for(var i=0;i<List.components.length;i++){
+            if(List.components[i].type=="output"){
                 string=string+"    ";
-                if(List.componentDataArray[i].pin.port1.length!=0){
+                if(List.components[i].pin.port1.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.componentDataArray[i].pin.port1[0]==signalList[k].name){
-                                string=string+List.componentDataArray[i].name+" <= "+"signal_"+signalList[k].signalname+";";
+                            if(List.components[i].pin.port1[0]==signalList[k].id){
+                                string=string+List.components[i].id+" <= "+"signal_"+signalList[k].signalid+";";
                             }
                         }
-                        //List.componentDataArray[i].pin[j][0];
+                        //List.components[i].pin[j][0];
                     }
                 string=string+"\n";
             }
@@ -411,25 +370,25 @@ var List={
     }*/
     function signalListMake(){
         var num=0;
-        for(var i=0;i<List.linkDataArray.length;i++){
+        for(var i=0;i<List.connections.length;i++){
             if(i==0){
                 num++;
-                List.linkDataArray[i].signalname=num;
+                List.connections[i].signalid=num;
             }
             else{
                 for(var j=0;j<i;j++){
-                    if(((List.linkDataArray[j].from==List.linkDataArray[i].from)&&(List.linkDataArray[j].fromPort==List.linkDataArray[i].fromPort))||((List.linkDataArray[j].from==List.linkDataArray[i].to)&&(List.linkDataArray[j].fromPort==List.linkDataArray[i].toPort))||((List.linkDataArray[j].to==List.linkDataArray[i].from)&&(List.linkDataArray[j].toPort==List.linkDataArray[i].fromPort))||((List.linkDataArray[j].to==List.linkDataArray[i].to)&&(List.linkDataArray[j].toPort==List.linkDataArray[i].toPort))){
-                        List.linkDataArray[i].signalname=List.linkDataArray[j].signalname;
+                    if(((List.connections[j].from==List.connections[i].from)&&(List.connections[j].fromPort==List.connections[i].fromPort))||((List.connections[j].from==List.connections[i].to)&&(List.connections[j].fromPort==List.connections[i].toPort))||((List.connections[j].to==List.connections[i].from)&&(List.connections[j].toPort==List.connections[i].fromPort))||((List.connections[j].to==List.connections[i].to)&&(List.connections[j].toPort==List.connections[i].toPort))){
+                        List.connections[i].signalid=List.connections[j].signalid;
                         break;
                     }
                 }
-                if(List.linkDataArray[i].signalname==undefined){
+                if(List.connections[i].signalid==undefined){
                     num++;
-                    List.linkDataArray[i].signalname=num;
+                    List.connections[i].signalid=num;
                 }  
             }
         }
-        return signalList=List.linkDataArray;
+        return signalList=List.connections;
     }
     
     function toVHDL(){
