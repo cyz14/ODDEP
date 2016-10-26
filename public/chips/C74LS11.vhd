@@ -22,15 +22,7 @@ Entity C74LS11 IS
     );
 END C74LS11;
 
-ARCHITECTURE rt4 OF C74LS11 IS
-    COMPONENT nand IS 
-        PORT (
-            pin1: IN STD_LOGIC;
-            pin2: IN STD_LOGIC;
-			pin3: IN STD_LOGIC;
-            pout: OUT STD_LOGIC
-        );
-    END COMPONENT;
+ARCHITECTURE AND_VHDL OF C74LS11 IS
 
 BEGIN
     port12 <= (port1 and port2) and port13;

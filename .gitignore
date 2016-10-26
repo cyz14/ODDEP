@@ -15,6 +15,7 @@ npm-debug.log
 !/sim/lemon.js
 !/sim/sim.do
 !/sim/sim.sh
+!/sim/C*.vhd
 
 # 测试需要的文件
 !/public/tmp/code

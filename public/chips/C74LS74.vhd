@@ -23,33 +23,33 @@ Entity C74LS74 IS
 END C74LS74;
 
 ARCHITECTURE rt9 OF C74LS74 IS
-    COMPONENT nand IS 
-        PORT (
-            pin1: IN STD_LOGIC;
-            pin2: IN STD_LOGIC;
-			pin3: IN STD_LOGIC;
-			pin4: IN STD_LOGIC;
-            pin5: OUT STD_LOGIC;
-			pin6: OUT STD_LOGIC;
-        );
-    END COMPONENT;
+ 
 
 BEGIN
+	process (port1,port2,port3,port4)
+	BEGIN
 	IF (port1 ='1' and port4 = '0')THEN
-		port5 <='1';
+		port5 <='1'; 
 		port6 <='0';
-	ELSIF (port1 ='0' and port4 = '1')THEN
+		end if;
+	IF (port1 ='0' and port4 = '1')THEN
 		port5 <='0';
 		port6 <='1';
-	ELSIF (port1 ='1' and port4 = '1')THEN
+	    end if;
+	IF (port1 ='1' and port4 = '1')THEN
 		IF(port3'event and port3='1' and port2 ='1')THEN
 			port5<= '1';
 			port6<='0';
-		ELSIF(port3'event and port3='1' and port2 ='0')THEN
+			end if;
+		IF(port3'event and port3='1' and port2 ='0')THEN
 			port5<= '0';
 			port6 <='1';
-		END IF;
+			end if;
+		
 	END IF;
+	end process;
+	PROCESS(port13,port10,port11,port12)
+	BEGIN
 	IF (port13 ='1' and port10 = '0')THEN
 		port9 <='1';
 		port8 <='0';
@@ -65,6 +65,6 @@ BEGIN
 			port8 <='1';
 		END IF;
 	END IF;
-	
+	END PROCESS;
 
 END;

@@ -4,23 +4,23 @@ use ieee.std_logic_unsigned.all;
  
 ENTITY C74LS160 is 
 PORT(
-	data: in std_logic_vector(3 downto 0);--4ä½é¢„ç½®æ•°ï¼Œloadéé«˜ç”µå¹³ç½®æ•°
-	clk,load,enp,ent,clr:in std_logic;--æ³¨é‡Šè§architecture
-	q: buffer std_logic_vector(3 downto 0);--4ä½è®¡æ•°å€¼ï¼Œä½¿ç”¨bufferè®©å…¶ä¿æŒçŠ¶æ€
-	rco:out std_logic--æº¢å‡ºä½ï¼Œé«˜ç”µå¹³æº¢å‡º
+	data: in std_logic_vector(3 downto 0);--4Î»Ô¤ÖÃÊı£¬load·Ç¸ßµçÆ½ÖÃÊı
+	clk,load,enp,ent,clr:in std_logic;--×¢ÊÍ¼ûarchitecture
+	q: buffer std_logic_vector(3 downto 0);--4Î»¼ÆÊıÖµ£¬Ê¹ÓÃbufferÈÃÆä±£³Ö×´Ì¬
+	rco:out std_logic--Òç³öÎ»£¬¸ßµçÆ½Òç³ö
 );
 END C74LS160; 
  
 architecture behavior OF C74LS160 IS 
 BEGIN   
-	rco<='1' when (q="1001" and enp='1' and ent='1' and load='1' and clr='1') else '0';--æº¢å‡ºè¿›ä½ 
+	rco<='1' when (q="1001" and enp='1' and ent='1' and load='1' and clr='1') else '0';--Òç³ö½øÎ» 
 	process(clk,clr,enp,ent,load) begin 
-			if(rising_edge(clk)) then --æ—¶é’Ÿä¸Šå‡æ²¿æ—¶å¼€å§‹å·¥ä½œ
-				if(clr='1')then --CLRé«˜ç”µå¹³å·¥ä½œï¼Œä½ç”µå¹³æ¸…é›¶
-					if(load='1')then --loadéé«˜ç”µå¹³ç½®æ•°
-						if(enp='1')then --EnablePï¼ŒPTåŒæ—¶éé«˜ç”µå¹³ä¿å­˜çŠ¶æ€
-							 if(ent='1')then --EnableTï¼Œå¼€å…³ï¼ŒPTåŒæ—¶éé«˜ç”µå¹³ä¿å­˜çŠ¶æ€
-								if(q="1001")then --Countä¸º9ï¼Œæº¢å‡ºé‡ç½®
+			if(rising_edge(clk)) then --Ê±ÖÓÉÏÉıÑØÊ±¿ªÊ¼¹¤×÷
+				if(clr='1')then --CLR¸ßµçÆ½¹¤×÷£¬µÍµçÆ½ÇåÁã
+					if(load='1')then --load·Ç¸ßµçÆ½ÖÃÊı
+						if(enp='1')then --EnableP£¬PTÍ¬Ê±·Ç¸ßµçÆ½±£´æ×´Ì¬
+							 if(ent='1')then --EnableT£¬¿ª¹Ø£¬PTÍ¬Ê±·Ç¸ßµçÆ½±£´æ×´Ì¬
+								if(q="1001")then --CountÎª9£¬Òç³öÖØÖÃ
 									q<="0000"; 
 								else  
 									q<=q+1; 

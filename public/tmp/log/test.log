@@ -1,3 +1,29 @@
+Start time: 21:47:19 on Oct 26,2016
+vcom testbench.vhd main.vhd 
+Model Technology ModelSim ALTERA vcom 10.4d Compiler 2015.12 Dec 30 2015
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity testbench
+-- Compiling architecture RTL of testbench
+-- Loading package NUMERIC_STD
+-- Compiling entity main
+-- Compiling architecture RTL of main
+End time: 21:47:19 on Oct 26,2016, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+Reading pref.tcl
 
-./sim/sim.sh: line 8: vlib: command not found
-./sim/sim.sh: line 9: vcom: command not found
+# 10.4d
+
+# vsim -c -do "sim.do" testbench 
+# Start time: 21:47:20 on Oct 26,2016
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.testbench(rtl)
+# Loading ieee.numeric_std(body)
+# Loading work.main(rtl)
+# do sim.do
+# End time: 21:47:20 on Oct 26,2016, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+
