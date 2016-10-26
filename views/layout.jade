@@ -5,46 +5,19 @@ html
       title= title + " - 数字电路在线实验系统"
     - else 
       title 数字电路在线实验系统
-    link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/stylesheets/style.css")
+
     block stylesheets
+      link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
+      link(rel="stylesheet", href="/stylesheets/style.css")
+      link(rel="stylesheet", href="/stylesheets/navbar-static-top.css")
+
+    block scripts
+
   body(role="document")
     //- navigation bar
-    nav.navbar.navbar-default(role="navigation")
-      div.container-fluid
-        div.navbar-header
-          a.navbar-brand(href="/") 数字电路在线实验系统
-        div.navbar-left
-          ul.nav.navbar-nav
-            li: a(href="/editor#visual") 开始编辑
-            li: a(href="/status") STATUS
-            - if (user)
-              li: a(href="/status?user=#{user}") SUBMISSIONS
-            li: a(href="/problem") 题目列表
-        div: form.navbar-form.navbar-left(role="search", onSubmit="$('#jumpProbBtn').click(); return false;")
-          div.form-group
-            input#jumpProb.form-control(type="text", placeholder="题目ID")
-          button#jumpProbBtn.btn.btn-default(type="button") 跳转
-        div.navbar-right
-          - if (user)
-            ul.nav.navbar-nav
-              li.dropdown
-                a.dropdown-toggle(href="#", data-toggle="dropdown")
-                  span.glyphicon.glyphicon-off &nbsp;#{ nickname }
-                  span.caret
-                ul.dropdown-menu(role="menu", aria-labelledby="userMenuDrop0")
-                  li(role="presentation")
-                    a(role="menuitem", href="/profile") 个人信息
-                  li.divider(role="presentation")
-                  li(role="presentation")
-                    a(role="menuitem", href="/auth/logout") 退出
-          - else
-            ul.nav.navbar-nav
-              li: a(href="/register") 注册
-              li: a(href="/auth/login") 登录
+    include includes/navbar
 
     block content
-
     - if (needPageFooter)
       div#major-footer
         h3: small Author:&nbsp;桃李地下车队

@@ -1,5 +1,9 @@
 /* custom style */
 
+.container {
+    position: relative;
+}
+
 #major-footer {
     margin: 25px 50px;
 }

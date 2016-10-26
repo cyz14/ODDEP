@@ -2,10 +2,29 @@ var hash = window.location.hash;
 var vhdlEditor = ace.edit("vhdlACE");
 
 $(function() {
+    $('#jumpToVHDL').click(function() {
+        location.hash = 'vhdl';
+    });
+    function hashBody() {
+        var hash = location.hash;
+        console.log(hash);
+        if (hash === '#visual' || hash === '#vhdl') {
+            $('#editorTab a[href="' + hash + '"]').tab('show');
+        }
+        if (hash === '#visual') {
+            $('body').css('overflow', 'hidden');
+        } else if (hash === '#vhdl') {
+            $('body').css('overflow', 'auto');
+        }
+        $('#editorTabContent').focus();
+    }
+    hashBody();
+    window.onhashchange = hashBody;
     // 监视标签切换 - 当从可视化编辑页转移到代码页时，需要更新一次代码
     $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
         var currentTag = $(e.target).attr("href");
         var previousTag = $(e.relatedTarget).attr("href");
+        location.hash = currentTag;
         if (currentTag === "#vhdl" && previousTag === "#visual") {
             if (screen.availWidth > 700) {
                 document.getElementById("vhdlACE").style.width = Math.floor(screen.availWidth * 0.8);
@@ -15,5 +34,12 @@ $(function() {
             vhdlEditor.setValue(s);
             vhdlEditor.clearSelection();
         }
+        // if (currentTag === "#visual") {
+        //     $('nav').hide();
+        // } else {
+        //     $('nav').show();
+        // }
     });
+
+    // $('nav').hide();
 });

@@ -1,7 +1,6 @@
 // 说明：
 // "draw2d_circuit_switch_HighLow" 是开关，只有一个输出端口 Port，用来代表输入信号
 // "draw2d_circuit_display_Led" 是Led灯，只有一个端口 Port，代表输出信号
-
 var adder_1bit = {
 	"components": [
 		// vcc, enable signal for chips
@@ -129,7 +128,7 @@ var adder_1bit = {
 				"port": "Port"
 			},
 			"target": {
-				"node": "c74ls00h",
+				"node": "c74ls00",
 				"port": "port2"
 			}
 		},
