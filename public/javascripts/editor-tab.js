@@ -2,6 +2,7 @@ var hash = window.location.hash;
 var vhdlEditor = ace.edit("vhdlACE");
 
 $(function() {
+    $('body').css('min-height', '0px');
     $('#jumpToVHDL').click(function() {
         location.hash = 'vhdl';
     });
@@ -12,11 +13,10 @@ $(function() {
             $('#editorTab a[href="' + hash + '"]').tab('show');
         }
         if (hash === '#visual') {
-            $('body').css('overflow', 'hidden');
+            $('body').css('overflow', 'scroll');
         } else if (hash === '#vhdl') {
             $('body').css('overflow', 'auto');
         }
-        $('#editorTabContent').focus();
     }
     hashBody();
     window.onhashchange = hashBody;
