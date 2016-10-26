@@ -40,7 +40,16 @@ block content
           a#linkMotivate.list-group-item testbench代码下载
           a#linkVCD.list-group-item VCD波形文件下载
       div#preview.tab-pane.fade
-        span TODO3
+        div.panel.panel-primary
+          div.panel-heading
+            div.btn-group.btn-group-lg
+              button#zoom_in.btn.btn-default.zoombtn 放大
+              button#zoom_out.btn.btn-default.zoombtn 缩小
+              button#zoom_origin.btn.btn-default.zoombtn 默认
+          div#root.panel-body(style="overflow:auto")
+            div#display_div
+              div#tooltip_div
+              canvas#waveform_canvas(width=0, height=0, tabIndex=0)
 
 block addscript
   script $('nav').hide();
