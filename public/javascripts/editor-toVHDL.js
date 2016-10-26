@@ -401,10 +401,10 @@ var List={
     function toVHDL(){
         
         var lib="library IEEE;\nUSE IEEE.STD_LOGIC_1164.ALL;\nUSE IEEE.STD_LOGIC_ARITH.ALL;\nUSE IEEE.STD_LOGIC_UNSIGNED.ALL;\n\n";
-        var entity="entity digitalEO is\n";
+        var entity="entity main is\n";
         entity=entityPort(entity);
         entity=entity+"end entity;\n\n";
-        var arch="architecture eo_digital of digitalEO is\n";
+        var arch="architecture eo_digital of main is\n";
         arch=archComp(arch);
         arch=archSignal(arch);
         arch=arch+"begin\n";
