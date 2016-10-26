@@ -25,6 +25,8 @@
     "tests"
   ],
   "dependencies": {
-    "draw2d": "^6.1.65"
+    "draw2d": "^6.1.65",
+    "draw2d-shapes": "^1.0.178",
+    "mousetrap": "^1.6.0"
   }
 }
