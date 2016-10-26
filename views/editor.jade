@@ -1,12 +1,11 @@
 html
   head
     title Visual Editor
-  
-    link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/stylesheets/style.css")
-    link(rel="stylesheet", href="/stylesheets/navbar-static-top.css")
     
     block stylesheets
+      link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
+      link(rel="stylesheet", href="/stylesheets/style.css")
+      link(rel="stylesheet", href="/stylesheets/navbar-static-top.css")
       link(type="text/css" rel="stylesheet", href="/stylesheets/visual-editor.css")
       //- ToDo: Customize vhdl editor's UI with bootstrap to adapt to more device size
       link(type="text/css" rel="stylesheet", href="/stylesheets/vhdleditor.css")
@@ -14,22 +13,21 @@ html
 
 
 body(role="document")
-  block content
-    div#layout
-      include includes/navbar
-      div.container-fluid(style="margin:0px;padding:0px;")
-        ul#editorTab.nav.nav-pills(style="padding-left:5px;")
-          li.active
-            a(href="#visual", data-toggle="tab") 可视化编辑&nbsp;
-              span.glyphicon.glyphicon-forward
-          li
-            a(href="#vhdl", data-toggle="tab") VHDL编辑&nbsp;
-              span.glyphicon.glyphicon-forward
-        div#editorTabContent.tab-content
-          div#visual.tab-pane.active
-            include includes/canvas
-          div#vhdl.tab-pane
-            include includes/vhdleditor
+  div#layout
+    include includes/navbar
+    div.container-fluid(style="margin:0px;padding:0px;")
+      ul#editorTab.nav.nav-pills(style="padding-left:5px;")
+        li
+          a(href="#visual", data-toggle="tab") 可视化编辑&nbsp;
+            span.glyphicon.glyphicon-forward
+        li
+          a(href="#vhdl", data-toggle="tab") VHDL编辑&nbsp;
+            span.glyphicon.glyphicon-forward
+      div#editorTabContent.tab-content(tabIndex=0)
+        div#visual.tab-pane
+          include includes/canvas
+        div#vhdl.tab-pane
+          include includes/vhdleditor
 
 block addscript
   //- script(src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
