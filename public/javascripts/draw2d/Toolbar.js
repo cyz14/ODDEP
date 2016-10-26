@@ -1,50 +1,25 @@
 /**
- * Created by apple on 16/10/19.
+ * Created by Chen Yazheng on 16/10/20.
  */
 
+// ToDo: 添加commandStack的支持，提供Redo，Undo，Delete功能
+// ToDo: 支持导线的修改操作。发现采用 Interactive Manhattan Router 可以实现电线的修改。继承之后实现非交叉导线的Bridge功能应该可以满足电路连线要求。
+// ToDo: 支持导线的颜色选择
 tot.Toolbar = Class.extend({
     init: function (elementId, app, view) {
-        this.html = $("#"+elementId);
-		this.view = view;
+        $( "#radio" ).buttonset();
+        this.view = view;
+        
+        $('#radio>input').click(function() {
 
-		// register this class as event listener for the canvas
-		// CommandStack.  This is required to update the state of 
-		// the Undo/Redo Buttons.
-		//
-		view.getCommandStack().addEventListener(this);
-
-		// Register a Selection listener for the state hnadling
-		// of the Delete Button
-		//
-        view.on("select", $.proxy(this.onSelectionChanged,this));
-		
-		// Inject the UNDO Button and the callbacks
-		//
-		this.undoButton  = $("<button>Undo</button>");
-		this.html.append(this.undoButton);
-		this.undoButton.button().click($.proxy(function(){
-		       this.view.getCommandStack().undo();
-		},this)).button( "option", "disabled", true );
-
-		// Inject the REDO Button and the callback
-		//
-		this.redoButton  = $("<button>Redo</button>");
-		this.html.append(this.redoButton);
-		this.redoButton.button().click($.proxy(function(){
-		    this.view.getCommandStack().redo();
-		},this)).button( "option", "disabled", true );
-		
-		this.delimiter  = $("<span class='toolbar_delimiter'>&nbsp;</span>");
-		this.html.append(this.delimiter);
-
-		// Inject the DELETE Button
-		//
-		this.deleteButton  = $("<button>Delete</button>");
-		this.html.append(this.deleteButton);
-		this.deleteButton.button().click($.proxy(function(){
-			var node = this.view.getPrimarySelection();
-			var command= new draw2d.command.CommandDelete(node);
-			this.view.getCommandStack().execute(command);
-		},this)).button( "option", "disabled", true );
+            var defaultRouterClassName =$(this).data("router");
+            app.setDefaultRouterClassName(defaultRouterClassName);
+            var router = eval("new "+defaultRouterClassName+"()");
+          
+            view.getLines().each(function(i,line){
+                line.setRouter(router);
+            });
+        });
     }
+	
 });

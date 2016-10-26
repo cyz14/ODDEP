@@ -1,6 +1,9 @@
 /**
  * Created by Chen Yazheng on 16/10/20
  */
+
+//ToDo: add 74ls series chips to support 1 bit adder circuit
+
 // declare the namespace for this prj7
 var tot = {}; // Team of Taoli
 
@@ -17,41 +20,88 @@ tot.Application = Class.extend({
 
 	/**
 	 * @constructor
-	 * 
+	 *
 	 * @param {String} canvasId the is of the DOM element to use as paint container
 	 */
 	init: function() {
-		var _this = this;
-		this.localStorage = [];
-
-		try {
-            if( 'localStorage' in window && window.localStorage !== null){
-                this.localStorage = localStorage;
-            }
-        } catch(e) {
-
-        }
-
-        this.palette = new Palette();
-        this.view    = new View(this, "canvas");
+        this.view    = new tot.View("canvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
+		this.palette = new tot.Palette("navigation", this);
 
-		/*
-         * Replace all SVG images with inline SVG
-         */
-        $('img.svg').each(function(){
-            var $img = $(this);
-            var imgURL = $img.attr('src');
 
-            jQuery.get(imgURL, function(data) {
-                // Get the SVG tag, ignore the rest
-                var $svg = $(data).find('svg');
-                // Remove any invalid XML tags as per http://validator.w3.org
-                $svg = $svg.removeAttr('xmlns:a');
-                // Replace image with new SVG
-                $img.replaceWith($svg);
-            }, 'xml');
+        var layout = {
+			west: {
+				resizable:true,
+				closable:true,
+				resizeWhileDragging:true,
+				paneSelector: "#navigation"
+			},
+			center: {
+				resizable:true,
+				closable:true,
+				resizeWhileDragging:true,
+				paneSelector: "#content"
+			}
+		};
+		var contentLayout =  {
+			north: {
+				resizable:false,
+				closable:false,
+				spacing_open:0,
+				spacing_closed:0,
+				size:50,
+				paneSelector: "#toolbar"
+			},
+			center: {
+				resizable:false,
+				closable:false,
+				spacing_open:0,
+				spacing_closed:0,
+				paneSelector: "#canvas"
+			}
+		};
 
-        });
+		if (showJSON === true) {
+			contentLayout.east = {
+				size:250,
+				resizable: true,
+				closable: false,
+				paneSelector: "#json"
+			};
+		}
+		this.contentLayout = $('#content').layout(contentLayout);
+		// layout FIRST the body
+		this.appLayout = $('#container').layout(layout);
+	},
+
+    /**
+	 * Load the JSON data into the view/canvas
+	 */
+	load: function(jsonDocument){
+	    this.view.clear();
+
+	    // unmarshal the JSON document into the canvas
+	    // (load)
+	    var reader = new draw2d.io.json.Reader();
+	    reader.unmarshal(this.view, jsonDocument);
+
+	},
+
+    setDefaultRouterClassName: function(defaultRouterClassName){
+	    defaultRouterClassName=  defaultRouterClassName;
+        defaultRouter = eval("new "+defaultRouterClassName+"()");
+	},
+
+	createConnection: function(){
+
+	    var conn = new draw2d.Connection();
+	    conn.setRouter(defaultRouter);
+	    conn.setOutlineStroke(1);
+	    conn.setOutlineColor("#303030");
+	    conn.setStroke(3);
+	    conn.setRadius(5);
+	    conn.setColor('#00A8F0');
+	    return conn;
 	}
+
 });
