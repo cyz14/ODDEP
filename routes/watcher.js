@@ -152,6 +152,23 @@ router.get('/submission/:id/', function(req, res, next) {
         res.send('Bad server.');
         console.log(err);
     });
-})
+});
+
+var filnameEnd = {
+    'code' : '.vhd',
+    'motivate' : '.vhd',
+    'vcd' : '.vcd'
+}
+router.get('/download/:type/:token', function(req, res, next) {
+    var typ = req.params.type;
+    if (filnameEnd[typ]) {
+        var token = req.params.token;
+        var path = './public/tmp/' + typ + '/' + token + filnameEnd[typ];
+        var name = typ + '-' + token.substr(token.indexOf('-') + 1) + filnameEnd[typ];
+        res.download(path, name);
+    } else {
+        res.status(404);
+    }
+});
 
 module.exports = router;

@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div.container-fluid
+  div#topdiv.container-fluid(data-token = "#{submission.token}")
     table.table.table-bordered
       thead: tr
         th ID
@@ -19,14 +19,26 @@ block content
           td #{submission.status}
           td #{submission.submit_time}
     ul.nav.nav-tabs
-      li.active: a(href="#codeview", data-toggle="tab") 程序查看
+      li.active: a(href="#logview", data-toggle="tab") 日志
+      li: a(href="#codeview", data-toggle="tab") 程序查看
       li: a(href="#dlink", data-toggle="tab") 文件下载
       li: a(href="#preview", data-toggle="tab") 波形查看
     div.tab-content
-      div#codeview.tab-pane.fade.in.active
-        span TODO1
+      div#logview.tab-pane.fade.in.active
+        div.panel.panel-default
+          div.panel-heading 调试信息
+          div.panel-body
+            pre#debugInfo
+      div#codeview.tab-pane.fade
+        div.panel.panel-default
+          div.panel-heading VHDL代码
+          div.panel-body
+            pre#codePre
       div#dlink.tab-pane.fade
-        span TODO2
+        div.list-group
+          a#linkCode.list-group-item 提交代码下载
+          a#linkMotivate.list-group-item testbench代码下载
+          a#linkVCD.list-group-item VCD波形文件下载
       div#preview.tab-pane.fade
         span TODO3
 
