@@ -10,5 +10,6 @@
 
 #vhdlACE {
     position: relative;
-    height: 550px;
+    height: 610px;
+    max-width: 100%;
 }
