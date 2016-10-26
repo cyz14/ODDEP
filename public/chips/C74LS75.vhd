@@ -16,25 +16,20 @@ Entity C74LS75 IS
         port9: OUT STD_LOGIC;
         port10: OUT STD_LOGIC;
         port11: OUT STD_LOGIC;
-        port12: IN STD_LOGIC;  -GND
+        port12: IN STD_LOGIC;  --GND
         port13: IN STD_LOGIC;
         port14: OUT STD_LOGIC;
 		port15: OUT STD_LOGIC;
-		port16: OUT STD_LOGIC;
+		port16: OUT STD_LOGIC
     );
 END C74LS75;
 
 ARCHITECTURE rt10 OF C74LS75 IS
-    COMPONENT nand IS 
-        PORT (
-            pin1: IN STD_LOGIC;
-            pin2: IN STD_LOGIC;
-            pout1: OUT STD_LOGIC;
-			pout2: OUT STD_LOGIC;
-        );
-    END COMPONENT;
 
 BEGIN
+	PROCESS(port2,port13,port3,port13,port6,port4,port7,port4)
+	BEGIN
+
     IF(port2='0' and port13='1')THEN
 		port16<='0';
 		port1 <='1';
@@ -42,8 +37,7 @@ BEGIN
 		port16<='1';
 		port1 <='0';
 	ELSIF(port13='0')THEN
-		port16 <= port16;
-		port1 <= port1;
+
 	END IF;
 	IF(port3='0' and port13='1')THEN
 		port15<='0';
@@ -52,8 +46,7 @@ BEGIN
 		port15<='1';
 		port14 <='0';
 	ELSIF(port13='0')THEN
-		port15 <= port15;
-		port14 <= port14;
+
 	END IF;
 	IF(port6='0' and port4='1')THEN
 		port10<='0';
@@ -62,8 +55,7 @@ BEGIN
 		port10<='1';
 		port11 <='0';
 	ELSIF(port4='0')THEN
-		port10 <= port10;
-		port11 <= port11;
+
 	END IF;
 	IF(port7='0' and port4='1')THEN
 		port9<='0';
@@ -72,7 +64,7 @@ BEGIN
 		port9<='1';
 		port8 <='0';
 	ELSIF(port4='0')THEN
-		port8 <= port8;
-		port9 <= port9;
+
 	END IF;
+	END PROCESS;
 END;

@@ -23,13 +23,7 @@ Entity C74LS86 IS
 END C74LS86;
 
 ARCHITECTURE rt8 OF C74LS86 IS
-    COMPONENT nand IS 
-        PORT (
-            pin1: IN STD_LOGIC;
-            pin2: IN STD_LOGIC;
-            pout: OUT STD_LOGIC;
-        );
-    END COMPONENT;
+
 
 BEGIN
     port3 <=port1 xor port2;

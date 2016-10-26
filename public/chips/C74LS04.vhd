@@ -22,19 +22,14 @@ Entity C74LS04 IS
     );
 END C74LS04;
 
-ARCHITECTURE rt3 OF C74LS00 IS
-    COMPONENT nand IS 
-        PORT (
-            pin1: IN STD_LOGIC;
-            pout: OUT STD_LOGIC
-        );
-    END COMPONENT;
+ARCHITECTURE NOT_VHDL OF C74LS04 IS
+
 
 BEGIN
-    pin2 <= not port1;
-    pin4 <= not port4;
-    pin6 <= not port5;
-    pin8 <= not port9;
-	pin10<= not port11;
-	pin12<= not port13;
+    port2 <= not port1;
+    port4 <= not port3;
+    port6 <= not port5;
+    port8 <= not port9;
+	port10<= not port11;
+	port12<= not port13;
 END;
