@@ -20,6 +20,7 @@ div#container
   div#canvasWrapper.content
     div#canvas(style="width:3000px; height:3000px;")
     div#probe_window
+    div#json
 
 block addscript
   //- draw2d library dependencies
@@ -34,7 +35,7 @@ block addscript
 
 //- 为了显示右下角的zoom button需要把json显示栏隐藏
 script.
-  var showJSON = true;
+  var showJSON = false;
   $(window).load( function(){
     var app = new tot.Application();
     app.load(testCircuit);

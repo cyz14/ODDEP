@@ -28,6 +28,10 @@ input{
   position:relative;
 }
 
+#editorTab {
+  margin-bottom: 9px;
+}
+
 #container{
   position:absolute;
   width: 100%;
@@ -65,15 +69,12 @@ input{
 
 
 #canvasWrapper {
-  border: 1px solid #515151;
   padding:0px;
-  margin-left:5px;
-  margin-top: 5px;
   position: absolute;
   left: 140px;
   right: 0px;
   top: 50px;
-  bottom: 0px;
+  bottom: 10px;
   /*width: 100%;*/
   overflow:scroll;
 }
