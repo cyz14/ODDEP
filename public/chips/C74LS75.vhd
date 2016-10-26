@@ -67,4 +67,8 @@ BEGIN
 
 	END IF;
 	END PROCESS;
+<<<<<<< HEAD
 END;
+=======
+END;
+>>>>>>> c2dac47b9b76ed64acf76f8b559c25f6af709143
