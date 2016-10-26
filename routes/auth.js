@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var basic_auth = require("../dbtop").basic_auth;
+var md5Salt_auth = require("../db/dbtop").md5Salt_auth;
 
 router.get('/logout', function(req, res, next) {
     req.session.uid = null;
@@ -22,13 +22,15 @@ router.get('/login', function(req, res, next) {
 router.post('/login', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
-    basic_auth(username, password, function(line) {
-        if (line) {
-            // 最简单的明文会话
+    md5Salt_auth(username, password, function(err, row) {
+        if (err) {
+            console.log(err);
+        }
+        if (row) {
+            req.session.uid = row.uid;
+            req.session.power = row.power;
             req.session.user = username;
-            req.session.password = password;
-            req.session.uid = line.uid;
-            req.session.nickname = line.nickname;
+            req.session.nickname = row.nickname;
             res.redirect('/');
         } else {
             res.redirect('#err');

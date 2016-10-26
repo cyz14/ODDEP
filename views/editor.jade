@@ -1,54 +1,51 @@
 extends layout
+head 
+  block stylesheets
+    link(type="text/css" rel="stylesheet", href="/stylesheets/canvas.css")
+    //- ToDo: Customize vhdl editor's UI with bootstrap to adapt to more device size
+    link(type="text/css" rel="stylesheet", href="/stylesheets/vhdleditor.css")
 
 block content
   link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
   div.container-fluid
-    ul#editorTab.nav.nav-tabs
+    ul#editorTab.nav.nav-pills
+      li.active
+        a(href="#visual", data-toggle="tab") 可视化编辑&nbsp;
+          span.glyphicon.glyphicon-forward
       li
-        a(href="#visual", data-toggle="tab") 可视化编辑
-      li
-        a(href="#vhdl", data-toggle="tab") VHDL编辑
+        a(href="#vhdl", data-toggle="tab") VHDL编辑&nbsp;
+          span.glyphicon.glyphicon-forward
     div#editorTabContent.tab-content
-      div#visual.tab-pane
-        div#konvaContainer.konva-container
-          
-        //div
-        //  p TODO
+      div#visual.tab-pane.in.active
+        include includes/canvas
       div#vhdl.tab-pane
-        div.row
-          div.panel.panel-default.col-md-6(style="padding: 5px")
-            div.panel-heading
-              h3.panel-title VHDL代码
-            div#vhdlACE.panel-body
-          div.panel.panel-primary.col-md-6(style="padding: 5px")
-            div.panel-heading 激励文件 - 上传文件优先
-            div.panel-body
-              form#bigbus.form-horizontal(role="form", enctype="multipart/form-data", method="post", action='/upload')
-                div.form-group
-                  label.control-label.col-sm-2 上传文件
-                  div.col-sm-10
-                    input#motUpl.file.form-control(type="file", data-show-upload="false", name="motivate")
-              form.form-horizontal(role="form")
-                div.form-group
-                  label.control-label.col-sm-2 输入文本
-                  div.col-sm-10
-                    textarea#stimCode.form-control(rows="25")
-        button#codeSubmit.btn.btn-warning.btn-lg.center-block 提交
-        form#car.hidden(name="car", method="post", action="/submit")
-          input#banana(name="code", type="text")
-          input#kevin(name="stim", type="text")
-          input#mike(name="token", type="text")
-        div.container
-          p
-        div.container
-          p
+        include includes/vhdleditor
 
 block addscript
   script(src="http://cdn.bootcss.com/ace/1.2.5/ace.js", type="text/javascript", charset="utf-8")
+  script(src="http://cdn.bootcss.com/ace/1.2.5/ext-language_tools.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
   script(src="/javascripts/editor-ace-config.js")
-  script(src="/javascripts/editor-tab.js")
   script(src="https://cdn.rawgit.com/konvajs/konva/1.1.0/konva.js")
+  script(src="/javascripts/editor-tab.js")
   script(src="/javascripts/editor-draw.js")
   script(src="/javascripts/editor-toVHDL.js")
+  //- bower_components: draw2d
+  script(src="/draw2d/dist/shifty.js")
+  script(src="/draw2d/dist/patched_raphael.js")
+  script(src="/draw2d/dist/jquery-touch_punch.js")
+  script(src="/draw2d/dist/jquery.autoresize.js")
+  script(src="/draw2d/dist/jquery.contextmenu.js")
+  script(src="/draw2d/dist/rgbcolor.js")
+  script(src="/draw2d/dist/patched_canvg.js")
+  script(src="/draw2d/dist/patched_Class.js")
+  script(src="/draw2d/dist/json2.js")
+  script(src="/draw2d/dist/pathfinding-browser.min.js")
+  script(src="/draw2d/dist/draw2d_core.js")
+
+  //- draw2d Classes for the GUI editor application
+  script(src="/javascripts/draw2d/Application.js")
+  script(src="/javascripts/draw2d/Palette.js")
+  script(src="/javascripts/draw2d/View.js")
+  script(src="/javascripts/draw2d/Toolbar.js")

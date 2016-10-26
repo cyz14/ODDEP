@@ -1,3 +1,4 @@
+var pretest = require('./test/test');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,9 +9,13 @@ var session = require('express-session');
 
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
+var register = require('./routes/register');
 var editor = require('./routes/editor');
 var consumer = require('./routes/consumer');
 var watcher = require('./routes/watcher');
+var upload = require('./routes/upload');
+var profile = require('./routes/profile');
+var problem_view = require('./routes/problem-view');
 
 var app = express();
 
@@ -30,18 +35,22 @@ app.use(session({
   secret: "taolidixiacheduir1",
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+// to use library managed by bower
+app.use(express.static(path.join(__dirname, 'bower_components')));
 
 // 模板装载会话信息
 app.use(function(req, res, next) {
   res.locals.user = req.session.user || null;
   res.locals.nickname = req.session.nickname || null;
+  res.locals.power = req.session.power || null;
   next();
 });
 
 app.use('/', routes);
 app.use('/auth', auth);
+app.use('/register', register);
 
-/*
+//*
 // 权限限制器 
 app.use(function(req, res, next) {
   if (res.locals.user) {
@@ -49,9 +58,13 @@ app.use(function(req, res, next) {
   } else {
     res.redirect('/auth/login');
   }
+  console.warn(req.originalUrl);
 }); // */
 
+app.use('/upload', upload);
+app.use('/profile', profile);
 app.use('/editor', editor);
+app.use('/problem', problem_view);
 app.use('/submit', consumer);
 app.use('/status', watcher);
 

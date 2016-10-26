@@ -1,37 +1,7 @@
 var hash = window.location.hash;
 var vhdlEditor = ace.edit("vhdlACE");
-if (hash) {
-    $('#editorTab a[href=' + hash + ']').tab('show');
-}
 
-function getTimeToken() {
-    return Math.random().toString(36).substr(2) + ':' + new Date().getTime();
-}
-
-function submitCodeToSim(token) {
-    $('#mike').val(token);
-    $('#banana').val(vhdlEditor.getValue());
-    var stim = $('#kevin');
-    if ($('#motUpl').val()) {
-        stim.val("#&!upload>");
-    } else {
-        stim.val($('#stimCode').val());
-        $('#car').submit();
-    }
-}
 $(function() {
-    // 提交代码
-    $('#codeSubmit').click(function() {
-        var token = getTimeToken();
-        console.log(token);
-        if ($('#motUpl').val()) {
-            var uurl = $('#bigbus').attr('action');
-            $('#bigbus').attr('action', uurl + '/' + token);
-            $('#bigbus').submit();
-        }
-        submitCodeToSim(token);
-    });
-
     // 监视标签切换 - 当从可视化编辑页转移到代码页时，需要更新一次代码
     $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
         var currentTag = $(e.target).attr("href");
@@ -43,6 +13,7 @@ $(function() {
 
             var s=toVHDL();
             vhdlEditor.setValue(s);
+            vhdlEditor.clearSelection();
         }
     });
 });

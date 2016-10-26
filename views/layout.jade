@@ -1,23 +1,30 @@
 doctype html
 html
   head
-    title= title
+    - if (title)
+      title= title + " - 数字电路在线实验系统"
+    - else 
+      title 数字电路在线实验系统
     link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
     link(rel="stylesheet", href="/stylesheets/style.css")
+    block stylesheets
   body(role="document")
     //- navigation bar
-    nav.navbar.navbar-default.navbar-inverse(role="navigation")
+    nav.navbar.navbar-default(role="navigation")
       div.container-fluid
         div.navbar-header
           a.navbar-brand(href="/") 数字电路在线实验系统
         div.navbar-left
           ul.nav.navbar-nav
-            li
-              a(href="/editor#visual") 开始编辑
-            li
-              a(href="/status") STATUS
-            li
-              a(href="#") SUBMISSIONS
+            li: a(href="/editor#visual") 开始编辑
+            li: a(href="/status") STATUS
+            - if (user)
+              li: a(href="/status?user=#{user}") SUBMISSIONS
+            li: a(href="/problem") 题目列表
+        div: form.navbar-form.navbar-left(role="search", onSubmit="$('#jumpProbBtn').click(); return false;")
+          div.form-group
+            input#jumpProb.form-control(type="text", placeholder="题目ID")
+          button#jumpProbBtn.btn.btn-default(type="button") 跳转
         div.navbar-right
           - if (user)
             ul.nav.navbar-nav
@@ -27,24 +34,26 @@ html
                   span.caret
                 ul.dropdown-menu(role="menu", aria-labelledby="userMenuDrop0")
                   li(role="presentation")
-                    a(role="menuitem", href="#") 个人信息
+                    a(role="menuitem", href="/profile") 个人信息
                   li.divider(role="presentation")
                   li(role="presentation")
                     a(role="menuitem", href="/auth/logout") 退出
           - else
             ul.nav.navbar-nav
-              li
-                a(href="/auth/login") 登录
+              li: a(href="/register") 注册
+              li: a(href="/auth/login") 登录
 
     block content
 
     - if (needPageFooter)
       div#major-footer
-        h3
-          small author:桃李地下车队
+        h3: small Author:&nbsp;桃李地下车队
+        - if (needPageFooter.time)
+          h4: small 服务器时间：#{needPageFooter.time}
 
-    script(src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
-    script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")
-    //- script(src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css")
+    script(src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
+    script(src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")
+    script(src="/javascripts/layout-jump-prob.js")
+    //- script(src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css")
 
     block addscript

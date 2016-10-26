@@ -2,5 +2,8 @@ extends layout
 
 block content
   div.container(role="main")
-    h1= title
-    p Welcome to #{title}
+    - var title_a = "数字电路在线实验系统"
+    h1= title_a
+    p Welcome to #{title_a}
+    - if (power && power > 0)
+      p: a(href="/admin/") Admin
