@@ -26,14 +26,17 @@ var sim = function(args, next) {
             return updSP(args.token, 'done');
         }
     },function(err) {
+        console.log(err);
         if (typeof(err.stdout) !== 'undefined') {
-            return tp.promisify(fs.writeFile, args.logPath, stdout + '\n' + stderr)
+            return tp.promisify(fs.writeFile, args.logPath, err.stdout + '\n' + err.stderr)
                 .then(function(err) {
-                    if (err) throw err;
-                    return updSP(token, 'failed');
+                    if (err) console.error(err);
+                    else console.log('written');
+                    return updSP(args.token, 'failed');
                 });
         } else {
             console.error(err);
+            return 0;
         }
     }).then(next);
 };

@@ -12,7 +12,7 @@ entity main is
 	);
 end entity main;
 
-architecture RTL of main is
+--architecture RTL of main is
 	
 begin
 	name : process (clk, rst) is
