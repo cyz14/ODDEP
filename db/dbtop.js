@@ -1,9 +1,45 @@
+var assert = require('assert');
 var tp = require('../tiny-promise'); // 相对路径
 var sqlite3 = require('sqlite3').verbose();
 var db = function() {
     return new sqlite3.Database('./db/tot.db'); // . 是项目根目录(特殊)不同于require
 };
 exports.db = db;
+
+/*
+    维护提交数、题目数，以供使用
+*/
+var env = (function() {
+    var submission_count = 0;
+    var problem_count = 0;
+    var obj = {};
+    var dabs = db();
+    dabs.get('select count(*) from submission', function(err, row) {
+        assert.strictEqual(err, null);
+        submission_count = row['count(*)'];
+    });
+    dabs.get('select count(*) from problem', function(err, row) {
+        assert.strictEqual(err, null);
+        problem_count = row['count(*)'];
+    });
+    dabs.close();
+    obj.submit = function() {
+        ++ submission_count;
+        return submission_count;
+    }
+    obj.addProblem = function() {
+        ++ problem_count;
+        return problem_count;
+    }
+    obj.getSubmissionCount = function() {
+        return submission_count;
+    }
+    obj.getProblemCount = function() {
+        return problem_count;
+    }
+    return obj;
+}());
+exports.env = env;
 
 var isEmptys = function() {
     var obj = this;
@@ -17,7 +53,7 @@ var isEmptys = function() {
 exports.isEmptys = isEmptys.isEmptys = isEmptys;
 
 // opt : { funs:{}, sep:',' }
-exports.obj2Stmt = function(op, args, opt) {
+var obj2Stmt = function(op, args, opt) {
     var str = '';
     var funs = {};
     var sep = ',';
@@ -52,6 +88,7 @@ exports.obj2Stmt = function(op, args, opt) {
         return ' ';
     }
 };
+exports.obj2Stmt = obj2Stmt;
 
 // 给promise.then(<?>)用的数据库连接关闭器
 var db_close = function(dabs) {
@@ -118,13 +155,39 @@ exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
         console.log(row);
     })).then(function(err) {
         if (!err) console.log('register done.');
+        env.submit();
         next(err);
     })
     .then(db_close(dabs), db_close(dabs));
 }; // */
 
+// 更新提交状态
 exports.updStatPromise = function(token, status) {
     dabs = db();
     return tp.promisify.call(dabs, 'run', 'UPDATE submission SET status = ? WHERE token = ?', status, token)
     .then(db_close(dabs));
+}
+
+// cb(err, row) : row, problem row
+exports.getProb = function(db, pid, next) {
+    db.get('select * from problem where pid = ?', pid, next);
+}
+
+// 新建或更新题目
+exports.createOrUpdateProb = function(query, data, next) {
+    var qstmt = obj2Stmt('where', query, { sep : 'and'});
+    var dabs = db();
+    tp.promisify.call(dabs, 'get', 'select count(*) from problem' + qstmt)
+    .then(tp.spread(function(err, row) {
+        if (err) throw err;
+        if (row['count(*)'] === 1) {
+            var sstmt = obj2Stmt('SET', data);
+            return tp.promisify.call(dabs, 'run', 'update problem' + sstmt + qstmt);
+        } else {
+            return tp.promisify.call(dabs, 'run', 'insert into problem (title, source, limited, description) values (?, ?, ?, ?)', data.title, data.source, data.limited, data.description);
+        }
+    }))
+    .catch(function(err) {
+        console.error(err);
+    });
 }

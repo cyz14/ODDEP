@@ -20,6 +20,11 @@ html
             li: a(href="/status") STATUS
             - if (user)
               li: a(href="/status?user=#{user}") SUBMISSIONS
+            li: a(href="/problem") 题目列表
+        div: form.navbar-form.navbar-left(role="search", onSubmit="$('#jumpProbBtn').click(); return false;")
+          div.form-group
+            input#jumpProb.form-control(type="text", placeholder="题目ID")
+          button#jumpProbBtn.btn.btn-default(type="button") 跳转
         div.navbar-right
           - if (user)
             ul.nav.navbar-nav
@@ -48,6 +53,7 @@ html
 
     script(src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
     script(src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")
+    script(src="/javascripts/layout-jump-prob.js")
     //- script(src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css")
 
     block addscript

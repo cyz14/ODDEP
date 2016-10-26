@@ -15,6 +15,7 @@ var consumer = require('./routes/consumer');
 var watcher = require('./routes/watcher');
 var upload = require('./routes/upload');
 var profile = require('./routes/profile');
+var problem_view = require('./routes/problem-view');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(function(req, res, next) {
   res.locals.user = req.session.user || null;
   res.locals.nickname = req.session.nickname || null;
+  res.locals.power = req.session.power || null;
   next();
 });
 
@@ -62,6 +64,7 @@ app.use(function(req, res, next) {
 app.use('/upload', upload);
 app.use('/profile', profile);
 app.use('/editor', editor);
+app.use('/problem', problem_view);
 app.use('/submit', consumer);
 app.use('/status', watcher);
 

@@ -22,7 +22,7 @@ block content
     div.panel.panel-default
       div.panel-heading= title
       div.panel-body
-        table.table.table-hover.table-condensed
+        table.table.table-hover.table-condensed.table-striped
           caption 需要手动刷新
           thead
             tr
@@ -35,21 +35,21 @@ block content
           tbody
             - each line in list
               tr 
-                th: a(href="status/submission/#{line.id}/")
+                td: a(href="status/submission/#{line.id}/")
                   span.label.label-default #{line.id}
-                th: span.label.label-primary #{line.user}
-                th: span.label.label-default #{line.pid}
-                th: span.label.label-primary #{line.tag}
+                td: span.label.label-primary #{line.user}
+                td: span.label.label-default #{line.pid}
+                td: span.label.label-primary #{line.tag}
                 case (line.code)
                   when 0 
-                    th: span.label.label-success #{line.status}
+                    td: span.label.label-success #{line.status}
                   when 1 
-                    th: span.label.label-warning #{line.status}
+                    td: span.label.label-warning #{line.status}
                   when 2 
-                    th: span.label.label-default #{line.status}
+                    td: span.label.label-default #{line.status}
                   when 100 
-                    th: span.label.label-danger #{line.status}
-                th: span.label.label-info #{line.time}
+                    td: span.label.label-danger #{line.status}
+                td: span.label.label-info #{line.time}
 
     //- 分页
     nav(style="text-align:center")

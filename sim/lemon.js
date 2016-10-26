@@ -9,7 +9,7 @@ var sim = function(args, next) {
     })
     .then(tp.spread(function(err, stdout, stderr) {
         if (err) {
-            console.log('stdout:', stdout,'stderr:', stderr);
+            //console.log('stdout:', stdout,'stderr:', stderr);
             throw {
                 err : err,
                 stdout : stdout,
@@ -26,7 +26,7 @@ var sim = function(args, next) {
             return updSP(args.token, 'done');
         }
     },function(err) {
-        console.log(err);
+        //console.log(err);
         if (typeof(err.stdout) !== 'undefined') {
             return tp.promisify(fs.writeFile, args.logPath, err.stdout + '\n' + err.stderr)
                 .then(function(err) {

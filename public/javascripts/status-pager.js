@@ -8,7 +8,7 @@ $(function() {
             '#backward': -3,
             '#forward': -4
         };
-        var index = parseInt($('#index').text());
+        var index = parseInt($('#index').text() || '1');
         var op = locateH[location.hash];
         console.log(index, op);
         if (op === undefined) op = parseInt(location.hash.substr(1));
