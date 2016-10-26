@@ -50,13 +50,13 @@ var chipInfos = [
 //测试用全加器元件导线list
 var List={
     "components":[
-    {"id":"vcc","type":"vcc","ports":{
-        "port1":["line1","line2","line3"]
+    {"id":"vcc","type":"entity.VCC","ports":{
+        "Port":["line1","line2","line3"]
     }},
-    {"id":"gnd","type":"gnd","ports":{
-        "port1":["line9","line14"]
+    {"id":"gnd","type":"entity.GND","ports":{
+        "Port":["line9","line14"]
     }},
-    {"id":"74LS00_1","type":"74LS00","ports":{
+    {"id":"74LS00_1","type":"chips.C74LS00","ports":{
         "port1":["line4"],
         "port2":["line5"],
         "port3":["line6"],
@@ -72,7 +72,7 @@ var List={
         "port13":["line10"],
         "port14":["line2"]
     }},
-    {"id":"74LS86_1","type":"74LS86","ports":{
+    {"id":"74LS86_1","type":"chips.C74LS86","ports":{
         "port1":["line15"],
         "port2":["line16"],
         "port3":["line17"],
@@ -88,7 +88,7 @@ var List={
         "port13":["line4","line23"],
         "port14":["line7","line24","line15","line1"]
     }},
-    {"id":"74LS27_1","type":"74LS27","ports":{
+    {"id":"74LS27_1","type":"chips.C74LS27","ports":{
         "port1":["line13"],
         "port2":["line25"],
         "port3":["line16"],
@@ -104,20 +104,20 @@ var List={
         "port13":["line8"],
         "port14":["line24"]
     }},
-    {"id":"input_1","type":"input","ports":{
-        "port1":["line23"]
+    {"id":"input_1","type":"draw2d_circuit_switch_HighLow","ports":{
+        "Port":["line23"]
     }},
-    {"id":"input_2","type":"input","ports":{
-        "port1":["line22"]
+    {"id":"input_2","type":"draw2d_circuit_switch_HighLow","ports":{
+        "Port":["line22"]
     }},
-    {"id":"input_3","type":"input","ports":{
-        "port1":["line20"]
+    {"id":"input_3","type":"draw2d_circuit_switch_HighLow","ports":{
+        "Port":["line20"]
     }},
-    {"id":"output_1","type":"output","ports":{
-        "port1":["line19"]
+    {"id":"output_1","type":"draw2d_circuit_display_Led","ports":{
+        "Port":["line19"]
     }},
-    {"id":"output_2","type":"output","ports":{
-        "port1":["line17"]
+    {"id":"output_2","type":"draw2d_circuit_display_Led","ports":{
+        "Port":["line17"]
     }}
     ],
     "connections":[
@@ -156,7 +156,7 @@ var List={
         var flagIn=0;
         var flagOut=0;
         for(var i=0;i<List.components.length;i++){
-            if (List.components[i].type=="input"){
+            if (List.components[i].type=="draw2d_circuit_switch_HighLow"){
                 if(flagIn==0){
                     List.components[i].id="input_"+(flagIn+1);
                     string=string+"    PORT(\n        "+List.components[i].id;
@@ -171,7 +171,7 @@ var List={
         if(flagIn!=0)
             string=string+":in STD_LOGIC";
         for(var i=0;i<List.components.length;i++){
-            if(List.components[i].type=="output"){
+            if(List.components[i].type=="draw2d_circuit_display_Led"){
                 if(flagIn+flagOut==0){
                     List.components[i].id="output_"+(flagOut+1);
                     string=string+"    PORT(\n        "+List.components[i].id;
@@ -215,15 +215,16 @@ var List={
         }
         for(var i=0;i<len;i++){
             for(var j=0;j<chipInfos.length;j++){
-                if(chipInfos[j].id==comp[i]){
+                if("chips.C"+chipInfos[j].id==comp[i]){
                     string=string+"    COMPONENT "+"C"+chipInfos[j].id+"\n        PORT(\n";
                     string=string+"            "+chipInfos[j].pin.in +":in STD_LOGIC;\n            "+chipInfos[j].pin.out+":out STD_LOGIC";
                     if(chipInfos[j].pin.buffer.length!=0){
                         string=string+";\n            "+chipInfos[j].pin.buffer+":buffer STD_LOGIC";
                     }
+                    string=string+"\n        );\n    END COMPONENT;\n";
                 }
             }
-            string=string+"\n        );\n    END COMPONENT;\n";
+            
         }
         return string;
     }
@@ -256,8 +257,12 @@ var List={
         var num=1;
         //加component
         for(var i=0;i<List.components.length;i++){
-            if((List.components[i].type!="input")&&(List.components[i].type!="output")&&(List.components[i].type!="vcc")&&(List.components[i].type!="gnd")){
-                string=string+"    u"+num+":C"+List.components[i].type+" PORT MAP(";
+            if((List.components[i].type!="draw2d_circuit_switch_HighLow")&&(List.components[i].type!="draw2d_circuit_display_Led")&&(List.components[i].type!="entity.VCC")&&(List.components[i].type!="entity.GND")){
+                for(var j=0;j<chipInfos.length;j++){
+                    if("chips.C"+chipInfos[j].id==List.components[i].type){
+                        string=string+"    u"+num+":C"+chipInfos[j].id+" PORT MAP(";
+                    }
+                }
                 //+List.components[i].id+"_in1,"+List.components[i].id+"_in2,"+List.components[i].id+"_out1"
                 for(var j in List.components[i].ports){
                     if(j!="port1")
@@ -274,7 +279,7 @@ var List={
                     }
                     else{
                         for(var k=0;k<chipInfos.length;k++){
-                            if(chipInfos[k].id==List.components[i].type){
+                            if("chips.C"+chipInfos[k].id==List.components[i].type){
                                 var isIn=false;
                                 for(var p=0;p<chipInfos[k].pin.in.length;p++){
                                     if(chipInfos[k].pin.in[p]==j){
@@ -297,11 +302,11 @@ var List={
         string=string+"    signal_empty <= '0';\n";
         //vcc
         for(var i=0;i<List.components.length;i++){
-            if(List.components[i].type=="vcc"){
+            if(List.components[i].type=="entity.VCC"){
                 string=string+"    ";
-                if(List.components[i].ports.port1.length!=0){
+                if(List.components[i].ports.Port.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].ports.port1[0]==signalList[k].id){
+                            if(List.components[i].ports.Port[0]==signalList[k].id){
                                 string=string+"signal_"+signalList[k].signalid+" <= '1';";
                             }
                         }
@@ -312,11 +317,11 @@ var List={
         }
         //gnd
         for(var i=0;i<List.components.length;i++){
-            if(List.components[i].type=="gnd"){
+            if(List.components[i].type=="entity.GND"){
                 string=string+"    ";
-                if(List.components[i].ports.port1.length!=0){
+                if(List.components[i].ports.Port.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].ports.port1[0]==signalList[k].id){
+                            if(List.components[i].ports.Port[0]==signalList[k].id){
                                 string=string+"signal_"+signalList[k].signalid+" <= '0';";
                             }
                         }
@@ -327,11 +332,11 @@ var List={
         }
         //input
         for(var i=0;i<List.components.length;i++){
-            if(List.components[i].type=="input"){
+            if(List.components[i].type=="draw2d_circuit_switch_HighLow"){
                 string=string+"    ";
-                if(List.components[i].ports.port1.length!=0){
+                if(List.components[i].ports.Port.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].ports.port1[0]==signalList[k].id){
+                            if(List.components[i].ports.Port[0]==signalList[k].id){
                                 string=string+"signal_"+signalList[k].signalid+" <= "+List.components[i].id+";";
                             }
                         }
@@ -342,11 +347,11 @@ var List={
         }
         //output
         for(var i=0;i<List.components.length;i++){
-            if(List.components[i].type=="output"){
+            if(List.components[i].type=="draw2d_circuit_display_Led"){
                 string=string+"    ";
-                if(List.components[i].ports.port1.length!=0){
+                if(List.components[i].ports.Port.length!=0){
                         for(var k=0;k<signalList.length;k++){
-                            if(List.components[i].ports.port1[0]==signalList[k].id){
+                            if(List.components[i].ports.Port[0]==signalList[k].id){
                                 string=string+List.components[i].id+" <= "+"signal_"+signalList[k].signalid+";";
                             }
                         }
@@ -372,6 +377,7 @@ var List={
     function signalListMake(){
         var num=0;
         for(var i=0;i<List.connections.length;i++){
+            List.connections[i].signalid=undefined;
             if(i==0){
                 num++;
                 List.connections[i].signalid=num;
