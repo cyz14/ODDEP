@@ -27,51 +27,6 @@ tot.Application = Class.extend({
         this.view    = new tot.View("canvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
 		this.palette = new tot.Palette("navigation", this);
-
-
-        var layout = {
-			west: {
-				resizable:true,
-				closable:true,
-				resizeWhileDragging:true,
-				paneSelector: "#navigation"
-			},
-			center: {
-				resizable:true,
-				closable:true,
-				resizeWhileDragging:true,
-				paneSelector: "#content"
-			}
-		};
-		var contentLayout =  {
-			north: {
-				resizable:false,
-				closable:false,
-				spacing_open:0,
-				spacing_closed:0,
-				size:50,
-				paneSelector: "#toolbar"
-			},
-			center: {
-				resizable:false,
-				closable:false,
-				spacing_open:0,
-				spacing_closed:0,
-				paneSelector: "#canvas"
-			}
-		};
-
-		if (showJSON === true) {
-			contentLayout.east = {
-				size:250,
-				resizable: true,
-				closable: false,
-				paneSelector: "#json"
-			};
-		}
-		this.contentLayout = $('#content').layout(contentLayout);
-		// layout FIRST the body
-		this.appLayout = $('#container').layout(layout);
 	},
 
     /**
