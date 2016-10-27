@@ -6,6 +6,7 @@ html
       link(rel="stylesheet", href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css")
       link(rel="stylesheet", href="/stylesheets/style.css")
       link(rel="stylesheet", href="/stylesheets/navbar-static-top.css")
+      link(rel="stylesheet", href="/lib/aristo/jquery-ui-1.8.16.custom.css")
       link(type="text/css" rel="stylesheet", href="/stylesheets/visual-editor.css")
       //- ToDo: Customize vhdl editor's UI with bootstrap to adapt to more device size
       link(type="text/css" rel="stylesheet", href="/stylesheets/vhdleditor.css")
@@ -30,6 +31,10 @@ body(role="document")
           include includes/vhdleditor
 
 block addscript
+  //- bower_components: jquery
+  script(src="/jquery/jquery.min.js")
+  //- draw2d library dependencies
+  include includes/draw2d_js
   //- script(src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
   script(src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")
   script(src="/javascripts/layout-jump-prob.js")
@@ -42,3 +47,36 @@ block addscript
   script(src="/javascripts/editor-draw.js")
   script(src="/chips/json/1bit_adder.json")
   script(src="/javascripts/editor-toVHDL.js")
+
+  //- draw2d Classes for the GUI editor application
+  script(src="/javascripts/draw2d/Application.js")
+  script(src="/javascripts/draw2d/Palette.js")
+  script(src="/javascripts/draw2d/View.js")
+  script(src="/javascripts/draw2d/Toolbar.js")
+  script(src="/javascripts/draw2d/circuit/test.circuit")
+
+  script.
+    var showJSON = false;
+    $(window).load( function(){
+      var app = new tot.Application();
+      //- app.load(testCircuit);
+      if (showJSON === true) {
+        // displayJSON(app.view);
+
+        // add an event listener to the Canvas for change notifications.
+        // We just dump the current canvas document into the DIV
+        //
+        app.view.getCommandStack().addEventListener(
+          function(e){
+            if(e.isPostChangeEvent()){
+                // displayJSON(app.view);
+          }
+        });
+      }
+    });
+    function displayJSON(canvas){
+      var writer = new draw2d.io.json.Writer();
+      writer.marshal(canvas, function(json){
+          $("#json").html("<pre>"+JSON.stringify(json,null,2)+"<pre>");
+      });
+    }

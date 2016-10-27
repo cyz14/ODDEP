@@ -28,6 +28,8 @@ tot.View = draw2d.Canvas.extend({
 
         this.setScrollArea(scrollAreaId);
 
+        // add commandStack support
+
         // nice grid decoration for the canvas paint area
         //
         this.grid =  new draw2d.policy.canvas.ShowGridEditPolicy(20);
@@ -39,6 +41,7 @@ tot.View = draw2d.Canvas.extend({
         this.installEditPolicy( new draw2d.policy.canvas.SnapToCenterEditPolicy());
         this.installEditPolicy( new draw2d.policy.canvas.SnapToInBetweenEditPolicy());
 
+        // button_zoom functions
         var setZoom = function(newZoom){
             var bb = _this.getBoundingBox().getCenter();
             var c = $(scrollAreaId);

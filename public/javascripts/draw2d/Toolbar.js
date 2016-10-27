@@ -20,6 +20,8 @@ tot.Toolbar = Class.extend({
                 line.setRouter(router);
             });
         });
-    }
+    },
+
+    
 	
 });
