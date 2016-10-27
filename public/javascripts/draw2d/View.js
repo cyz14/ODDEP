@@ -80,6 +80,48 @@ tot.View = draw2d.Canvas.extend({
         this.installEditPolicy( new draw2d.policy.canvas.SnapToCenterEditPolicy());
         this.installEditPolicy( new draw2d.policy.canvas.SnapToInBetweenEditPolicy());
 
+        // Enable Copy&Past for figures
+        //
+        Mousetrap.bind(['ctrl+c', 'command+c'], $.proxy(function (event) {
+            var primarySelection = this.getSelection().getPrimary();
+            if(primarySelection!==null){
+                this.clippboardFigure = primarySelection.clone({excludePorts:true});
+                this.clippboardFigure.translate(5,5);
+            }
+            return false;
+        },this));
+        Mousetrap.bind(['ctrl+v', 'command+v'], $.proxy(function (event) {
+            if(this.clippboardFigure!==null){
+                var cloneToAdd = this.clippboardFigure.clone({excludePorts:true});
+                var command = new draw2d.command.CommandAdd(this, cloneToAdd, cloneToAdd.getPosition());
+                this.getCommandStack().execute(command);
+                this.setCurrentSelection(cloneToAdd);
+            }
+            return false;
+        },this));
+
+
+        Mousetrap.bind(['left'],function (event) {
+            var diff = _this.getZoom()<0.5?0.5:1;
+            _this.getSelection().each(function(i,f){f.translate(-diff,0);});
+            return false;
+        });
+        Mousetrap.bind(['up'],function (event) {
+            var diff = _this.getZoom()<0.5?0.5:1;
+            _this.getSelection().each(function(i,f){f.translate(0,-diff);});
+            return false;
+        });
+        Mousetrap.bind(['right'],function (event) {
+            var diff = _this.getZoom()<0.5?0.5:1;
+            _this.getSelection().each(function(i,f){f.translate(diff,0);});
+            return false;
+        });
+        Mousetrap.bind(['down'],function (event) {
+            var diff = _this.getZoom()<0.5?0.5:1;
+            _this.getSelection().each(function(i,f){f.translate(0,diff);});
+            return false;
+        });
+
         // button_zoom functions
         var setZoom = function(newZoom){
             var bb = _this.getBoundingBox().getCenter();
@@ -129,6 +171,17 @@ tot.View = draw2d.Canvas.extend({
             _this.getCommandStack().commitTransaction();
         });
 
+        // Register a Selection listener for the state hnadling
+        // of the Delete Button
+        //
+        this.on("select", function(emitter, event){
+            if(event.figure===null ) {
+                $("#editDelete").addClass("disabled");
+            }
+            else{
+                $("#editDelete").removeClass("disabled");
+            }
+        });
 
         $(".toolbar").delegate("#editUndo:not(.disabled)","click", function(){
             _this.getCommandStack().undo();
