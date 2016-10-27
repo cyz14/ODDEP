@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  div.well.well-sm
+    label: span Source
+    input#sourceInput(type='text')
+  div.panel.panel-danger
+    div.panel-heading 限制
+    div.panel-body
+      span TODO
+  div.panel.panel-primary
+    div.panel-heading 描述
+    div.panel-body
+      div
+        label.radio-inline
+          input#writeHtml(type="radio", name="filetype", value="html", checked) 
+          |HTML文档
+        label.radio-inline
+          input#writePlain(type="radio", name="filetype", value="plain") 
+          |纯文本
+      div#editor
+        pre
+
+block addscript
+  script(src="problem-edit.js")
