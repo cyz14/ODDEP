@@ -16,6 +16,7 @@ var watcher = require('./routes/watcher');
 var upload = require('./routes/upload');
 var profile = require('./routes/profile');
 var problem_view = require('./routes/problem-view');
+var problem_edit = require('./routes/problem-edit');
 
 var app = express();
 
@@ -64,6 +65,7 @@ app.use(function(req, res, next) {
 app.use('/upload', upload);
 app.use('/profile', profile);
 app.use('/editor', editor);
+app.use('/problem/edit', problem_edit);
 app.use('/problem', problem_view);
 app.use('/submit', consumer);
 app.use('/status', watcher);
