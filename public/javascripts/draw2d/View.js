@@ -2,33 +2,72 @@
  * Created by Chen Yazheng on 16/10/20
  */
 var scrollAreaId = "#canvas";
-var defaultRouter = new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
+var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
 
 tot.View = draw2d.Canvas.extend({
-	createConnection: function(){
+    
+	// createConnection: function(){
 
-	    var conn = new draw2d.Connection();
-	    conn.setRouter(defaultRouter);
-	    conn.setOutlineStroke(1);
-	    conn.setOutlineColor("#303030");
-	    conn.setStroke(3);
-	    conn.setRadius(5);
-	    conn.setColor('#00A8F0');
-	    return conn;
-	},
+	//     var conn = new draw2d.Connection();
+	//     conn.setRouter(defaultRouter);
+	//     conn.setOutlineStroke(1);
+	//     conn.setOutlineColor("#303030");
+	//     conn.setStroke(3);
+	//     conn.setRadius(5);
+	//     conn.setColor('#00A8F0');
+	//     return conn;
+	// },
 	/**
 	 * @constructor
 	 */
 	init: function(id) {
 	    var _this = this;
 		this._super(id);
-        this.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
-            createConnection: this.createConnection
-          }));
 
         this.setScrollArea(scrollAreaId);
 
         // add commandStack support
+        this.getCommandStack().addEventListener(this);
+
+        // this.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
+        //     createConnection: this.createConnection
+        //   }));
+
+        var router = new ConnectionRouter();
+        router.abortRoutingOnFirstVertexNode=false;
+        var createConnection=function(sourcePort, targetPort){
+            var c = new Connection({
+                color:"#000000",
+                router: router,
+                stroke:1.5,
+                radius:2
+            });
+            if(sourcePort) {
+                c.setSource(sourcePort);
+                c.setTarget(targetPort);
+            }
+            return c;
+        };
+
+        this.installEditPolicy( new DropInterceptorPolicy());
+
+        // install a Connection create policy which matches to a "circuit like"
+        // connections
+        //
+        this.connectionPolicy = new draw2d.policy.connection.ComposedConnectionCreatePolicy(
+                [
+                    // create a connection via Drag&Drop of ports
+                    //
+                    new draw2d.policy.connection.DragConnectionCreatePolicy({
+                        createConnection:createConnection
+                    }),
+                    // or via click and point
+                    //
+                    new draw2d.policy.connection.OrthogonalConnectionCreatePolicy({
+                        createConnection:createConnection
+                    })
+                ]);
+        this.installEditPolicy(this.connectionPolicy);
 
         // nice grid decoration for the canvas paint area
         //
@@ -66,7 +105,39 @@ tot.View = draw2d.Canvas.extend({
         $("#canvas_zoom_out").on("click",function(){
             setZoom(_this.getZoom()*0.8);
         });
-	},
+
+        $(".toolbar").delegate("#editDelete:not(.disabled)","click", function(){
+            var selection = _this.getSelection();
+            _this.getCommandStack().startTransaction(draw2d.Configuration.i18n.command.deleteShape);
+            selection.each(function(index, figure){
+
+                // Don't delete the conection if the source or target node part of the
+                // selection. In this case the nodes deletes all connections by itself.
+                //
+                if(figure instanceof draw2d.Connection){
+                    if(selection.contains(figure.getSource().getRoot()) || selection.contains(figure.getTarget().getRoot())){
+                       return;
+                    }
+                }
+
+                var cmd = figure.createCommand(new draw2d.command.CommandType(draw2d.command.CommandType.DELETE));
+                if(cmd!==null){
+                    _this.getCommandStack().execute(cmd);
+                }
+            });
+            // execute all single commands at once.
+            _this.getCommandStack().commitTransaction();
+        });
+
+
+        $(".toolbar").delegate("#editUndo:not(.disabled)","click", function(){
+            _this.getCommandStack().undo();
+        });
+
+        $(".toolbar").delegate("#editRedo:not(.disabled)","click", function(){
+            _this.getCommandStack().redo();
+        });
+	}, // end init
 
     getBoundingBox: function()
     {
@@ -125,7 +196,20 @@ tot.View = draw2d.Canvas.extend({
         this.getCommandStack().execute(command);
     },
 
-        /**
+    /**
+     * Disable snapTo GRID if we have select more than one element
+     * @param figure
+     * @param pos
+     */
+    snapToHelper : function(figure, pos)
+    {
+        if(this.getSelection().getSize()>1){
+            return pos;
+        }
+        return this._super(figure, pos);
+    },
+
+    /**
      * @method
      * Transforms a document coordinate to canvas coordinate.
      *
@@ -155,6 +239,30 @@ tot.View = draw2d.Canvas.extend({
         return new draw2d.geo.Point(
             ((x*(1/this.zoomFactor)) + this.getAbsoluteX()),
             ((y*(1/this.zoomFactor)) + this.getAbsoluteY()));
+    },
+
+        /**
+     * @method
+     * Sent when an event occurs on the command stack. draw2d.command.CommandStackEvent.getDetail()
+     * can be used to identify the type of event which has occurred.
+     *
+     * @template
+     *
+     * @param {draw2d.command.CommandStackEvent} event
+     **/
+    stackChanged:function(event)
+    {
+        $("#editUndo").addClass("disabled");
+        $("#editRedo").addClass("disabled");
+
+        if(event.getStack().canUndo()) {
+            $("#editUndo").removeClass("disabled");
+        }
+
+        if(event.getStack().canRedo()) {
+            $("#editRedo").removeClass("disabled");
+        }
+
     }
 
 });

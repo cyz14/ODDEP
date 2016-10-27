@@ -39,8 +39,15 @@ tot.Application = Class.extend({
 	    // (load)
 	    var reader = new draw2d.io.json.Reader();
 	    reader.unmarshal(this.view, jsonDocument);
-
 	},
+
+	dump:function()
+    {
+        var writer = new draw2d.io.json.Writer();
+        writer.marshal(this.view, function (json) {
+            console.log(JSON.stringify(json, undefined,2));
+        });
+    },
 
     setDefaultRouterClassName: function(defaultRouterClassName){
 	    defaultRouterClassName=  defaultRouterClassName;

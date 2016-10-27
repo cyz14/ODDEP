@@ -7,21 +7,21 @@
 // ToDo: 支持导线的颜色选择
 tot.Toolbar = Class.extend({
     init: function (elementId, app, view) {
-        $( "#radio" ).buttonset();
+        // $( "#radio" ).buttonset();
         this.view = view;
         
-        $('#radio>input').click(function() {
+        // $('#radio>input').click(function() {
 
-            var defaultRouterClassName =$(this).data("router");
-            app.setDefaultRouterClassName(defaultRouterClassName);
-            var router = eval("new "+defaultRouterClassName+"()");
+        //     var defaultRouterClassName =$(this).data("router");
+        //     app.setDefaultRouterClassName(defaultRouterClassName);
+        //     var router = eval("new "+defaultRouterClassName+"()");
           
-            view.getLines().each(function(i,line){
-                line.setRouter(router);
-            });
-        });
+        //     view.getLines().each(function(i,line){
+        //         line.setRouter(router);
+        //     });
+        // });
     },
 
-    
+
 	
 });
