@@ -14,6 +14,7 @@ $(function() {
         }
         if (hash === '#visual') {
             $('body').css('overflow', 'scroll');
+            $('nav').focus();
         } else if (hash === '#vhdl') {
             $('body').css('overflow', 'auto');
         }

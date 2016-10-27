@@ -130,12 +130,14 @@ tot.View = draw2d.Canvas.extend({
      * @param {Number} y the y coordinate relative to the window
      *
      * @returns {draw2d.geo.Point} The coordinate in relation to the canvas [0,0] position
+     * 
+     * !! 修改，部件有滑动，x加上垂直滑动
      */
     fromDocumentToCanvasCoordinate: function(x, y)
     {
         return new draw2d.geo.Point(
             (x - this.getAbsoluteX())*this.zoomFactor,
-            (y - this.getAbsoluteY())*this.zoomFactor);
+            (y - this.getAbsoluteY() + $('body').scrollTop())*this.zoomFactor);
     },
 
     /**
@@ -146,12 +148,14 @@ tot.View = draw2d.Canvas.extend({
      * @param {Number} y the y coordinate in the canvas
      *
      * @returns {draw2d.geo.Point} the coordinate in relation to the document [0,0] position
+     * 
+     * !! 修改，部件有滑动
      */
     fromCanvasToDocumentCoordinate: function(x,y)
     {
         return new draw2d.geo.Point(
             ((x*(1/this.zoomFactor)) + this.getAbsoluteX()),
-            ((y*(1/this.zoomFactor)) + this.getAbsoluteY()));
+            ((y*(1/this.zoomFactor)) + this.getAbsoluteY() - $('body').scrollTop()));
     }
 
 });

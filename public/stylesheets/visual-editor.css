@@ -4,7 +4,8 @@ body{
   color:#6b6b6b;
   margin: 0;
   padding: 0;
-  overflow:hidden;
+  overflow:scroll;
+  width: 100%;
 }
 
 input{
@@ -53,9 +54,9 @@ input{
 #toolbar{
   position: absolute;
   left: 140px;
+  right: 0px;
   padding:5px;
   margin:0px;
-  width: 100%;
   height:50px;
   background: #cecece; /* Old browsers */
   background: -moz-linear-gradient(top,  #cecece 0%, #a8a8a8 100%); /* FF3.6+ */
