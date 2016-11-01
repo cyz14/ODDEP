@@ -5,18 +5,7 @@ var scrollAreaId = "#canvas";
 var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
 
 tot.View = draw2d.Canvas.extend({
-    
-	// createConnection: function(){
 
-	//     var conn = new draw2d.Connection();
-	//     conn.setRouter(defaultRouter);
-	//     conn.setOutlineStroke(1);
-	//     conn.setOutlineColor("#303030");
-	//     conn.setStroke(3);
-	//     conn.setRadius(5);
-	//     conn.setColor('#00A8F0');
-	//     return conn;
-	// },
 	/**
 	 * @constructor
 	 */
@@ -28,10 +17,6 @@ tot.View = draw2d.Canvas.extend({
 
         // add commandStack support
         this.getCommandStack().addEventListener(this);
-
-        // this.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
-        //     createConnection: this.createConnection
-        //   }));
 
         var router = new ConnectionRouter();
         router.abortRoutingOnFirstVertexNode=false;
