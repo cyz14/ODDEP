@@ -7,6 +7,7 @@ router.get('/logout', function(req, res, next) {
     req.session.user = null;
     req.session.password = null;
     req.session.nickname = null;
+    req.session.power = null;
     res.redirect('/');
 });
 
