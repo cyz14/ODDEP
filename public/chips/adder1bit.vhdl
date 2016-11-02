@@ -1,3 +1,6 @@
+library ieee;
+use ieee.std_logic_1164.all; 
+
 ENTITY adder1bit  IS 
 	PORT (
 		A: IN STD_LOGIC;

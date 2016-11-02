@@ -1,7 +1,3 @@
-// var fs=require("fs");
-// var file='/chips/json/1bit_adder.json';
-//var result=fs.readFileSync(file);
-// var result=JSON.parse(fs.readFileSync(file));
 /*       以下为转VHDL的测试输入       */
 var chipInfos = [
     { "id": "74LS00",   "description": "四-二输入与非门",       
@@ -151,8 +147,7 @@ var List={
     // List=adder_1bit;
     // List=addPin();
     // var signalList=signalListMake();
-
-
+    
     //添加entity中port部分
     function entityPort(string){
         var flagIn=0;
