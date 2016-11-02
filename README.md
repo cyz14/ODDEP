@@ -53,6 +53,33 @@ sqlite> .exit
 | Tian Yu      |tianyu.bruce@gmail.com
 | Ning Minxing |1554948687@qq.com
 
+## ToDo 
+
+### Week 8 ToDo
+* 田雨
+    1. SideBarScroll
+    2. 芯片标注
+    
+* 陈明豪
+    1. 波形显示彩色
+
+* 陈雅正
+    1. 流程测试
+    2. 编辑界面，file tree
+
+* 李成杰
+    - 题目类型：
+        1. tab 可视化电路编辑 -> tab 编辑激励文件（1000 没有激励文件， 1001 没有激励文件）
+        2. tab VHDL代码题目  -> tab 编辑激励文件（如果题目有默认激励文件则跳过该步）
+    - 编辑界面layout
+    
+### Future ToDo
+1. ModelSim 模块化
+    a. 请求(文件，激励）
+    b. 结果返回
+
+2. 激励信号可视化编辑
+
 ## References
 ### Nodejs Express etc.
 [setting-up-express-with-nginx-and-pm2/](http://blog.danyll.com/setting-up-express-with-nginx-and-pm2/)
