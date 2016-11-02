@@ -148,9 +148,9 @@ var List={
     {"type": "draw2d.Connection","id":"line25","source":{"node":"74LS27_1","port":"port2"},"target":{"node":"74LS27_1","port":"port7"}}
     ]
 };
-    List=adder_1bit;
-    List=addPin();
-    var signalList=signalListMake();
+    // List=adder_1bit;
+    // List=addPin();
+    // var signalList=signalListMake();
 
 
     //添加entity中port部分
@@ -197,7 +197,7 @@ var List={
     }
 
     //添加component部分
-    function archComp(string){
+    function architectureComponents(string){
         var comp={};
         var len=0;
         for(var i=0;i<List.components.length;i++){
@@ -232,7 +232,7 @@ var List={
     }
 
     //添加需要的signal
-    function archSignal(string){
+    function architectureSignals(string){
         var num=0;
         for(var i=0;i<signalList.length;i++){
             if(signalList[i].signalid>num){
@@ -424,20 +424,73 @@ var List={
         return List;
     }
     
-    function toVHDL(){
+    function toVHDL(list){
+        List = list;
+        List = addPin();
+        var signalList=signalListMake();
         var lib="library IEEE;\nUSE IEEE.STD_LOGIC_1164.ALL;\nUSE IEEE.STD_LOGIC_ARITH.ALL;\nUSE IEEE.STD_LOGIC_UNSIGNED.ALL;\n\n";
         var entity="entity main is\n";
         entity=entityPort(entity);
         entity=entity+"end entity;\n\n";
         var arch="architecture eo_digital of main is\n";
-        arch=archComp(arch);
-        arch=archSignal(arch);
+        arch=architectureComponents(arch);
+        arch=architectureSignals(arch);
         arch=arch+"begin\n";
         arch=archBegin(arch);
         arch=arch+"end eo_digital;";
         var s=lib+entity+arch;
         return s;
     }
+
+function logCanvas(canvas){
+    var writer = new draw2d.io.json.Writer();
+    writer.marshal(canvas, function(json){
+        console.log(JSON.stringify(json,null,2));
+    });
+}
+
+function simplifyJSON(circuit) {
+    var newCircuit = {};
+    var components = [];
+    var connections = [];
+    $.each(circuit, function(n, value) {
+    if (value.type === "draw2d.Connection") {
+        var v = {};
+        v.type = value.type;
+        v.id = value.id;
+        v.source = value.source;
+        v.target = value.target;
+        console.log(v);
+        connections.push(v);
+    } else {
+        if (value.type === "draw2d_circuit_switch_HighLow") {
+        var v = {};
+        v.type = value.type;
+        v.id = value.id;
+        components.push(v);
+        console.log(v);
+        } else if (value.type === "draw2d_circuit_display_Led") {
+        var v = {};
+        v.type = value.type;
+        v.id = value.id;
+        components.push(v);
+        console.log(v);
+        } else if (value.type.startsWith("C74LS")) { // === "C74LS00"
+        var v = {};
+        v.type = "chips."+value.type;
+        v.id = value.id;
+        console.log(v);
+        components.push(v);
+        } else {
+        console.log(value.type+" is not in circuit.");
+        }
+    }
+    });
+
+    newCircuit.components = components;
+    newCircuit.connections = connections;
+    return newCircuit;
+}
 
 //-----------------------------------------------------------------------------
 // 说明：

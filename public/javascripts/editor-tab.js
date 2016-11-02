@@ -30,17 +30,15 @@ $(function() {
             if (screen.availWidth > 700) {
                 document.getElementById("vhdlACE").style.width = Math.floor(screen.availWidth * 0.8);
             }
-
-            var s=toVHDL();
-            vhdlEditor.setValue(s);
-            vhdlEditor.clearSelection();
+            
+            var writer = new draw2d.io.json.Writer();
+            var result = null;
+            writer.marshal(app.view, function(json) {
+                var s = toVHDL(simplifyJSON(json));
+                vhdlEditor.setValue(s);
+                vhdlEditor.clearSelection();
+            });
+            
         }
-        // if (currentTag === "#visual") {
-        //     $('nav').hide();
-        // } else {
-        //     $('nav').show();
-        // }
     });
-
-    // $('nav').hide();
 });

@@ -152,7 +152,7 @@ var adder_1bit = {
 				"port": "port3"
 			},
 			"target": {
-				"node": "c74ls04s",
+				"node": "c74ls04",
 				"port": "port1"
 			}
 		},
