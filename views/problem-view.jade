@@ -12,9 +12,12 @@ block content
     div.panel.panel-danger
       div.panel-heading Limit
       div.panel-body
-        - each val, key in limits
-          p #{key}
-            span.badge #{val}
+        - if (limits[0])
+          h3: span.label.label-primary VHDL代码题
+        - else
+          - each val, key in limits
+            p #{key}
+              span.badge #{val}
     div.panel.panel-info
       div.panel-heading Source
       div.panel-body= problem.source

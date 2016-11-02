@@ -9,6 +9,7 @@ $(function() {
     });
 
     var plain = false;
+    var codep = false;
 
     $('input[type="radio"][value="html"]').click(function() {
         editor.getSession().setMode('ace/mode/html');
@@ -19,16 +20,33 @@ $(function() {
         plain = true;
     });
 
+    $('#typeVisual').click(function() {
+        $('#form4visual').show();
+        codep = false;
+    });
+    $('#typeCode').click(function() {
+        $('#form4visual').hide();
+        codep = true;
+    });
+
     var limit = {};
     $('input[data-type="limit"]').on('pickle-limits', function() {
-        limit[$(this).attr('name')] = $(this).val();
+        limit[$(this).attr('name')] = parseInt($(this).val()) || 99;
     });
     $('input[data-type="limit"]').change(function() {
         $(this).trigger('pickle-limits');
     });
 
+    if ($('#typeCode').attr('checked')) {
+        $('#form4visual').hide();
+    }
+
     $('#submitbtn').click(function() {
-        $('input[data-type="limit"]').trigger('pickle-limits');
+        if (codep) {
+            limit = ["code"];
+        } else {
+            $('input[data-type="limit"]').trigger('pickle-limits');
+        }
         $(this).attr('disabled', true);
         $(this).removeClass('btn-danger');
         $(this).addClass('btn-success');

@@ -27,15 +27,25 @@ block content
     div.panel.panel-danger
       div.panel-heading 限制
       div.panel-body
-        form.form-horizontal
-          //- var limits = {}
-          //- if data.limited && data.limited !== ''
-            //- limits = JSON.parse(data.limited)
+        div
+          label.radio-inline
+            - if (limits[0])
+              input#typeVisual(type="radio", name="editType", value="图形化编辑")
+            - else
+              input#typeVisual(type="radio", name="editType", value="图形化编辑", checked)
+            |图形化类型
+          label.radio-inline
+            - if (limits[0])
+              input#typeCode(type="radio", name="editType", value="代码编辑", checked)
+            - else 
+              input#typeCode(type="radio", name="editType", value="代码编辑")
+            |代码类型
+        form#form4visual.form-horizontal
           each name in limitNames
             div.form-group
               label.col-sm-2.control-label(for="limit#{name}") #{name}：
               div.col-sm-6
-                input.form-control(id="limit#{name}", type="text", placeholder="默认99", name="#{name}", data-type="limit", value="#{limits[name]||''}")
+                input.form-control(id="limit#{name}", type="number", placeholder="默认99", name="#{name}", data-type="limit", value="#{limits[name]||''}")
     div.panel.panel-primary
       div.panel-heading 描述
       div.panel-body
