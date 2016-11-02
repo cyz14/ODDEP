@@ -26,6 +26,7 @@ body(role="document")
           include includes/canvas
         include includes/wave-editor
   btn.submit-btn.btn.btn-lg.btn-danger 提交
+  include includes/modal-vhdl
 
 block addscript
   script(src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
@@ -35,11 +36,12 @@ block addscript
   script(src="/javascripts/layout-jump-prob.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
-  script(src="/javascripts/editor-ace-config.js")
-  script(src="/javascripts/editor-tab.js")
   script(src="/javascripts/editor-draw.js")
   script(src="/chips/json/1bit_adder.json")
   script(src="/javascripts/editor-toVHDL.js")
+  script(src="/javascripts/editor-draw-submit.js")
+  script(src="/javascripts/editor-draw-tab.js")
+  script(src="/javascripts/editor-submit.js")
 
   //- draw2d Classes for the GUI editor application
   script(src="/javascripts/draw2d/Application.js")
