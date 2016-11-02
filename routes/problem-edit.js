@@ -11,12 +11,16 @@ router.all('*', function(req, res, next) {
     }
 });
 
+var limitNames = ['74LS00', '74LS04'];
+
 router.get('/:pid', function(req, res, next) {
     var pid = req.params.pid;
     if (pid === 'new') {
         res.render('problem-edit', {
             title : '编辑' + pid,
             pid : pid,
+            limits : {},
+            limitNames : limitNames,
             data : {
                 title : '新建'
             }
@@ -28,8 +32,10 @@ router.get('/:pid', function(req, res, next) {
             if (err) throw err;
             if (!row) throw { message: 'cannot find pid'};
             res.render('problem-edit', {
+                limits : JSON.parse(row.limited),
                 title : '编辑' + pid,
                 pid : pid,
+                limitNames : limitNames,
                 data : row
             });
         })).then(dbtop.db_close(db))
@@ -44,10 +50,11 @@ router.get('/:pid', function(req, res, next) {
 router.post('/:pid', function(req, res, next) {
     var title = req.body.title;
     var source = req.body.source;
-    var limited = req.body.limited || 'none';
+    var limited = req.body.limits || '{}';
     var description = req.body.description;
     var pid = req.params.pid;
     var db = dbtop.db();
+    console.log('limit:', limited);
     if (pid === 'new') {
         tp.promisify.call(db, 'run', 'insert into problem (title,source,limited,description) values (?, ?, ?, ?)', title, source, limited, description)
         .then(function(err) {

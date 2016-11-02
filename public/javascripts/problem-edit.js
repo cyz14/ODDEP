@@ -19,7 +19,16 @@ $(function() {
         plain = true;
     });
 
+    var limit = {};
+    $('input[data-type="limit"]').on('pickle-limits', function() {
+        limit[$(this).attr('name')] = $(this).val();
+    });
+    $('input[data-type="limit"]').change(function() {
+        $(this).trigger('pickle-limits');
+    });
+
     $('#submitbtn').click(function() {
+        $('input[data-type="limit"]').trigger('pickle-limits');
         $(this).attr('disabled', true);
         $(this).removeClass('btn-danger');
         $(this).addClass('btn-success');
@@ -31,11 +40,16 @@ $(function() {
         $.post(location.href, {
             title: $('#titleInput').val(),
             source: $('#sourceInput').val(),
+            limits: JSON.stringify(limit),
             description: text
         }, function(data, status) {
             console.log(status);
             if (status === 'success') {
-                location.href = location.href.replace('edit/', '');
+                if (location.href.match(/new/)) {
+                    location.href = location.href.replace('edit/new', '');
+                } else {
+                    location.href = location.href.replace('edit/', '');
+                }
             } else {
                 alert(status);
             }

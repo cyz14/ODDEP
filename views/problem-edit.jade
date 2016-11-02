@@ -23,11 +23,19 @@ block content
       input#titleInput(type='text', value="#{data.title}")
     div.well.well-sm
       label: span Source：
-      input#sourceInput(type='text', value="#{data.source}")
+      input#sourceInput(type='text', value="#{data.source||''}")
     div.panel.panel-danger
       div.panel-heading 限制
       div.panel-body
-        span TODO
+        form.form-horizontal
+          //- var limits = {}
+          //- if data.limited && data.limited !== ''
+            //- limits = JSON.parse(data.limited)
+          each name in limitNames
+            div.form-group
+              label.col-sm-2.control-label(for="limit#{name}") #{name}：
+              div.col-sm-6
+                input.form-control(id="limit#{name}", type="text", placeholder="默认99", name="#{name}", data-type="limit", value="#{limits[name]||''}")
     div.panel.panel-primary
       div.panel-heading 描述
       div.panel-body

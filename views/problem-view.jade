@@ -9,6 +9,12 @@ block content
     div.panel.panel-primary
       div.panel-heading Description
       div.panel-body!= problem.description
+    div.panel.panel-danger
+      div.panel-heading Limit
+      div.panel-body
+        - each val, key in limits
+          p #{key}
+            span.badge #{val}
     div.panel.panel-info
       div.panel-heading Source
       div.panel-body= problem.source
