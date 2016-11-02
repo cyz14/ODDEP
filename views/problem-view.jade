@@ -21,3 +21,5 @@ block content
     div.panel.panel-info
       div.panel-heading Source
       div.panel-body= problem.source
+  a(href="/editor/#{limits[0] && 'code' || 'visual'}/#{problem.pid}")
+    button.btn.btn-lg.btn-danger.submit-btn Go!

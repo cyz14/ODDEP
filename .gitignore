@@ -32,5 +32,5 @@ npm-debug.log
 !/public/tmp/motivate/test.vhd
 !/public/tmp/motivate/test1.vhd
 !/public/tmp/motivate/test2.vhd
-!/public/tmp/log/test.log
-!/public/tmp/vcd/test.vcd
+!/public/tmp/log/__init__
+!/public/tmp/vcd/__init__
