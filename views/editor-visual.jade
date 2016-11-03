@@ -38,6 +38,7 @@ block addscript
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
   script(src="/javascripts/editor-draw.js")
   script(src="/chips/json/1bit_adder.json")
+  script(src="/chips/json/circuit_adder_1bit.js")
   script(src="/javascripts/editor-toVHDL.js")
   script(src="/javascripts/editor-draw-submit.js")
   script(src="/javascripts/editor-draw-tab.js")
@@ -54,10 +55,11 @@ block addscript
   script(src="/javascripts/draw2d/circuit/test.circuit")
 
   script.
+    var app;
     var showJSON = false;
     $(window).load( function(){
-      var app = new tot.Application();
-      //- app.load(testCircuit);
+      app = new tot.Application();
+      app.load(circuit_adder_1bit);
       if (showJSON === true) {
         // displayJSON(app.view);
 
