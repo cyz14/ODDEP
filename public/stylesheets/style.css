@@ -13,3 +13,9 @@
     height: 610px;
     max-width: 100%;
 }
+
+.submit-btn {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+}

@@ -18,7 +18,8 @@ router.get('/:pid', function(req, res, next) {
         } else {
             res.render('problem-view', { 
                 title: row.title,
-                problem : row
+                problem : row,
+                limits : JSON.parse(row.limited)
             });
         }
     });

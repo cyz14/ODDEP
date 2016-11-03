@@ -9,7 +9,7 @@ router.post('/', function(req, res, next) {
 	// 数据库注册提交记录
 	var token = req.body.token;
 	var uid = req.session.uid;
-	var pid = req.body.prob;
+	var pid = req.body.pid;
 	var tag = req.body.tag;
 	console.log('submit:', {
 		token: token,
@@ -49,7 +49,7 @@ router.post('/', function(req, res, next) {
 		}).catch(function(err) {
 			console.error(err);
 		}).then(function() {
-			res.redirect('/status');
+			res.send('ok');
 		});
 	});
 });

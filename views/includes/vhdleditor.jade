@@ -1,38 +1,5 @@
-div 
-  div.well.well-sm(style="margin: 10px 0px;")
-    form.form-inline(role="form")
-      div.form-group(style="margin-right:10px;")
-        label(for="probid") 题目id：
-        input#probid.form-control(type="text", value="1000")
-      div.form-group(style="margin-right:10px;")
-        label(for="tagname") 标签：
-        input#tagname.form-control(type="text", value="新建")
-  div.row
-    div.panel.panel-default.col-md-6(style="padding: 5px")
-      div.panel-heading
-        h3.panel-title VHDL代码
-      div#vhdlACE.panel-body
-    div.panel.panel-primary.col-md-6(style="padding: 5px")
-      div.panel-heading 激励文件(testbench) - 上传文件优先(.vhd)
-      div.panel-body
-        form#bigbus.form-horizontal(role="form", enctype="multipart/form-data", method="post", action='/upload')
-          div.form-group
-            label.control-label.col-sm-2 上传文件
-            div.col-sm-10
-              input#motUpl.file.form-control(type="file", data-show-upload="false", name="motivate")
-        form.form-horizontal(role="form")
-          div.form-group
-            label.control-label.col-sm-2 输入文本
-            div.col-sm-10
-              textarea#stimCode.form-control(rows="25")
-    button#codeSubmit.btn.btn-warning.btn-lg.center-block 提交
-    form#car.hidden(name="car", method="post", action="/submit")
-      input#banana(name="code", type="text")
-      input#kevin(name="stim", type="text")
-      input#mike(name="token", type="text")
-      input#prob(name="prob", type="text")
-      input#tagn(name="tag", type="text")
-    div.container
-      p
-    div.container
-      p
+div#code.tab-pane.in.active
+  div.panel.panel-default(style="padding: 5px")
+    div.panel-heading
+      h3.panel-title VHDL代码编辑
+    div#vhdlACE.panel-body

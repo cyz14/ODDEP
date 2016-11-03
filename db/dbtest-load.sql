@@ -39,5 +39,5 @@ insert into submission (token, uid, status) values ('lk039ax39e3lerk9:1476348300
 insert into submission (token, uid, status, tag) values ('lk039ax39e3lerk9:1476348300969', 1, 'in queue', '三五瓶');
 */
 insert into user (name, nickname, password, salt) values ('test', '三K党', '3e0db4e14891e342187f929436c92dd0', 'nnsz0voyq6hto6r:1477465926089');
-INSERT INTO "problem" (title, source, limited, description) VALUES ("A+B problem", "测试", "", '<h2>Norwegian Mountain Trip</h2><img border="0" src="http://www.runoob.com/images/pulpit.jpg" alt="Pulpit rock" width="304" height="228">');
+INSERT INTO "problem" (title, source, limited, description) VALUES ("A+B problem", "测试", '["code"]', '<h2>Norwegian Mountain Trip</h2><img border="0" src="http://www.runoob.com/images/pulpit.jpg" alt="Pulpit rock" width="304" height="228">');
 COMMIT;
