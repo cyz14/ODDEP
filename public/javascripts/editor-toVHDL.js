@@ -146,7 +146,7 @@ var List={
 };
     // List=adder_1bit;
     // List=addPin();
-    // var signalList=signalListMake();
+    var signalList;//=signalListMake();
     
     //添加entity中port部分
     function entityPort(string){
@@ -422,7 +422,7 @@ var List={
     function toVHDL(list){
         List = list;
         List = addPin();
-        var signalList=signalListMake();
+        signalList=signalListMake();
         var lib="library IEEE;\nUSE IEEE.STD_LOGIC_1164.ALL;\nUSE IEEE.STD_LOGIC_ARITH.ALL;\nUSE IEEE.STD_LOGIC_UNSIGNED.ALL;\n\n";
         var entity="entity main is\n";
         entity=entityPort(entity);
@@ -449,37 +449,37 @@ function simplifyJSON(circuit) {
     var components = [];
     var connections = [];
     $.each(circuit, function(n, value) {
-    if (value.type === "draw2d.Connection") {
-        var v = {};
-        v.type = value.type;
-        v.id = value.id;
-        v.source = value.source;
-        v.target = value.target;
-        console.log(v);
-        connections.push(v);
-    } else {
-        if (value.type === "draw2d_circuit_switch_HighLow") {
-        var v = {};
-        v.type = value.type;
-        v.id = value.id;
-        components.push(v);
-        console.log(v);
-        } else if (value.type === "draw2d_circuit_display_Led") {
-        var v = {};
-        v.type = value.type;
-        v.id = value.id;
-        components.push(v);
-        console.log(v);
-        } else if (value.type.startsWith("C74LS")) { // === "C74LS00"
-        var v = {};
-        v.type = "chips."+value.type;
-        v.id = value.id;
-        console.log(v);
-        components.push(v);
+        if (value.type === "Connection") {
+            var v = {};
+            v.type = "draw2d.Connection";
+            v.id = value.id;
+            v.source = value.source;
+            v.target = value.target;
+            console.log(v);
+            connections.push(v);
         } else {
-        console.log(value.type+" is not in circuit.");
+            if (value.type === "draw2d_circuit_switch_HighLow") {
+            var v = {};
+            v.type = value.type;
+            v.id = value.id;
+            components.push(v);
+            console.log(v);
+            } else if (value.type === "draw2d_circuit_display_Led") {
+            var v = {};
+            v.type = value.type;
+            v.id = value.id;
+            components.push(v);
+            console.log(v);
+            } else if (value.type.startsWith("C74LS")) { // === "C74LS00"
+            var v = {};
+            v.type = "chips."+value.type;
+            v.id = value.id;
+            console.log(v);
+            components.push(v);
+            } else {
+            console.log(value.type+" is not in circuit.");
+            }
         }
-    }
     });
 
     newCircuit.components = components;

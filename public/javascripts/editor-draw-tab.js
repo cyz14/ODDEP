@@ -1,11 +1,14 @@
 $(function() {
     $('body').css('min-height', '0px');
     $('#jumpToVHDL').click(function() {
-        var code = toVHDL();
-        console.log(code);
-        $('#vhdlPreview').text(code);
-        $('#modalVHDL').modal({
-            keyboard: true
-        })
+        var writer = new draw2d.io.json.Writer();
+        writer.marshal(app.view, function(json){
+            var code = toVHDL(simplifyJSON(json));
+            console.log(code);
+            $('#vhdlPreview').text(code);
+            $('#modalVHDL').modal({
+                keyboard: true
+            });
+        });
     });
 });

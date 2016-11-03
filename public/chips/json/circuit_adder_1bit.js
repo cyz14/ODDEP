@@ -38,8 +38,8 @@ var circuit_adder_1bit = [
   {
     "type": "C74LS86",
     "id": "3c25d226-dfcc-7f54-1758-b7c9f8e77e92",
-    "x": 247,
-    "y": 36,
+    "x": 264,
+    "y": 38,
     "width": 184,
     "height": 70,
     "alpha": 1,
@@ -127,7 +127,7 @@ var circuit_adder_1bit = [
   },
   {
     "type": "Connection",
-    "id": "64500ba6-ed3d-71aa-91d0-de568af90532",
+    "id": "ef4a8c8a-50a1-48fc-9c1e-852a521045c2",
     "alpha": 1,
     "angle": 0,
     "userData": {},
@@ -139,89 +139,42 @@ var circuit_adder_1bit = [
     "policy": "ConnectionSelectionFeedbackPolicy",
     "vertex": [
       {
-        "x": 128.5,
-        "y": 192.5
-      },
-      {
-        "x": 325,
-        "y": 192.5
-      },
-      {
-        "x": 325,
+        "x": 348,
         "y": 204
+      },
+      {
+        "x": 348,
+        "y": 184
+      },
+      {
+        "x": 568.5,
+        "y": 184
+      },
+      {
+        "x": 568.5,
+        "y": 277
       }
     ],
     "router": "ConnectionRouter",
     "radius": 2,
     "routingMetaData": {
       "routedByUserInteraction": false,
-      "fromDir": 1,
+      "fromDir": 0,
       "toDir": 0
     },
     "source": {
-      "node": "bd35fc8c-eb03-3cce-9268-00b63fa8dce7",
-      "port": "Port"
-    },
-    "target": {
       "node": "86320dc9-b189-64be-f031-5e54bb69dae4",
-      "port": "12"
-    },
-    "labels": []
-  },
-  {
-    "type": "Connection",
-    "id": "6ed0a05d-def4-29ea-b168-fe1b1a1cebfb",
-    "alpha": 1,
-    "angle": 0,
-    "userData": {},
-    "cssClass": "Connection",
-    "stroke": 1.5,
-    "color": "#000000",
-    "outlineStroke": 0,
-    "outlineColor": "none",
-    "policy": "ConnectionSelectionFeedbackPolicy",
-    "vertex": [
-      {
-        "x": 128.5,
-        "y": 192.5
-      },
-      {
-        "x": 224.75,
-        "y": 192.5
-      },
-      {
-        "x": 224.75,
-        "y": 17
-      },
-      {
-        "x": 321,
-        "y": 17
-      },
-      {
-        "x": 321,
-        "y": 37
-      }
-    ],
-    "router": "ConnectionRouter",
-    "radius": 2,
-    "routingMetaData": {
-      "routedByUserInteraction": false,
-      "fromDir": 1,
-      "toDir": 0
-    },
-    "source": {
-      "node": "bd35fc8c-eb03-3cce-9268-00b63fa8dce7",
-      "port": "Port"
+      "port": "port11"
     },
     "target": {
-      "node": "3c25d226-dfcc-7f54-1758-b7c9f8e77e92",
-      "port": "12"
+      "node": "3c5785b2-bde4-5072-9bc3-841ebe1ebb86",
+      "port": "port13"
     },
     "labels": []
   },
   {
     "type": "Connection",
-    "id": "793d116b-720f-23cc-8c9d-12adb4709419",
+    "id": "d7db3605-a434-0426-ae46-c8e14b171699",
     "alpha": 1,
     "angle": 0,
     "userData": {},
@@ -258,13 +211,13 @@ var circuit_adder_1bit = [
     },
     "target": {
       "node": "86320dc9-b189-64be-f031-5e54bb69dae4",
-      "port": "13"
+      "port": "port13"
     },
     "labels": []
   },
   {
     "type": "Connection",
-    "id": "e3fd0566-32e5-93d8-134d-45d254a31748",
+    "id": "a8347e68-b10b-f70a-0b33-63b349f2d812",
     "alpha": 1,
     "angle": 0,
     "userData": {},
@@ -280,26 +233,26 @@ var circuit_adder_1bit = [
         "y": 125.5
       },
       {
-        "x": 214.25,
+        "x": 221.75,
         "y": 125.5
       },
       {
-        "x": 214.25,
-        "y": 9
+        "x": 221.75,
+        "y": 19
       },
       {
-        "x": 298,
-        "y": 9
+        "x": 315,
+        "y": 19
       },
       {
-        "x": 298,
-        "y": 37
+        "x": 315,
+        "y": 39
       }
     ],
     "router": "ConnectionRouter",
     "radius": 2,
     "routingMetaData": {
-      "routedByUserInteraction": true,
+      "routedByUserInteraction": false,
       "fromDir": 1,
       "toDir": 0
     },
@@ -309,13 +262,13 @@ var circuit_adder_1bit = [
     },
     "target": {
       "node": "3c25d226-dfcc-7f54-1758-b7c9f8e77e92",
-      "port": "13"
+      "port": "port13"
     },
     "labels": []
   },
   {
     "type": "Connection",
-    "id": "d34d7578-a921-1cfe-537b-d87cb84284b3",
+    "id": "e2771b27-40f2-babc-7faa-e6d66389cd77",
     "alpha": 1,
     "angle": 0,
     "userData": {},
@@ -327,19 +280,19 @@ var circuit_adder_1bit = [
     "policy": "ConnectionSelectionFeedbackPolicy",
     "vertex": [
       {
-        "x": 344,
-        "y": 37
+        "x": 361,
+        "y": 39
       },
       {
-        "x": 344,
-        "y": 17
+        "x": 361,
+        "y": 19
       },
       {
-        "x": 564.5,
-        "y": 17
+        "x": 573,
+        "y": 19
       },
       {
-        "x": 564.5,
+        "x": 573,
         "y": 73.5
       },
       {
@@ -356,7 +309,7 @@ var circuit_adder_1bit = [
     },
     "source": {
       "node": "3c25d226-dfcc-7f54-1758-b7c9f8e77e92",
-      "port": "11"
+      "port": "port11"
     },
     "target": {
       "node": "84a1329b-06d6-3faf-83e2-38f5a1d705f8",
@@ -366,7 +319,7 @@ var circuit_adder_1bit = [
   },
   {
     "type": "Connection",
-    "id": "5e80dc65-e983-892d-9e18-914d3fa22b13",
+    "id": "5424bd93-b1b9-3d07-42eb-b3b92ebb77d4",
     "alpha": 1,
     "angle": 0,
     "userData": {},
@@ -378,42 +331,89 @@ var circuit_adder_1bit = [
     "policy": "ConnectionSelectionFeedbackPolicy",
     "vertex": [
       {
-        "x": 348,
-        "y": 204
+        "x": 128.5,
+        "y": 192.5
       },
       {
-        "x": 348,
-        "y": 184
+        "x": 233.25,
+        "y": 192.5
       },
       {
-        "x": 568.5,
-        "y": 184
+        "x": 233.25,
+        "y": 19
       },
       {
-        "x": 568.5,
-        "y": 277
+        "x": 338,
+        "y": 19
+      },
+      {
+        "x": 338,
+        "y": 39
       }
     ],
     "router": "ConnectionRouter",
     "radius": 2,
     "routingMetaData": {
       "routedByUserInteraction": false,
-      "fromDir": 0,
+      "fromDir": 1,
       "toDir": 0
     },
     "source": {
-      "node": "86320dc9-b189-64be-f031-5e54bb69dae4",
-      "port": "11"
+      "node": "bd35fc8c-eb03-3cce-9268-00b63fa8dce7",
+      "port": "Port"
     },
     "target": {
-      "node": "3c5785b2-bde4-5072-9bc3-841ebe1ebb86",
-      "port": "Port"
+      "node": "3c25d226-dfcc-7f54-1758-b7c9f8e77e92",
+      "port": "port12"
     },
     "labels": []
   },
   {
     "type": "Connection",
-    "id": "17cd4aa9-bca0-7241-db64-b020b2aa73ee",
+    "id": "48c0ff63-2472-d458-91c5-2022017f8131",
+    "alpha": 1,
+    "angle": 0,
+    "userData": {},
+    "cssClass": "Connection",
+    "stroke": 1.5,
+    "color": "#000000",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "policy": "ConnectionSelectionFeedbackPolicy",
+    "vertex": [
+      {
+        "x": 128.5,
+        "y": 192.5
+      },
+      {
+        "x": 325,
+        "y": 192.5
+      },
+      {
+        "x": 325,
+        "y": 204
+      }
+    ],
+    "router": "ConnectionRouter",
+    "radius": 2,
+    "routingMetaData": {
+      "routedByUserInteraction": false,
+      "fromDir": 1,
+      "toDir": 0
+    },
+    "source": {
+      "node": "bd35fc8c-eb03-3cce-9268-00b63fa8dce7",
+      "port": "Port"
+    },
+    "target": {
+      "node": "86320dc9-b189-64be-f031-5e54bb69dae4",
+      "port": "port12"
+    },
+    "labels": []
+  },
+  {
+    "type": "Connection",
+    "id": "4ccbb8de-169e-67e4-549e-6a166377d988",
     "alpha": 1,
     "angle": 0,
     "userData": {},
@@ -446,7 +446,7 @@ var circuit_adder_1bit = [
     },
     "source": {
       "node": "3c5785b2-bde4-5072-9bc3-841ebe1ebb86",
-      "port": "Port"
+      "port": "port12"
     },
     "target": {
       "node": "5cf5a8f0-c001-92d6-6b8b-c21720bd5cdd",
