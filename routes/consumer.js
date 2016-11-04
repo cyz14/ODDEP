@@ -5,6 +5,11 @@ var tp = require('../tiny-promise');
 var fs = require('fs');
 var lemon = require('../sim/lemon');
 
+function isSandBox(pid)
+{
+	return pid < 1002;
+}
+
 router.post('/', function(req, res, next) {
 	// 数据库注册提交记录
 	var token = req.body.token;
@@ -29,7 +34,7 @@ router.post('/', function(req, res, next) {
 		tp.promisify.call(fs, fs.writeFile, codePath, code)
 		.then(function(err) {
 			if (err) throw err;
-			if (stim === '#&!upload>') {
+			if (stim === '#&!upload>' || !isSandBox(pid)) {
 				return null;
 			} else {
 				return tp.promisify.call(fs, fs.writeFile, stimPath, stim);
