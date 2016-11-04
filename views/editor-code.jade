@@ -1,11 +1,19 @@
 extends layout
 
 block content
-  ul#editorTab.nav.nav-pills(style="padding-left:5px;")
-    li.active: a(href="#code", data-toggle="tab") VHDL编辑&nbsp;
-        span.glyphicon.glyphicon-forward
-    li: a(href="#motivate", data-toggle="tab") 激励&nbsp;
-        span.glyphicon.glyphicon-forward
+  div.row
+    div.col-sm-4
+      ul#editorTab.nav.nav-pills(style="padding-left:5px;")
+        li.active: a(href="#code", data-toggle="tab") VHDL编辑&nbsp;
+          span.glyphicon.glyphicon-forward
+        - if (motivate)
+          li: a(href="#motivate", data-toggle="tab") 激励&nbsp;
+            span.glyphicon.glyphicon-forward
+    div.col-sm-4
+      form.form-inline(role="form")
+        div.form-group(style="margin-right:10px;")
+          label(for="tagname") 标签：
+          input#tagname.form-control(type="text", value="新建")
   div.tab-content
     include includes/vhdleditor
     include includes/wave-editor

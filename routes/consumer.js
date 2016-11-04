@@ -24,7 +24,6 @@ router.post('/', function(req, res, next) {
 		}
 		var code = req.body.code.replace(/<br>/g, '\n');
 		var stim = req.body.stim.replace(/<br>/g, '\n');
-		// 将提交加入队列 TODO
 		var codePath = './public/tmp/code/' + token + '.vhd';
 		var stimPath = './public/tmp/motivate/' + token + '.vhd';
 		tp.promisify.call(fs, fs.writeFile, codePath, code)
@@ -38,12 +37,16 @@ router.post('/', function(req, res, next) {
 		}).then(function(err) {
 			if (err) throw err;
 			else {
+				var opt = {
+					pid : pid,
+					check : (pid > 1001) // 规定：除了前两道沙盒题，都需要自带激励
+				};
 				if (stim === '#&!upload>') {
 					console.log(stim);
-					lemon.submit(token, 1);
+					lemon.submit(token, 1, opt);
 				} else {
 					console.error('RRRRR');
-					lemon.submit(token, 2);
+					lemon.submit(token, 2, opt);
 				}
 			}
 		}).catch(function(err) {

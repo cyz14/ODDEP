@@ -8,6 +8,23 @@ $(function() {
         enableLiveAutocompletion: true
     });
 
+    // 配置上传控件
+    $("#stdmotivate").fileinput({
+        language: "zh",
+        allowedFileExtensions: ['vhd'],
+        maxFileSize: 50
+    });
+    $("#stdinput").fileinput({
+        language: "zh",
+        allowedFileExtensions: ['in'],
+        maxFileSize: 50
+    });
+    $("#stdanswer").fileinput({
+        language: "zh",
+        allowedFileExtensions: ['ans'],
+        maxFileSize: 50
+    });
+
     var plain = false;
     var codep = false;
 
@@ -39,6 +56,7 @@ $(function() {
 
     if ($('#typeCode').attr('checked')) {
         $('#form4visual').hide();
+        codep = true;
     }
 
     $('#submitbtn').click(function() {
