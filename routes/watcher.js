@@ -8,7 +8,9 @@ var statusMapCode = {
     'done' : 0,
     'running' : 1,
     'in queue' : 2,
-    'failed' : 100
+    'failed' : 100,
+    'AC' : 0,
+    'WA' : 100
 };
 
 var page_items = 20;

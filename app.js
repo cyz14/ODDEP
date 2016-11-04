@@ -78,6 +78,14 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+// 纯信息，无调试
+app.use(function(err, req, res, next) {
+  if (err.pure) {
+    res.send(err.message);
+  } else {
+    next(err);
+  }
+})
 
 // development error handler
 // will print stacktrace

@@ -13,12 +13,18 @@ router.all('*', function(req, res, next) {
 
 var limitNames = ['74LS00', '74LS04'];
 
+function isSandBox(pid)
+{
+    return pid < 1002;
+}
+
 router.get('/:pid', function(req, res, next) {
     var pid = req.params.pid;
     if (pid === 'new') {
         res.render('problem-edit', {
             title : '编辑' + pid,
             pid : pid,
+            check : true,
             limits : {},
             limitNames : limitNames,
             data : {
@@ -35,6 +41,7 @@ router.get('/:pid', function(req, res, next) {
                 limits : JSON.parse(row.limited),
                 title : '编辑' + pid,
                 pid : pid,
+                check : !isSandBox(pid),
                 limitNames : limitNames,
                 data : row
             });
