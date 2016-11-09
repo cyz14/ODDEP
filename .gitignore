@@ -44,3 +44,6 @@ npm-debug.log
 !/public/tmp/motivate/test2.vhd
 !/public/tmp/log/__init__
 !/public/tmp/vcd/__init__
+
+# 临时文件
+db/userImport.txt

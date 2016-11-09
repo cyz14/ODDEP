@@ -1,7 +1,13 @@
 extends layout
 
+block stylesheets
+  link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
+
 block addscript
   script(src="/javascripts/admin-power.js")
+  script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
+  script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
+  script(src="/javascripts/admin-userimport.js")
 
 block content
   div.container-fluid
@@ -10,6 +16,8 @@ block content
         li: a(href="#power", data-toggle="tab") 权限管理
         li: a(href="#userimport", data-toggle="tab") 用户导入
     div.tab-content
+      div#first.tab-pane.in.active
+        h2 欢迎来到后台管理系统
       div#power.tab-pane
         div.well
           form.form-inline
@@ -30,4 +38,18 @@ block content
               th 权限变动
             tbody#powertable
       div#userimport.tab-pane
-        span TODO
+        div.well
+          p 上传文件要求utf-8编码纯文本，每行两个字符串，第一个字符串是用户名，然后一个空格，第二个字符串是密码。
+          p 例子：
+            pre
+              | Trump xilali
+              | Obama guanhai
+        div
+          form.form-horizontal(enctype="multipart/form-data", action="/upload/admin/userimport", method="post", target="userimportuplres")
+            div.form-group
+              label.col-sm-2.control-label(for="uimpupl") 导入文件
+              div.col-sm-8
+                input#uimpupl.form-control(type="file", name="importfile")
+              div.col-sm-2
+                iframe(name="userimportuplres")
+          button#userimportbtn.btn.btn-danger.hidden 导入至数据库

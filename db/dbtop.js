@@ -1,6 +1,7 @@
 var assert = require('assert');
 var tp = require('../tiny-promise'); // 相对路径
 var sqlite3 = require('sqlite3').verbose();
+var database = new sqlite3.Database('./db/tot.db'); // !!! 应该只有一个连接
 var db = function() {
     return new sqlite3.Database('./db/tot.db'); // . 是项目根目录(特殊)不同于require
 };
@@ -163,9 +164,9 @@ exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
 
 // 更新提交状态
 exports.updStatPromise = function(token, status) {
-    dabs = db();
-    return tp.promisify.call(dabs, 'run', 'UPDATE submission SET status = ? WHERE token = ?', status, token)
-    .then(db_close(dabs));
+    dabs = database;
+    return tp.promisify.call(dabs, 'run',
+        'UPDATE submission SET status = ? WHERE token = ?', status, token);
 }
 
 // cb(err, row) : row, problem row

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dbtop = require('../db/dbtop');
 var tp = require('../tiny-promise');
+var userimp = require('../db/userimport');
 
 // 权限大于1，为管理员。权限为1是题目维护者。
 router.all('*', function(req, res, next) {
@@ -68,6 +69,17 @@ router.post('/power', function(req, res, next) {
         });
         db.close();
     }
+});
+
+router.post('/userimport', function(req, res, next) {
+    userimp.doDefault(function(err) {
+        if (err) {
+            console.error(err);
+            res.sendStatus(500);
+        } else {
+            res.sendStatus(200);
+        }
+    });
 });
 
 module.exports = router;

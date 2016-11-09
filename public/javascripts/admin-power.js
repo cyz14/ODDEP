@@ -20,7 +20,7 @@ $(function() {
                     item.attr('data-oper', key);
                     item.addClass('btn');
                     item.addClass('btn-primary');
-                    item.addClass('btn-sm');
+                    item.addClass('btn-xs');
                     items.append(item);
                 });
                 items.addClass('btn-group');

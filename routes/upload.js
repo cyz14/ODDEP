@@ -21,7 +21,7 @@ router.post('/motivate/:token', reciever.single('motivate'), function(req, res, 
     // 接受上传的激励文件
     // 解开锁，就绪
     lemon.submit(req.params.token, 1);
-    res.send('ok');
+    res.sendStatus(200);
 });
 
 var std_kinds = {
@@ -42,6 +42,7 @@ var stdStorage = multer.diskStorage({
         } else {
             cb({
                 pure : true,
+                status : 403,
                 message: '不能识别的类型或权限不足'
             });
         }
@@ -56,7 +57,29 @@ var stdStorage = multer.diskStorage({
 var stdReciever = multer({ storage: stdStorage });
 router.post('/std/:kind/:pid', stdReciever.single('stdfile'), function(req, res, next) {
     // 响应
-    res.send('ok');
+    res.sendStatus(200);
 });
+
+var userImportStorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        if (req.session.power > 1) {
+            cb(null, './db');
+        } else {
+            cb({
+                pure : true,
+                status : 403,
+                message : 'Permission denied.'
+            });
+        }
+    },
+    filename: function(req, file, cb) {
+        cb(null, 'userImport.txt');
+    }
+});
+
+var userImportReciever = multer({ storage: userImportStorage });
+router.post('/admin/userimport', userImportReciever.single('importfile'), function(req, res, next) {
+    res.status(200).send('上传完成');
+})
 
 module.exports = router;
