@@ -22,7 +22,7 @@ $(function() {
         waveform.variables = {}
         for (index=0; !lines[index].match(/enddefinitions/); index++) {
             var line_tokens = lines[index].match(/\S+/g);
-            if(line_tokens == null)continue;
+            if (line_tokens == null) continue;
             if (line_tokens[0] == "$var") {
                 // $var is token 0
                 var type = line_tokens[1];
