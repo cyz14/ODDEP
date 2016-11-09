@@ -83,6 +83,8 @@ $(function() {
     }
 
     function draw_waveform(waveform,scale) {
+        var ctxColor = new Array();
+        ctxColor=["rgb(0,0,0)","rgb(255,235,205)","rgb(255,215,0)","rgb(65,105,225)","rgb(0,255,255)","rgb(34,139,34)","rgb(255,0,0)"];
         if (typeof scale === 'undefined') scale = 1;
 
         var canvas = document.getElementById("waveform_canvas");	
@@ -127,7 +129,7 @@ $(function() {
             }
             return value;
         }
-
+        var sm=0;
         for (v in waveform.variables) {
             variable = waveform.variables[v];
             var maxValue = 0;
@@ -162,7 +164,11 @@ $(function() {
                 }
             }
             x = timeToX(waveform.maxTime);
+
             ctx.lineTo(x,y);
+            sm=sm % 7;
+		    ctx.strokeStyle = ctxColor[sm];
+		    sm =sm + 1;
             ctx.stroke();
             ctx.font = "16pt Helvetica";
             ctx.fillText(variable.reference,x,waveform_bottom + waveform_height/2);
