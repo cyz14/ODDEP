@@ -33,11 +33,6 @@ db.get('select * from user' + dabs.obj2Stmt('where', {uid:1, name:'root'}, {sep:
         console.log('dbtop.obj2Stmt tested.');
     })
 
-db.close(function(err) {
-    assert.strictEqual(err, null);
-    console.log('db test done.');
-});
-
 //console.log(dabs.obj2Stmt('set', {uid:1,name:'root'},{funs:{'u.u':'root'}}));
 //console.log(dabs.obj2Stmt('set', {uid:1,name:'root'},{funs:{'u.u':'root'},sep:'and'}));
 // dabs.submissionRegisterIfNotExists('lk039ax39e3lerk9:1476348300969',

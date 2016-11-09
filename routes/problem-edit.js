@@ -45,9 +45,8 @@ router.get('/:pid', function(req, res, next) {
                 limitNames : limitNames,
                 data : row
             });
-        })).then(dbtop.db_close(db))
+        }))
         .catch(function(err) {
-            db.close();
             console.error(err);
             next(err);
         });
@@ -79,7 +78,6 @@ router.post('/:pid', function(req, res, next) {
             } else res.send('ok')
         });
     }
-    db.close();
 });
 
 module.exports = router;

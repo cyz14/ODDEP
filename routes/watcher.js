@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var dabs = require('../db/dbtop');
-var db_cl = dabs.db_close;
 var tp = require('../tiny-promise');
 
 var statusMapCode = {
@@ -65,8 +64,7 @@ router.get('/', function(req, res, next) {
                 time: new Date().toString()
             }
         });
-    }))
-    .then(db_cl(db), db_cl(db));
+    }));
 });
 
 router.get('/submission/:id/', function(req, res, next) {

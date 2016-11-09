@@ -46,7 +46,6 @@ router.get('/search/user', function(req, res, next) {
         });
         stmt.finalize();
     }
-    db.close();
 });
 
 router.post('/power', function(req, res, next) {
@@ -67,7 +66,6 @@ router.post('/power', function(req, res, next) {
         .catch(function(err) {
             console.error(err);
         });
-        db.close();
     }
 });
 

@@ -7,7 +7,6 @@ var tp = require('../tiny-promise');
 router.get('/:pid', function(req, res, next) {
     var db = dbtop.db();
     getPorb(db, req.params.pid, function(err, row) {
-        db.close();
         console.log('prob-view', err, row);
         if (err || !row) {
             next({
@@ -41,7 +40,6 @@ router.get('/', function(req, res, next) {
     }
     tp.promisify.call(db, 'all', 'select * from problem where pid >= ? and pid <= ?', left, right)
     .then(tp.spread(function(err, rows) {
-        db.close();
         if (err) {
             next(err);
             return ;

@@ -42,14 +42,13 @@ router.post('/update', function(req, res, next) {
             if (nickname) req.session.nickname = nickname;
             res.send('ok');
         })
-        .then(dabs.db_close(db), function(err) {
-            db.close();
+        .catch(function(err) {
             if (err !== 'auth err') {
                 console.log(err);
                 console.log(req.body);
             }
             res.send('bad');
-        })
+        });
     }
 });
 

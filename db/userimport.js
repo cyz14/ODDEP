@@ -29,7 +29,6 @@ exports.doDefault = function(cb) {
             }
         }
         stmt.finalize(cb);
-        db.close();
     }))
     .catch(function(err) {
         cb(err);

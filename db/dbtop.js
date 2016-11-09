@@ -3,7 +3,8 @@ var tp = require('../tiny-promise'); // 相对路径
 var sqlite3 = require('sqlite3').verbose();
 var database = new sqlite3.Database('./db/tot.db'); // !!! 应该只有一个连接
 var db = function() {
-    return new sqlite3.Database('./db/tot.db'); // . 是项目根目录(特殊)不同于require
+    //return new sqlite3.Database('./db/tot.db'); // . 是项目根目录(特殊)不同于require
+    return database;
 };
 exports.db = db;
 
@@ -23,7 +24,6 @@ var env = (function() {
         assert.strictEqual(err, null);
         problem_count = row['count(*)'];
     });
-    dabs.close();
     obj.submit = function() {
         ++ submission_count;
         return submission_count;
@@ -91,16 +91,6 @@ var obj2Stmt = function(op, args, opt) {
 };
 exports.obj2Stmt = obj2Stmt;
 
-// 给promise.then(<?>)用的数据库连接关闭器
-var db_close = function(dabs) {
-    return function(arg) {
-        dabs.close();
-        console.log('db closed.');
-        return arg;
-    }
-};
-exports.db_close = db_close;
-
 var md5 = require('js-md5');
 // cb(err, row)
 exports.md5Salt_auth = function(username, password, next) {
@@ -131,7 +121,6 @@ exports.basic_auth = function(username, password, next) {
         console.log(row);
         next(row);
     }))
-    .then(db_close(dabs), db_close(dabs))
     .catch(function(err){
         console.log(err);
         next(null);
@@ -158,8 +147,7 @@ exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
         if (!err) console.log('register done.');
         env.submit();
         next(err);
-    })
-    .then(db_close(dabs), db_close(dabs));
+    });
 }; // */
 
 // 更新提交状态
