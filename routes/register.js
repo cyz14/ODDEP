@@ -25,7 +25,7 @@ router.get('/nameexists', function(req, res, next) {
         }
     }))
     .catch(function(err) {
-        console.log(err);
+        console.error(err);
     });
 });
 
@@ -36,7 +36,6 @@ var getSalt = function() {
 // 响应 ajax, 成功则重定向
 router.post('/', function(req, res, next) {
     var salt = getSalt();
-    console.log(salt);
     var username = req.body.username;
     var nickname = req.body.nickname;
     var password = md5(req.body.password + salt);

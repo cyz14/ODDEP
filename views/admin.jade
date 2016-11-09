@@ -1,0 +1,33 @@
+extends layout
+
+block addscript
+  script(src="/javascripts/admin-power.js")
+
+block content
+  div.container-fluid
+    div
+      ul#tabtab.nav.nav-tabs
+        li: a(href="#power", data-toggle="tab") 权限管理
+        li: a(href="#userimport", data-toggle="tab") 用户导入
+    div.tab-content
+      div#power.tab-pane
+        div.well
+          form.form-inline
+            button#powerall.btn.btn-primary(type="button") 显示权限非零者
+            div.form-group(style="margin-left:15px;")
+              input#iuserid.form-control(type="number", placeholder="UID")
+              button#poweruid.btn.btn-default(type="button") 按用户ID检索
+            div.form-group(style="margin-left:15px;")
+              input#iusername.form-control(type="text", placeholder="username")
+              button#powername.btn.btn-default(type="button") 按用户名检索
+        div
+          table.table.table-hover.table-striped
+            thead: tr
+              th UID
+              th 用户名
+              th 昵称
+              th 权限
+              th 权限变动
+            tbody#powertable
+      div#userimport.tab-pane
+        span TODO

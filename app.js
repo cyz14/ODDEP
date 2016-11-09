@@ -17,6 +17,7 @@ var upload = require('./routes/upload');
 var profile = require('./routes/profile');
 var problem_view = require('./routes/problem-view');
 var problem_edit = require('./routes/problem-edit');
+var admin = require('./routes/admin');
 
 var app = express();
 
@@ -69,6 +70,7 @@ app.use('/problem/edit', problem_edit);
 app.use('/problem', problem_view);
 app.use('/submit', consumer);
 app.use('/status', watcher);
+app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
