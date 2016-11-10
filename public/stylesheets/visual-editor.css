@@ -47,6 +47,7 @@ input{
   margin:0px;
   width: 140px;
   height: 100%;
+  overflow: scroll;
   background : transparent url(background_drak.jpg);
   text-align: center;
 }
