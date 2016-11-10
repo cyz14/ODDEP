@@ -64,7 +64,7 @@ block addscript
 
   script.
     var app;
-    var showJSON = false;
+    var showJSON = true;
     $(window).load( function(){
       app = new tot.Application();
       app.load(circuit_adder_1bit);
@@ -77,7 +77,7 @@ block addscript
         app.view.getCommandStack().addEventListener(
           function(e){
             if(e.isPostChangeEvent()){
-                // displayJSON(app.view);
+                displayJSON(app.view);
           }
         });
       }
