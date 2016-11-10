@@ -29,7 +29,7 @@ ARCHITECTURE Behaviour OF C74LS161 IS
 	constant EMPTY4 : std_logic_vector(3 downto 0) := "0000";
 	signal Q:         std_logic_vector(3 downto 0) := "0000";
 	signal tempCo :   std_logic := '0';
-
+	
 BEGIN
 	port15 <= tempCo;
 	port11 <= Q(3);
