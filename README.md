@@ -43,6 +43,38 @@ sqlite> .read dbinit.sql
 sqlite> .read dbtest-load.sql
 sqlite> .exit 
 ```
+#### 3. Set Up ModelSim Simulator
+See TA's [Install ModelSim References](https://github.com/xgeric/2016-SE-TA/blob/master/ModelSim%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.pdf)
+
+To upload ModelSim installer to virtual machine on Azure or anywhere else, can use *scp* for simplicity. Because scp use 22 port as ssh.
+Run
+```
+ $ scp /path/to/ModelSimSetup-16.0.0.211-linux.run  username@ip.ip.ip.ip:/path/to/put/modelsim
+``` 
+Then install ModelSim, cd to path to ModelSimSetup-16.0.0.211-linux.run, and run
+```
+ $ ./ModelSimSetup-16.0.0.211-linux.run
+``` 
+It will detect if your server has GUI, if not, it will just run in command line mode.
+
+Then add path to environment variable to enable use modelsim globally.
+
+Remember to solve 32bit dependencies on 64bit server after install.
+```
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install build-essential
+```
+At last, run
+```
+sudo apt-get install gcc-multilib g++-multilib \
+lib32z1 lib32stdc++6 lib32gcc1 \
+expat:i386 fontconfig:i386 libfreetype6:i386 libexpat1:i386 libc6:i386 libgtk-3-0:i386 \
+libcanberra0:i386 libpng12-0:i386 libice6:i386 libsm6:i386 libncurses5:i386 zlib1g:i386 \
+libx11-6:i386 libxau6:i386 libxdmcp6:i386 libxext6:i386 libxft2:i386 libxrender1:i386 \
+libxt6:i386 libxtst6:i386
+```
+Then in any path, run vlib to test. 
 
 ## Members
 | Name         | Email        
@@ -57,22 +89,15 @@ sqlite> .exit
 
 ### Week 8 ToDo
 * 田雨
-    1. SideBarScroll
-    2. 芯片标注
-    
-* 陈明豪
-    1. 波形显示彩色
+    1. 芯片标注
 
 * 陈雅正
     1. 流程测试
-    2. 编辑界面，file tree
+    2. 编辑界面
 
-* 李成杰
-    - 题目类型：
-        1. tab 可视化电路编辑 -> tab 编辑激励文件（1000 没有激励文件， 1001 没有激励文件）
-        2. tab VHDL代码题目  -> tab 编辑激励文件（如果题目有默认激励文件则跳过该步）
-    - 编辑界面layout
-    
+* 宁敏行
+    1. file tree
+
 ### Future ToDo
 1. ModelSim 模块化
     a. 请求(文件，激励）
