@@ -16,10 +16,9 @@ router.post('/update', function(req, res, next) {
     var whereStmt = dabs.obj2Stmt('where', { name: user });
     var setObj = { nickname: nickname, password: password };
     if (!dabs.isEmptys.call(setObj)) {
-        var db = dabs.db();
         (function() {
             if (setObj.password) {
-                return tp.promisify(dabs.md5Salt_auth, user, eldpasswd);
+                return tp.promisify.call(dabs, dabs.md5Salt_auth, user, eldpasswd);
             } else {
                 return tp.pickle(null, true);
             }
@@ -35,6 +34,7 @@ router.post('/update', function(req, res, next) {
             }
             var setStmt = dabs.obj2Stmt('set', setObj);
             console.log(setStmt);
+            var db = dabs.db();
             return tp.promisify.call(db, 'run', 'update user ' + setStmt + whereStmt);
         }))
         .then(function(err) {

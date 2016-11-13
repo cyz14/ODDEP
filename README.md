@@ -105,6 +105,14 @@ Then in any path, run vlib to test.
 
 2. 激励信号可视化编辑
 
+## HINTS
+
+### Password encrypt
+rock=`"yvykf07ej800be29TAOLIDIXIACHEDUI8nzoyyz0z5lsdcxr"`
+
+1. In transport: md5(password+username+rock)
+2. In Database Server: md5(md5(password+username+rock)+salt)
+
 ## References
 ### Nodejs Express etc.
 [setting-up-express-with-nginx-and-pm2/](http://blog.danyll.com/setting-up-express-with-nginx-and-pm2/)

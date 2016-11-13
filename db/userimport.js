@@ -7,6 +7,8 @@ var getSalt = function() {
     return Math.random().toString(36).substr(2) + ':' + new Date().getTime();
 };
 
+var rock = 'yvykf07ej800be29TAOLIDIXIACHEDUI8nzoyyz0z5lsdcxr';
+
 exports.doDefault = function(cb) {
     console.log(0);
     tp.promisify.call(fs, fs.readFile, './db/userImport.txt', 'utf-8')
@@ -24,7 +26,7 @@ exports.doDefault = function(cb) {
             if (a.length === 2) {
                 var name = a[0];
                 var salt = getSalt();
-                var pass = md5(a[1] + salt);
+                var pass = md5(md5(a[1] + a[0] + rock) + salt);
                 stmt.run(name, name, pass, salt);
             }
         }

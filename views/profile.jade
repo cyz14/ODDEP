@@ -1,10 +1,15 @@
 extends layout
 
 block addscript
+  script.
+    $('.alert').hide();
+    $('input').attr('disabled', 1);
+  script(src="//cdn.bootcss.com/blueimp-md5/2.5.0/js/md5.min.js")
   script(src="/javascripts/profile-ajax.js")
 
 block content
   div.container-fluid
+    div#username(data-data="#{user}")
     div#alertok.alert.alert-success 设定修改成功
     div#alertbad.alert.alert-danger 服务维护中
     div#alertpwd.alert.alert-danger 输入新密码不一致
@@ -25,7 +30,7 @@ block content
           div.form-group.pwd
             label.col-sm-2.control-label(for="passwd") 新密码
             div.col-sm-8
-              input#passwd.form-control(type="password",placeholder="输入第一次")
+              input#passwd.form-control(type="password",placeholder="md5哈希，长度不是问题，只要能记住")
           div.form-group.pwd
             label.col-sm-2.control-label(for="vepasswd") 新密码验证
             div.col-sm-8

@@ -1,6 +1,9 @@
 $(function() {
-    $('.alert').hide();
-    $('input').attr('disabled', 1);
+    var username = $('div#username').attr('data-data');
+    var rock = 'yvykf07ej800be29TAOLIDIXIACHEDUI8nzoyyz0z5lsdcxr';
+    function cookPasswd(rawpass) {
+        return md5(rawpass + username + rock);
+    }
     var state = 0;
     if (location.hash === '#ok') {
         $('#alertok').show();
@@ -26,13 +29,13 @@ $(function() {
                 obj.nickname = $('#nickname').val();
             }
             if ($('#passwd').val()) {
-                obj.newpasswd = $('#passwd').val();
-                obj.passwd = $('#oldpasswd').val();
+                obj.newpasswd = cookPasswd($('#passwd').val());
+                obj.passwd = cookPasswd($('#oldpasswd').val());
             }
             console.log(obj);
             if (!isEmptyObj(obj)) {
                 $('.alert').hide();
-                $.post(location.href + '/update', obj, function(data, status) {
+                $.post(location.pathname + '/update', obj, function(data, status) {
                     console.log(data, status);
                     if (data === 'ok') {
                         if (!location.hash) {

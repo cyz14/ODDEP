@@ -35,8 +35,9 @@ exports.spread = function(cb) {
 
 // 封装成promise，直接传递参数给 tp.spread 的结果使用
 exports.pickle = function() {
+    var args = arguments;
     return new Promise(function(resolve, reject) {
-        resolve(arguments);
+        resolve(args);
     });
 }
 

@@ -1,4 +1,5 @@
 $(function() {
+    var rock = "yvykf07ej800be29TAOLIDIXIACHEDUI8nzoyyz0z5lsdcxr";
     var submit_available = 0;
     $('.alert-danger').hide();
     $('#username').change(function() {
@@ -25,7 +26,7 @@ $(function() {
             $.post("", {
                 username:$('#username').val(),
                 nickname:$('#nickname').val(),
-                password:$('#password').val()
+                password:md5($('#password').val() + $('#username').val() + rock)
             }, function(data, status) {
                 console.log(data, status);
                 if (data === 'ok') {
