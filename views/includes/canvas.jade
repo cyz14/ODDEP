@@ -16,8 +16,10 @@ div#container
       div.palette_node_element.draw2d_droppable(data-shape="draw2d_circuit_display_7Segment") 7Segment
     button#jumpToVHDL.btn.btn-danger.btn-lg toVHDL
   div#toolbar.toolbar
-    span.group
-      span#fileUpload.ion-ios-upload-outline.icon
+    span.group      
+      span#fileUpload.fileinput-button
+        span#fileInput.ion-ios-upload-outline.icon
+        input#file_input(type="file")
       span#fileSaveAs.ion-ios-download-outline.icon
 
     span.group
