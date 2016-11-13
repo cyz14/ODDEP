@@ -24,6 +24,13 @@ tot.Application = Class.extend({
 	 * @param {String} canvasId the is of the DOM element to use as paint container
 	 */
 	init: function() {
+        var _this = this;
+        this.localStorage = [];
+
+        this.currentFileHandle= {
+            title: "Untitled"+conf.fileSuffix // conf is in draw2d/settings/backend.js
+        };
+
         this.view    = new tot.View("canvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
 		this.palette = new tot.Palette("navigation", this);
@@ -64,6 +71,13 @@ tot.Application = Class.extend({
 	    conn.setRadius(5);
 	    conn.setColor('#00A8F0');
 	    return conn;
-	}
+	},
+
+    fileSave: function()
+    {
+        var _this = this;
+
+        
+    },
 
 });

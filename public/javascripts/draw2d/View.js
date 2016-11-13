@@ -2,7 +2,7 @@
  * Created by Chen Yazheng on 16/10/20
  */
 var scrollAreaId = "#canvas";
-var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
+var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter(); 
 
 tot.View = draw2d.Canvas.extend({
 
@@ -175,6 +175,14 @@ tot.View = draw2d.Canvas.extend({
         $(".toolbar").delegate("#editRedo:not(.disabled)","click", function(){
             _this.getCommandStack().redo();
         });
+
+        $(".toolbar").delegate("#fileUpload:not(.disabled)", "click", function(){
+            _this.fileUpload();
+        });
+        
+        $('.toolbar').delegate("#fileSaveAs:not(.disabled)", "click", function(){
+            _this.canvasSaveAs(_this);
+        });
 	}, // end init
 
     getBoundingBox: function()
@@ -303,7 +311,19 @@ tot.View = draw2d.Canvas.extend({
 
         if(event.getStack().canRedo()) {
             $("#editRedo").removeClass("disabled");
-        }   
+        }
+    },
+
+    fileUpload:function() {
+
+    },
+
+    canvasSaveAs:function(canvas) {
+        var writer = new draw2d.io.json.Writer();
+        writer.marshal(canvas, function(json){
+             var blob = new Blob([JSON.stringify(json,null,2)], {type:"text/plain;charset=utf-8"});
+             saveAs(blob, "design.circuit");
+        });
     }
 
 });
