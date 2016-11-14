@@ -105,3 +105,5 @@ describe('db/dbtop.js', function() {
         });
     })
 });
+
+var uimp_test = require('./uimp-test');

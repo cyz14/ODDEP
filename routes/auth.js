@@ -26,6 +26,7 @@ router.get('/login', function(req, res, next) {
 router.post('/login', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+    log(username, password);
     md5Salt_auth(username, password, function(err, row) {
         if (err) {
             error(err);

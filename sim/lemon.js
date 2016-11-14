@@ -66,7 +66,16 @@ var lemon = (function() {
     var status = 0;
     var queue = [];
     var map = {};
-    var obj = {};
+    var slots = {};
+    function emit() {
+        for (var key in slots) {
+            if (typeof(slots[key]) === 'function') {
+                slots[key]();
+            } else {
+                delete slots[key];
+            }
+        }
+    }
     var touch = function() {
         log('queue:', queue);
         log('map:', map);
@@ -91,18 +100,24 @@ var lemon = (function() {
                 log('Submit Done:', token);
                 status = 0;
                 touch();
-            })
+                emit();
+            });
         }
     }
-    obj.submit = function(token, step, opt) {
-        if (typeof(map[token]) === 'undefined') {
-            map[token] = { step : step };
-            queue.push(token);
-        } else {
-            map[token].step += step;
+    var obj = {
+        submit : function(token, step, opt) {
+            if (typeof(map[token]) === 'undefined') {
+                map[token] = { step : step };
+                queue.push(token);
+            } else {
+                map[token].step += step;
+            }
+            if (opt) map[token].opt = opt;
+            touch();
+        },
+        setSLOT : function(key, fn) {
+            slots[key] = fn;
         }
-        if (opt) map[token].opt = opt;
-        touch();
     }
     return obj;
 }());
