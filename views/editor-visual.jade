@@ -13,8 +13,8 @@ html
 
 
 body(role="document")
+  include includes/navbar
   div#layout
-    include includes/navbar
     div.container-fluid(style="margin:0px;padding:0px;")
       div.row
         div.col-sm-4
@@ -26,7 +26,7 @@ body(role="document")
                 span.glyphicon.glyphicon-forward
         div.col-sm-4
           form.form-inline(role="form")
-            div.form-group(style="margin-right:10px;")
+            div.form-group
               label(for="tagname") 标签：
               input#tagname.form-control(type="text", value="新建")
       div#editorTabContent.tab-content
@@ -44,6 +44,9 @@ block addscript
   script(src="/javascripts/layout-jump-prob.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
+  script(src="https://cdn.rawgit.com/eligrey/Blob.js/0cef2746414269b16834878a8abc52eb9d53e6bd/Blob.js",  async="" )
+  script(src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js", async="")
+  script(src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js")
   script(src="/javascripts/editor-draw.js")
   script(src="/chips/json/1bit_adder.json")
   script(src="/chips/json/circuit_adder_1bit.js")

@@ -13,4 +13,22 @@ $(function() {
         allowedFileExtensions: ['vhd'],
         maxFileSize: 50
     });
+
+    editor.commands.addCommand({
+        name: 'newFile',
+        bindKey: {win: 'Ctrl+N', mac: 'Command+N'},
+        exec: function(editor) {
+
+        },
+        readOnly: true
+    });
+
+    editor.commands.addCommand({
+        name: 'saveFile',
+        bindKey: {win: 'Ctrl+S', mac: 'Command+S'},
+        exec: function(editor) {
+
+        },
+        readOnly: false
+    });
 });

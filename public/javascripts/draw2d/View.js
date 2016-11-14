@@ -2,7 +2,7 @@
  * Created by Chen Yazheng on 16/10/20
  */
 var scrollAreaId = "#canvas";
-var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
+var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter(); 
 
 tot.View = draw2d.Canvas.extend({
 
@@ -175,6 +175,15 @@ tot.View = draw2d.Canvas.extend({
         $(".toolbar").delegate("#editRedo:not(.disabled)","click", function(){
             _this.getCommandStack().redo();
         });
+
+        // Have to use addEventListener("change") here because input element is special
+        document.querySelector(".toolbar").addEventListener("change", function(){
+            _this.fileUpload();
+        });
+
+        $('.toolbar').delegate("#fileSaveAs:not(.disabled)", "click", function(){
+            _this.canvasSaveAs(_this);
+        });
 	}, // end init
 
     getBoundingBox: function()
@@ -303,7 +312,36 @@ tot.View = draw2d.Canvas.extend({
 
         if(event.getStack().canRedo()) {
             $("#editRedo").removeClass("disabled");
-        }   
+        }
+    },
+
+    fileUpload:function() {
+        var file_uri = window.URL.createObjectURL($("#file_input").get(0).files[0]);
+        if (typeof file_uri === 'undefined') { file_uri = default_file_uri; }
+        var jsonDocument;
+        var canvas = this;
+        get_file(file_uri,function (response) {
+            canvas.clear();
+            jsonDocument = response.target.responseText;
+            var reader = new draw2d.io.json.Reader();
+            reader.unmarshal(canvas, jsonDocument);
+        });
+        $("#fileInput").addClass("disabled"); 
+    },
+
+    canvasSaveAs:function(canvas) {
+        var writer = new draw2d.io.json.Writer();
+        writer.marshal(canvas, function(json){
+             var blob = new Blob([JSON.stringify(json,null,2)], {type:"text/plain;charset=utf-8"});
+             saveAs(blob, "design.circuit");
+        });
     }
 
 });
+
+function get_file(uri,callback) {
+	var request = new XMLHttpRequest();
+	request.onload = callback;
+	request.open("get",uri,true);
+	request.send();
+}

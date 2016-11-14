@@ -9,7 +9,7 @@
 //
 //
 var conf={
-    fileSuffix : ".brain",
+    fileSuffix : ".circuit",
     designer: {
         url:"http://freegroup.github.io/draw2d_js.app.shape_designer/"
     },
