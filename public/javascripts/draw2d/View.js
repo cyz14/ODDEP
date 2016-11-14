@@ -1,7 +1,7 @@
 /**
  * Created by Chen Yazheng on 16/10/20
  */
-var scrollAreaId = "#canvas";
+var scrollAreaId = "#canvasWrapper";
 var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter(); 
 
 tot.View = draw2d.Canvas.extend({
@@ -315,6 +315,27 @@ tot.View = draw2d.Canvas.extend({
         }
     },
 
+    centerDocument:function()
+    {
+        var bb=null;
+        var c = $(scrollAreaId);
+        if(this.getFigures().getSize()>0){
+            // get the bounding box of the document and translate the complete document
+            // into the center of the canvas. Scroll to the top left corner after them
+            //
+            bb = this.getBoundingBox();
+            this.scrollTo(bb.y- c.height()/2,bb.x- c.width()/2);
+        }
+        else{
+            bb={
+                x:this.getWidth()/2,
+                y:this.getHeight()/2
+            };
+            this.scrollTo(bb.y- c.height()/2,bb.x- c.width()/2);
+
+        }
+    },
+
     fileUpload:function() {
         var file_uri = window.URL.createObjectURL($("#file_input").get(0).files[0]);
         if (typeof file_uri === 'undefined') { file_uri = default_file_uri; }
@@ -325,6 +346,7 @@ tot.View = draw2d.Canvas.extend({
             jsonDocument = response.target.responseText;
             var reader = new draw2d.io.json.Reader();
             reader.unmarshal(canvas, jsonDocument);
+            canvas.centerDocument();
         });
         $("#fileInput").addClass("disabled"); 
     },
