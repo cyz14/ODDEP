@@ -47,3 +47,6 @@ npm-debug.log
 
 # 临时文件
 db/userImport.txt
+
+# 测试工具报告
+/coverage/

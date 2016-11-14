@@ -6,6 +6,9 @@ var proc = require('child_process');
 var fs = require('fs');
 var updSP = require('../db/dbtop').updStatPromise;
 var tp = require('../tiny-promise');
+var debug = require('debug');
+var log = debug('prj7_tot:lemon:log');
+var error = debug('prj7_tot:lemon:error');
 
 var sim = function(args, next) {
     var judge = null;
@@ -15,19 +18,18 @@ var sim = function(args, next) {
             simArgs.push(args.inputPath);
             simArgs.push(args.answerPath);
         }
-        console.log('simArgs:', simArgs);
+        log('simArgs:', simArgs);
         return tp.promisify(proc.execFile, './sim/sim.sh', simArgs, {cwd:'.'})
     })
     .then(tp.spread(function(err, stdout, stderr) {
         if (err) {
-            //console.log('stdout:', stdout,'stderr:', stderr);
             throw {
                 err : err,
                 stdout : stdout,
                 stderr : stderr
             };
         }
-        console.log('stderr:', args.token, stderr);
+        log('stderr:', args.token, stderr);
         if (stderr) {
             if (stderr.indexOf('AC') !== -1) judge = 'AC';
             if (stderr.indexOf('WA') !== -1) judge = 'WA';
@@ -36,7 +38,7 @@ var sim = function(args, next) {
     }))
     .then(function(err) {
         if (err) {
-            console.error(err);
+            error(err);
             return updSP(args.token, 'failed');
         } else {
             if (judge) {
@@ -46,16 +48,15 @@ var sim = function(args, next) {
             }
         }
     },function(err) {
-        //console.log(err);
         if (typeof(err.stdout) !== 'undefined') {
             return tp.promisify(fs.writeFile, args.logPath, err.stdout + '\n' + err.stderr)
                 .then(function(err) {
-                    if (err) console.error(err);
-                    else console.log('written');
+                    if (err) error(err);
+                    else log('written');
                     return updSP(args.token, 'failed');
                 });
         } else {
-            console.error(err);
+            error(err);
             return 0;
         }
     }).then(next);
@@ -67,8 +68,8 @@ var lemon = (function() {
     var map = {};
     var obj = {};
     var touch = function() {
-        console.log('queue:', queue);
-        console.log('map:', map);
+        log('queue:', queue);
+        log('map:', map);
         if (status === 0 && queue.length > 0 && map[queue[0]].step === 2) {
             status = 1;
             var token = queue.shift();
@@ -76,7 +77,7 @@ var lemon = (function() {
             var stimPath = './public/tmp/motivate/' + token + '.vhd';
             if (opt.check) stimPath = './sim/motivate/' + opt.pid + '.vhd';
             delete map[token];
-            console.log('Submit Running:', token);
+            log('Submit Running:', token);
             sim({
                 token : token,
                 check : opt.check,
@@ -87,7 +88,7 @@ var lemon = (function() {
                 answerPath : './sim/answer/' + opt.pid + '.ans',
                 stimPath : stimPath
             }, function() {
-                console.log('Submit Done:', token);
+                log('Submit Done:', token);
                 status = 0;
                 touch();
             })
