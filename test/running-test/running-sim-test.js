@@ -1,4 +1,4 @@
-var lemon = require('../sim/lemon');
+var lemon = require('../../sim/lemon');
 
 lemon.submit('test', 2, {
     pid : 1000,

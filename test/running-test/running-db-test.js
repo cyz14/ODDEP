@@ -1,6 +1,6 @@
 var assert = require('assert');
-var dabs = require('../db/dbtop');
-var tp = require('../tiny-promise');
+var dabs = require('../../db/dbtop');
+var tp = require('../../tiny-promise');
 var debug = require('debug');
 var log = debug('prj7_tot:testPreStart:log');
 

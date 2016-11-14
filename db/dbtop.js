@@ -84,7 +84,7 @@ var obj2Stmt = function(op, args, opt) {
             if (str.length) {
                 str += sep;
             }
-            str += key + '=' + funs[key] + ' ';
+            str += key + '=' + funs[key];
         }
     if (str) {
         return ' ' + op + ' ' + str + ' ';
@@ -113,7 +113,7 @@ exports.md5Salt_auth = function(username, password, next) {
     });
 };
 
-// 最简单的明文验证 (已放弃)
+/* 最简单的明文验证 (已放弃)
 // next(row)
 exports.basic_auth = function(username, password, next) {
     dabs = db();
@@ -128,7 +128,7 @@ exports.basic_auth = function(username, password, next) {
         error(err);
         next(null);
     });
-};
+}; // */
 
 // 注册token,uid的提交，已存在则无动作 (计划放弃)
 // next(err)
