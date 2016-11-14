@@ -3,6 +3,9 @@ var router = express.Router();
 var tp = require('../tiny-promise');
 var dabs = require('../db/dbtop');
 var md5 = require('js-md5');
+var debug = require('debug');
+var log = debug('prj7_tot:profile:log');
+var error = debug('prj7_tot:profile:error');
 
 router.get('/', function(req, res, next) {
     res.render('profile', {title: '设定'});
@@ -33,7 +36,7 @@ router.post('/update', function(req, res, next) {
                 setObj.password = md5(setObj.password + row.salt);
             }
             var setStmt = dabs.obj2Stmt('set', setObj);
-            console.log(setStmt);
+            log('setStmt:', setStmt);
             var db = dabs.db();
             return tp.promisify.call(db, 'run', 'update user ' + setStmt + whereStmt);
         }))
@@ -44,8 +47,8 @@ router.post('/update', function(req, res, next) {
         })
         .catch(function(err) {
             if (err !== 'auth err') {
-                console.log(err);
-                console.log(req.body);
+                error(err);
+                error(req.body);
             }
             res.send('bad');
         });

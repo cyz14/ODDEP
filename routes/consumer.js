@@ -4,6 +4,9 @@ var dbtop = require('../db/dbtop');
 var tp = require('../tiny-promise');
 var fs = require('fs');
 var lemon = require('../sim/lemon');
+var debug = require('debug');
+var log = debug('prj7_tot:consumer:log');
+var error = debug('prj7_tot:consumer:error');
 
 function isSandBox(pid)
 {
@@ -16,7 +19,7 @@ router.post('/', function(req, res, next) {
 	var uid = req.session.uid;
 	var pid = req.body.pid;
 	var tag = req.body.tag;
-	console.log('submit:', {
+	log('submit:', {
 		token: token,
 		uid: uid,
 		pid: pid,
@@ -24,7 +27,7 @@ router.post('/', function(req, res, next) {
 	});
 	dbtop.submissionRegisterIfNotExists(token, uid, pid, tag, function(err) {
 		if (err) {
-			console.error(err);
+			error(err);
 			return ;
 		}
 		var code = req.body.code.replace(/<br>/g, '\n');
@@ -47,15 +50,14 @@ router.post('/', function(req, res, next) {
 					check : (pid > 1001) // 规定：除了前两道沙盒题，都需要自带激励
 				};
 				if (stim === '#&!upload>') {
-					console.log(stim);
+					log(stim);
 					lemon.submit(token, 1, opt);
 				} else {
-					console.error('RRRRR');
 					lemon.submit(token, 2, opt);
 				}
 			}
 		}).catch(function(err) {
-			console.error(err);
+			error(err);
 		}).then(function() {
 			res.send('ok');
 		});

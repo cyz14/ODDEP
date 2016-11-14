@@ -1,5 +1,8 @@
 var assert = require('assert');
 var tp = require('../tiny-promise'); // 相对路径
+var debug = require('debug');
+var log = debug('prj7_tot:dbtop:log');
+var error = debug('prj7_tot:dbtop:error');
 var sqlite3 = require('sqlite3').verbose();
 var database = new sqlite3.Database('./db/tot.db'); // !!! 应该只有一个连接
 var db = function() {
@@ -118,11 +121,11 @@ exports.basic_auth = function(username, password, next) {
         [username, password])
     .then(tp.spread(function(err, row) {
         if (err) throw err;
-        console.log(row);
+        log(row);
         next(row);
     }))
     .catch(function(err){
-        console.log(err);
+        error(err);
         next(null);
     });
 };
@@ -132,7 +135,7 @@ exports.basic_auth = function(username, password, next) {
 //*
 exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
     dabs = db();
-    console.log('register pending...');
+    log('register pending...');
     tp.promisify.call(dabs, 'get', 'select * from submission where token = ? and uid = ?', 
         token, uid)
     .then(tp.spread(function(err, row) {
@@ -142,10 +145,11 @@ exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
             'insert into submission (token, uid, pid, tag) values (?, ?, ?, ?)',
             token, uid, pid, tag);
         }
-        console.log(row);
     })).then(function(err) {
-        if (!err) console.log('register done.');
-        env.submit();
+        if (!err) {
+            log('register done.');
+            env.submit();
+        }
         next(err);
     });
 }; // */
@@ -160,23 +164,4 @@ exports.updStatPromise = function(token, status) {
 // cb(err, row) : row, problem row
 exports.getProb = function(db, pid, next) {
     db.get('select * from problem where pid = ?', pid, next);
-}
-
-// 新建或更新题目
-exports.createOrUpdateProb = function(query, data, next) {
-    var qstmt = obj2Stmt('where', query, { sep : 'and'});
-    var dabs = db();
-    tp.promisify.call(dabs, 'get', 'select count(*) from problem' + qstmt)
-    .then(tp.spread(function(err, row) {
-        if (err) throw err;
-        if (row['count(*)'] === 1) {
-            var sstmt = obj2Stmt('SET', data);
-            return tp.promisify.call(dabs, 'run', 'update problem' + sstmt + qstmt);
-        } else {
-            return tp.promisify.call(dabs, 'run', 'insert into problem (title, source, limited, description) values (?, ?, ?, ?)', data.title, data.source, data.limited, data.description);
-        }
-    }))
-    .catch(function(err) {
-        console.error(err);
-    });
 }

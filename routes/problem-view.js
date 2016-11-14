@@ -7,7 +7,6 @@ var tp = require('../tiny-promise');
 router.get('/:pid', function(req, res, next) {
     var db = dbtop.db();
     getPorb(db, req.params.pid, function(err, row) {
-        console.log('prob-view', err, row);
         if (err || !row) {
             next({
                 status:404,

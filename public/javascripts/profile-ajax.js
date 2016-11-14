@@ -49,7 +49,6 @@ $(function() {
                     }
                 });
             } else {
-                console.log(1);
                 $('#alertpwdsend').show();
             }
         }

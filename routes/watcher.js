@@ -94,8 +94,8 @@ router.get('/submission/:id/', function(req, res, next) {
             res.render('result', result);
         }
     }).catch(function(err) {
-        res.send('Bad server.');
-        console.log(err);
+        err.message = 'Bad Server';
+        next(err);
     });
 });
 

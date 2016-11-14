@@ -4,6 +4,8 @@
 */
 var tp = require('../tiny-promise');
 var assert = require('assert');
+var debug = require('debug');
+var log = debug('prj7_tot:testPreStart:log');
 
 /*var ctx = {
     run: function(cb) {
@@ -15,19 +17,19 @@ var assert = require('assert');
 
 tp.promisify.call(ctx, 'run')
 .then(function() {
-    console.log('step1');
+    log('step1');
 })
 .then(function() {
-    console.log('step2');
+    log('step2');
 })
 .catch(function(err) {
-    console.log(err);
+    log(err);
 });//*/
 
 var teste = {
     a:1,
     fun:function() {
-        //console.log(x);
+        //log(x);
         return typeof(this.a);
     }
 }
@@ -83,4 +85,4 @@ tp.promisify(fun2, 99)
 });
 
 
-console.log('tiny-promise test done.');
+log('tiny-promise test done.');

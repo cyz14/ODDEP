@@ -1,6 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var md5Salt_auth = require("../db/dbtop").md5Salt_auth;
+var debug = require('debug');
+var log = debug('prj7_tot:auth:log');
+var error = debug('prj7_tot:auth:error');
 
 router.get('/logout', function(req, res, next) {
     req.session.uid = null;
@@ -25,7 +28,7 @@ router.post('/login', function(req, res, next) {
     var password = req.body.password;
     md5Salt_auth(username, password, function(err, row) {
         if (err) {
-            console.log(err);
+            error(err);
         }
         if (row) {
             req.session.uid = row.uid;

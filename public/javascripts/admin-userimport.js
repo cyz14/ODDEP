@@ -29,7 +29,6 @@ $(function() {
                 this.attr('disabled', null);
             },
             error: function(xhr, status, error) {
-                console.log(xhr);
                 this.text('错误：' + xhr.status + ' ' + xhr.statusText);
                 this.removeClass('btn-warning');
                 this.addClass('btn-link');

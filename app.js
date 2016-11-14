@@ -60,7 +60,6 @@ app.use(function(req, res, next) {
   } else {
     res.redirect('/auth/login');
   }
-  console.warn(req.originalUrl);
 }); // */
 
 app.use('/upload', upload);

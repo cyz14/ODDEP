@@ -3,6 +3,9 @@ var router = express.Router();
 var dbtop = require('../db/dbtop');
 var tp = require('../tiny-promise');
 var userimp = require('../db/userimport');
+var debug = require('debug');
+var log = debug('prj7_tot:admin:log');
+var error = debug('prj7_tot:admin:error');
 
 // 权限大于1，为管理员。权限为1是题目维护者。
 router.all('*', function(req, res, next) {
@@ -42,7 +45,7 @@ router.get('/search/user', function(req, res, next) {
             res.send(rows);
         }))
         .catch(function(err) {
-            console.error(err);
+            error(err);
         });
         stmt.finalize();
     }
@@ -64,7 +67,7 @@ router.post('/power', function(req, res, next) {
             res.sendStatus(200);
         })
         .catch(function(err) {
-            console.error(err);
+            error(err);
         });
     }
 });
@@ -72,7 +75,7 @@ router.post('/power', function(req, res, next) {
 router.post('/userimport', function(req, res, next) {
     userimp.doDefault(function(err) {
         if (err) {
-            console.error(err);
+            error(err);
             res.sendStatus(500);
         } else {
             res.sendStatus(200);

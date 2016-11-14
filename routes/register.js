@@ -3,6 +3,9 @@ var router = express.Router();
 var tp = require('../tiny-promise');
 var dabs = require('../db/dbtop');
 var md5 = require('js-md5');
+var debug = require('debug');
+var log = debug('prj7_tot:register:log');
+var error = debug('prj7_tot:register:error');
 
 router.get('/', function(req, res, next) {
     res.render('register');
@@ -25,7 +28,7 @@ router.get('/nameexists', function(req, res, next) {
         }
     }))
     .catch(function(err) {
-        console.error(err);
+        error(err);
     });
 });
 
@@ -40,7 +43,7 @@ router.post('/', function(req, res, next) {
     var nickname = req.body.nickname;
     var password = md5(req.body.password + salt);
     var db = dabs.db();
-    console.log(username, nickname, password);
+    log(username, nickname, password);
     tp.promisify.call(db, 'run', 'INSERT INTO user (name, nickname, password, salt) values (?, ?, ?, ?)', username, nickname, password, salt)
     .then(function(err) {
         if (err) {

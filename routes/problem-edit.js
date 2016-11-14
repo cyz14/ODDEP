@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var tp = require('../tiny-promise');
 var dbtop = require('../db/dbtop');
+var debug = require('debug');
+var log = debug('prj7_tot:problem:edit:log');
+var error = debug('prj7_tot:problem:edit:error');
 
 router.all('*', function(req, res, next) {
     if (req.session.power && req.session.power > 0) {
@@ -47,7 +50,7 @@ router.get('/:pid', function(req, res, next) {
             });
         }))
         .catch(function(err) {
-            console.error(err);
+            error(err);
             next(err);
         });
     }
@@ -60,12 +63,12 @@ router.post('/:pid', function(req, res, next) {
     var description = req.body.description;
     var pid = req.params.pid;
     var db = dbtop.db();
-    console.log('limit:', limited);
+    log('limit:', limited);
     if (pid === 'new') {
         tp.promisify.call(db, 'run', 'insert into problem (title,source,limited,description) values (?, ?, ?, ?)', title, source, limited, description)
         .then(function(err) {
             if (err) {
-                console.error(err);
+                error(err);
                 res.status(500).send('bad');
             } else res.send('ok');
         });
@@ -73,7 +76,7 @@ router.post('/:pid', function(req, res, next) {
         tp.promisify.call(db, 'run', 'update problem set title = ?, source = ?, limited = ?, description = ? where pid = ?', title, source, limited, description, pid)
         .then(function(err) {
             if (err) {
-                console.error(err);
+                error(err);
                 res.status(500).send('bad');
             } else res.send('ok')
         });
