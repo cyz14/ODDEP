@@ -6,6 +6,33 @@ body{
   padding: 0;
   overflow:scroll;
   width: 100%;
+  overflow-x: hidden;
+}
+
+.navbar-static-top {
+    margin-bottom: 0px;
+}
+
+.fileinput-button {
+  position: relative;
+  display: inline-block;
+}
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px !important;
+  direction: ltr;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  overflow: hidden;
 }
 
 input{
@@ -30,15 +57,22 @@ input{
 }
 
 #editorTab {
-  margin-bottom: 9px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.row .col-sm-4 .form-inline {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #container{
   position:absolute;
   width: 100%;
-  height: 100%;
   padding:0px;
   margin:0px;
+  top: 0px;
+  bottom: 0px;
 }
 
 #navigation{
@@ -46,7 +80,8 @@ input{
   padding:0px;
   margin:0px;
   width: 140px;
-  height: 100%;
+  top: 0px;
+  bottom: 0px;
   overflow: scroll;
   background : transparent url(background_drak.jpg);
   text-align: center;
@@ -56,7 +91,7 @@ input{
   position: absolute;
   left: 140px;
   right: 0px;
-  padding:5px;
+  padding:0px;
   margin:0px;
   height:60px;
   background: #cecece; /* Old browsers */
@@ -105,23 +140,24 @@ input{
   border: 1px solid transparent;
 }
 
-#canvasWrapper {
+#draw2dCanvasWrapper {
   position: absolute;
   padding:0px;
   left: 140px;
   right: 0px;
   top: 60px;
-  bottom: 10px;
-  /*width: 100%;*/
+  bottom: 0px;
   overflow:scroll;
 }
 
-#canvas {
+#draw2dCanvas {
   position: absolute;
   padding:0px;
   margin:0px;
   top:0px;
   bottom:0px;
+  width: 6000px;
+  height: 6000px;
   background-color:#FAFAFA;
 }
 

@@ -5,7 +5,7 @@ var debug = require('debug');
 var log = debug('prj7_tot:testPreStart:log');
 
 var db = dabs.db();
-
+var md5 = require('js-md5');
 /*
 tp.promisify.call(db, 'all', 'SELECT id, nickname, status, submit_time from submission inner join user on user.uid = submission.uid WHERE id <= 3 and id > -17 ORDER BY id DESC')
 .then(tp.spread(function(err, rows) {
@@ -22,7 +22,8 @@ db.get('select count(*) from submission', function(err, row) {
     log('submission amount:', row['count(*)']);
 });
 
-dabs.md5Salt_auth('root', 'root', function(err, row) {
+var rock = "yvykf07ej800be29TAOLIDIXIACHEDUI8nzoyyz0z5lsdcxr";
+dabs.md5Salt_auth('root', md5('root'+'root'+rock), function(err, row) {
     assert.strictEqual(err, null);
     log('md5Salt_auth got result:', row);
     log(row.nickname + '认证测试成功');

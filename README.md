@@ -15,6 +15,7 @@ Then install dependencies managed by *bower*
 /path/to/prj7_tot $ bower install
 ```
 ### Config sqlite database
+On first configuration: 
 #### 1. Install sqlite3 globally
 When in *Install npm dependencies*, node_module *sqlite3* has been installed, but the project also need the sqlite3 program.
 To install sqlite3 globally
@@ -43,6 +44,14 @@ sqlite> .read dbinit.sql
 sqlite> .read dbtest-load.sql
 sqlite> .exit 
 ```
+##### 2.3 Attention on Update Project
+To update the project, you may need to reset the sqlite3 database file currently. Because database may change its format or structure.
+You should run 
+```
+sqlite> .read dbrm.sql
+```
+firstly to remove old database before dbinit.sql.
+
 #### 3. Set Up ModelSim Simulator
 See TA's [Install ModelSim References](https://github.com/xgeric/2016-SE-TA/blob/master/ModelSim%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.pdf)
 

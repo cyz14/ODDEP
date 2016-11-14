@@ -1,15 +1,15 @@
 /**
  * Created by Chen Yazheng on 16/10/20
  */
-var scrollAreaId = "#canvas";
-var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter();
+var scrollAreaId = "#draw2dCanvasWrapper";
+var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter(); 
 
 tot.View = draw2d.Canvas.extend({
 
 	/**
 	 * @constructor
 	 */
-	init: function(id) {
+	init: function(app, id) {
 	    var _this = this;
 		this._super(id);
 
@@ -175,6 +175,15 @@ tot.View = draw2d.Canvas.extend({
         $(".toolbar").delegate("#editRedo:not(.disabled)","click", function(){
             _this.getCommandStack().redo();
         });
+
+        // Have to use addEventListener("change") here because input element is special
+        document.querySelector(".toolbar").addEventListener("change", function(){
+            _this.fileUpload();
+        });
+
+        $('.toolbar').delegate("#fileSaveAs:not(.disabled)", "click", function(){
+            _this.canvasSaveAs(_this);
+        });
 	}, // end init
 
     getBoundingBox: function()
@@ -303,7 +312,58 @@ tot.View = draw2d.Canvas.extend({
 
         if(event.getStack().canRedo()) {
             $("#editRedo").removeClass("disabled");
-        }   
+        }
+    },
+
+    centerDocument:function()
+    {
+        var bb=null;
+        var c = $(scrollAreaId);
+        if(this.getFigures().getSize()>0){
+            // get the bounding box of the document and translate the complete document
+            // into the center of the canvas. Scroll to the top left corner after them
+            //
+            bb = this.getBoundingBox();
+            this.scrollTo(bb.y- c.height()/2,bb.x- c.width()/2);
+        }
+        else{
+            bb={
+                x:this.getWidth()/2,
+                y:this.getHeight()/2
+            };
+            this.scrollTo(bb.y- c.height()/2,bb.x- c.width()/2);
+
+        }
+    },
+
+    fileUpload:function() {
+        var file_uri = window.URL.createObjectURL($("#file_input").get(0).files[0]);
+        if (typeof file_uri === 'undefined') { file_uri = default_file_uri; }
+        var jsonDocument;
+        var canvas = this;
+        get_file(file_uri,function (response) {
+            canvas.clear();
+            jsonDocument = response.target.responseText;
+            var reader = new draw2d.io.json.Reader();
+            reader.unmarshal(canvas, jsonDocument);
+            canvas.centerDocument();
+        });
+        $("#fileInput").addClass("disabled"); 
+    },
+
+    canvasSaveAs:function(canvas) {
+        var writer = new draw2d.io.json.Writer();
+        writer.marshal(canvas, function(json){
+             var blob = new Blob([JSON.stringify(json,null,2)], {type:"text/plain;charset=utf-8"});
+             saveAs(blob, "design.circuit");
+        });
     }
 
 });
+
+function get_file(uri,callback) {
+	var request = new XMLHttpRequest();
+	request.onload = callback;
+	request.open("get",uri,true);
+	request.send();
+}
