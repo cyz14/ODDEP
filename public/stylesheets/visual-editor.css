@@ -6,6 +6,7 @@ body{
   padding: 0;
   overflow:scroll;
   width: 100%;
+  overflow-x: hidden;
 }
 
 .navbar-static-top {
@@ -46,10 +47,6 @@ input{
  height:25px;
  font-size:14px;
  line-height:25px;
-}
-
-.container-fluid {
-    overflow-x: hidden;
 }
 
 .tab-pane {
@@ -105,15 +102,6 @@ input{
   background: -ms-linear-gradient(top,  #cecece 0%,#a8a8a8 100%); /* IE10+ */
   background: linear-gradient(to bottom,  #cecece 0%,#a8a8a8 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cecece', endColorstr='#a8a8a8',GradientType=0 ); /* IE6-9 */
-}
-
-#toolbar .toolbar-left {
-    float: left!important;
-}
-
-#toolbar .toolbar-right {
-  float: right!important;
-  margin-right: -15px;
 }
 
 .toolbar label {
