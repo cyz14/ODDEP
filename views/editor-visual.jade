@@ -47,8 +47,8 @@ block addscript
   script(src="https://cdn.rawgit.com/eligrey/Blob.js/0cef2746414269b16834878a8abc52eb9d53e6bd/Blob.js",  async="" )
   script(src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js", async="")
   script(src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js")
-  script(src="/javascripts/editor-draw.js")
-  script(src="/chips/json/1bit_adder.json")
+  //- script(src="/javascripts/editor-draw.js")
+  //- script(src="/chips/json/1bit_adder.json")
   script(src="/chips/json/circuit_adder_1bit.js")
   script(src="/javascripts/editor-toVHDL.js")
   script(src="/javascripts/editor-draw-submit.js")
@@ -70,7 +70,7 @@ block addscript
     var showJSON = true;
     $(window).load( function(){
       app = new tot.Application();
-    //-   app.load(circuit_adder_1bit);
+      //- app.load(circuit_adder_1bit);
       if (showJSON === true) {
         // displayJSON(app.view);
 
