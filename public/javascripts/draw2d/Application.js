@@ -31,7 +31,7 @@ tot.Application = Class.extend({
             title: "Untitled"+conf.fileSuffix // conf is in draw2d/settings/backend.js
         };
 
-        this.view    = new tot.View("canvas");
+        this.view    = new tot.View(this, "draw2dCanvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
 		this.palette = new tot.Palette("navigation", this);
 	},

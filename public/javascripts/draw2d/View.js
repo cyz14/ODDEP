@@ -1,7 +1,7 @@
 /**
  * Created by Chen Yazheng on 16/10/20
  */
-var scrollAreaId = "#canvasWrapper";
+var scrollAreaId = "#draw2dCanvasWrapper";
 var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter(); 
 
 tot.View = draw2d.Canvas.extend({
@@ -9,7 +9,7 @@ tot.View = draw2d.Canvas.extend({
 	/**
 	 * @constructor
 	 */
-	init: function(id) {
+	init: function(app, id) {
 	    var _this = this;
 		this._super(id);
 

@@ -152,7 +152,7 @@ input{
   border: 1px solid transparent;
 }
 
-#canvasWrapper {
+#draw2dCanvasWrapper {
   position: absolute;
   padding:0px;
   left: 140px;
@@ -162,12 +162,14 @@ input{
   overflow:scroll;
 }
 
-#canvas {
+#draw2dCanvas {
   position: absolute;
   padding:0px;
   margin:0px;
   top:0px;
   bottom:0px;
+  width: 6000px;
+  height: 6000px;
   background-color:#FAFAFA;
 }
 
