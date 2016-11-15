@@ -22,12 +22,16 @@ describe('db/dbtop.js', function() {
             tmp = env.getProblemCount();
             tmp.should.be.equal(cnt);
         });
+        after(function() {
+            env.fix();
+        });
     });
     describe('isEmptys()', function() {
         var isEmptys = dbtop.isEmptys;
         it('判断context是否为空', function() {
             (isEmptys.call({})).should.be.true();
             (isEmptys.call({9:1})).should.be.false();
+            (isEmptys.call({1:function() {}})).should.be.true();
         });
     });
     describe('obj2Stmt()', function() {
@@ -44,7 +48,9 @@ describe('db/dbtop.js', function() {
                 },
                 sep : 'and'
             })).should.be.equal(' set user.uid=submission.uid and name=1 ');
-            (obj2Stmt('where', {})).should.be.equal(' ');
+            (obj2Stmt('where', { 1:null }, {
+                funs: { 1:null }
+            })).should.be.equal(' ');
         });
     });
     describe('md5Salt_auth()', function() {
@@ -59,15 +65,24 @@ describe('db/dbtop.js', function() {
     describe('submissionRegisterIfNotExists()', function() {
         var token = 'mocha-test';
         var tag = '!test in mocha!'
+        var submitReg = dbtop.submissionRegisterIfNotExists;
         after(function() {
             db.run('delete from submission where uid = ?', -1);
         });
-        it('注册提交记录', function(done) {
-            dbtop.submissionRegisterIfNotExists(token, -1, 1000, tag
-            , function(err) {
+        it('注册提交记录', function() {
+            return tp.promisify.call(dbtop
+            , submitReg, token, -1, 1000, tag)
+            .should.it.be.fulfilledWith(null);
+        });
+        it('重复提交检测', function() {
+            var count = dbtop.env.getSubmissionCount();
+            return tp.promisify.call(dbtop
+            , submitReg, token, -1, 1000, tag)
+            .then(function(err) {
                 should.ifError(err);
-                done();
-            });
+                return dbtop.env.getSubmissionCount();
+            })
+            .should.it.be.fulfilledWith(count);
         });
     });
     describe('updStatPromise()', function() {

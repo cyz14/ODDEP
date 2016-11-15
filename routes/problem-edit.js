@@ -70,7 +70,11 @@ router.post('/:pid', function(req, res, next) {
             if (err) {
                 error(err);
                 res.status(500).send('bad');
-            } else res.send('ok');
+            } else {
+                dbtop.env.addProblem();
+                res.status(200).send(
+                    (dbtop.env.getProblemCount() + 999).toString());
+            }
         });
     } else {
         tp.promisify.call(db, 'run', 'update problem set title = ?, source = ?, limited = ?, description = ? where pid = ?', title, source, limited, description, pid)
@@ -78,7 +82,9 @@ router.post('/:pid', function(req, res, next) {
             if (err) {
                 error(err);
                 res.status(500).send('bad');
-            } else res.send('ok')
+            } else {
+                res.sendStatus(200);
+            }
         });
     }
 });
