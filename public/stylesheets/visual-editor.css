@@ -5,8 +5,7 @@ body{
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow:scroll;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .navbar-static-top {
@@ -49,6 +48,15 @@ input{
  line-height:25px;
 }
 
+.row#tabNav {
+    height: 50px;
+}
+
+.row .col-sm-4 .form-inline {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .tab-pane {
   display: none;
   padding: 0px;
@@ -61,20 +69,6 @@ input{
   margin-bottom: 5px;
 }
 
-.row .col-sm-4 .form-inline {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-#container{
-  position:absolute;
-  width: 100%;
-  padding:0px;
-  margin:0px;
-  top: 0px;
-  bottom: 0px;
-}
-
 #navigation{
   position: absolute;
   padding:0px;
@@ -82,8 +76,6 @@ input{
   width: 200px;
   top: 0px;
   bottom: 0px;
-  overflow: scroll;
-  /*background : transparent url(background_drak.jpg);*/
   text-align: center;
 }
 
@@ -101,7 +93,7 @@ input{
   font-size: 20px;
   left: 5px;
   height: 40px;
-  width: 190px;
+  width: 180px;
   border-radius: 2px;
 }
 
@@ -110,10 +102,10 @@ input{
   margin: 0;
   padding: 0;
   top: 150px;
-  bottom: 0px;
+  bottom: 100px;
   left: 2px;
   right: 5px;
-  overflow: auto;
+  overflow: scroll;
 }
 
 #navigation #paletteElementScroll .palette_node_element {
@@ -181,16 +173,11 @@ input{
   left: 200px;
   right: 0px;
   top: 60px;
-  bottom: 0px;
+  bottom: 100px; /* same as navbar-static-top + row#tabNav height*/
   overflow:scroll;
 }
 
 #draw2dCanvas {
-  position: absolute;
-  padding:0px;
-  margin:0px;
-  top:0px;
-  bottom:0px;
   width: 6000px;
   height: 6000px;
   background-color:#FAFAFA;
@@ -236,7 +223,6 @@ input{
  width:80px;
  margin: 30px auto 30px auto;
  text-align:center;
- align:center;
  border-radius: 5px;
 }
 

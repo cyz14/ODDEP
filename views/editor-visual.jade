@@ -14,10 +14,10 @@ html
 
 
 body(role="document")
-  //- include includes/navbar
+  include includes/navbar
   div#layout
     div.container-fluid(style="margin:0px;padding:0px;")
-      div.row
+      div.row#tabNav
         div.col-sm-4
           ul#editorTab.nav.nav-pills(style="padding-left:5px;")
             li.active: a(href="#visual", data-toggle="tab") 可视化编辑&nbsp;
@@ -33,7 +33,7 @@ body(role="document")
       div#editorTabContent.tab-content
         div#visual.tab-pane.in.active
           include includes/canvas
-        //- include includes/wave-editor
+        include includes/wave-editor
   btn.submit-btn.btn.btn-lg.btn-danger 提交
   include includes/modal-vhdl
 
