@@ -28,10 +28,7 @@ router.post('/update', function(req, res, next) {
         }())
         .then(tp.spread(function(err, row) {
             if (err) throw err;
-            if (!row) {
-                res.send('auth err');
-                throw 'auth err';
-            }
+            if (!row) throw 'auth err';
             if (setObj.password) {
                 setObj.password = md5(setObj.password + row.salt);
             }
@@ -47,10 +44,11 @@ router.post('/update', function(req, res, next) {
         })
         .catch(function(err) {
             if (err !== 'auth err') {
-                error(err);
-                error(req.body);
+                error(err, req.body);
+                res.send('bad');
+            } else {
+                res.send(err);
             }
-            res.send('bad');
         });
     }
 });

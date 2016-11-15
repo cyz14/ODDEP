@@ -1,6 +1,9 @@
 var should = require('should');
 var session = require('./session');
 var dbtop = require('../../db/dbtop');
+var md5 = require('js-md5');
+
+var rock = 'yvykf07ej800be29TAOLIDIXIACHEDUI8nzoyyz0z5lsdcxr';
 
 describe('题目编辑模块', function() {
 
@@ -8,6 +11,37 @@ describe('题目编辑模块', function() {
         it('GET /problem/edit/1001', function(done) {
             session.get('/problem/edit/1001')
             .expect(200, done);
+        });
+
+        it('GET /problem/edit/999 expect error page', function(done) {
+            session.get('/problem/edit/999')
+            .expect(404, done);
+        });
+
+        describe('权限测试', function() {
+            before(function(done) {
+                session.post('/auth/login')
+                .send({
+                    username: 'test',
+                    password: md5('kkktest' + rock)
+                })
+                .expect(302)
+                .expect('Location', '/', done);
+            });
+            after(function(done) {
+                session.post('/auth/login')
+                .send({
+                    username: 'root',
+                    password: md5('rootroot' + rock)
+                })
+                .expect(302)
+                .expect('Location', '/', done);
+            });
+
+            it('权限大于零才能编辑题目', function(done) {
+                session.get('/problem/edit/new')
+                .expect(200, 'Permission denied.', done);
+            });
         });
     });
 

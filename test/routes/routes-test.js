@@ -16,3 +16,4 @@ describe('编辑页面', function() {
 
 var t1 = require('./problem-view-test');
 var t2 = require('./problem-edit-test');
+var t3 = require('./profile-test');
