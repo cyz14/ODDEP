@@ -1,4 +1,5 @@
 var request = require('supertest');
+var auth = require('./routes/account');
 
 describe('部署运行前测试', function() {
 
@@ -101,8 +102,6 @@ describe('前端响应', function() {
         });
 
         describe('登录', function() {
-            var md5 = require('js-md5');
-            var rock = 'yvykf07ej800be29TAOLIDIXIACHEDUI8nzoyyz0z5lsdcxr';
             it('登录失败测试', function(done) {
                 request(app)
                 .post('/auth/login')
@@ -114,13 +113,7 @@ describe('前端响应', function() {
                 .expect('Location', '#err', done);
             })
             it('账号root,密码root,成功后重定向到/', function(done) {
-                session.post('/auth/login')
-                .send({
-                    username : 'root',
-                    password : md5('rootroot' + rock)
-                })
-                .expect(302)
-                .expect('Location', '/', done);
+                auth.login(session, auth.root, done);
             });
             it('测试管理员权限', function(done) {
                 session.get('/admin')

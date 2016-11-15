@@ -84,7 +84,8 @@ app.use(function(req, res, next) {
 // 纯信息，无调试
 app.use(function(err, req, res, next) {
   if (err.pure) {
-    res.send(err.message);
+    res.status(err.status || 500)
+    .send(err.message);
   } else {
     next(err);
   }
