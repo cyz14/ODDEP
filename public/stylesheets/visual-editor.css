@@ -4,8 +4,8 @@ body{
   color:#6b6b6b;
   margin: 0;
   padding: 0;
-  overflow:scroll;
   width: 100%;
+  overflow:scroll;
   overflow-x: hidden;
 }
 

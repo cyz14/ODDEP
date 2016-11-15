@@ -7,13 +7,14 @@ html
     link(rel="stylesheet", href="/stylesheets/style.css")
     link(rel="stylesheet", href="/stylesheets/navbar-static-top.css")
     link(rel="stylesheet", href="/lib/aristo/jquery-ui-1.8.16.custom.css")
-    link(type="text/css" rel="stylesheet", href="/stylesheets/visual-editor.css")
+    link(rel="stylesheet", href="/stylesheets/visual-editor.css")
     //- ToDo: Customize vhdl editor's UI with bootstrap to adapt to more device size
     link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
+    link(rel="stylesheet", href="/stylesheets/contextmenu.css")
 
 
 body(role="document")
-  include includes/navbar
+  //- include includes/navbar
   div#layout
     div.container-fluid(style="margin:0px;padding:0px;")
       div.row
@@ -32,12 +33,12 @@ body(role="document")
       div#editorTabContent.tab-content
         div#visual.tab-pane.in.active
           include includes/canvas
-        include includes/wave-editor
+        //- include includes/wave-editor
   btn.submit-btn.btn.btn-lg.btn-danger 提交
   include includes/modal-vhdl
 
 block addscript
-  script(src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js")
+  script(src="//cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js")
   //- draw2d library dependencies
   include includes/draw2d_js
   script(src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js")

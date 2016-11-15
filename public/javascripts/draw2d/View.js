@@ -13,6 +13,8 @@ tot.View = draw2d.Canvas.extend({
 	    var _this = this;
 		this._super(id);
 
+        this.simulate = false;
+
         this.setScrollArea(scrollAreaId);
 
         // add commandStack support
@@ -184,6 +186,73 @@ tot.View = draw2d.Canvas.extend({
         $('.toolbar').delegate("#fileSaveAs:not(.disabled)", "click", function(){
             _this.canvasSaveAs(_this);
         });
+
+        this.on("contextmenu", function(emitter, event){
+            var figure = _this.getBestFigure(event.x, event.y);
+
+            // a connectionprovides its own context menu
+            //
+            if(figure instanceof draw2d.Connection){
+                return;
+            }
+            if(figure instanceof ProbeFigure){
+                return;
+            }
+
+            if(figure!==null){
+                var x = event.x;
+                var y = event.y;
+
+                var items = {
+                    "label":   {name: "Add Label"        , icon :"x ion-ios-pricetag-outline"     },
+                    "delete":  {name: "Delete"           , icon :"x ion-ios-close-outline"        },
+                };
+
+                // if the designer is running on the Raspi
+                //
+                if(conf.designer.url===null){
+                     items = {
+                        "label":   {name: "Add Label"        , icon :"x ion-ios-pricetag-outline"     },
+                        "delete":  {name: "Delete"           , icon :"x ion-ios-close-outline"        },
+                     };
+                     console.log("ContextMenu: " + items);
+                }
+
+                $.contextMenu({
+                    selector: 'body',
+                    events:
+                    {
+                        hide:function(){ $.contextMenu( 'destroy' ); }
+                    },
+                    callback: $.proxy(function(key, options)
+                    {
+                        console.log(key+" Selected.");
+                        switch(key){
+                            case "label":
+                                var text = prompt("Label");
+                                if(text) {
+                                    var label = new draw2d.shape.basic.Label({text:text, stroke:0, x:-20, y:-40});
+                                    var locator = new draw2d.layout.locator.SmartDraggableLocator();
+                                    label.installEditor(new draw2d.ui.LabelInplaceEditor());
+                                    figure.add(label,locator);
+                                }
+                                break;
+                            case "delete":
+                                var cmd = new draw2d.command.CommandDelete(figure);
+                                _this.getCommandStack().execute(cmd);
+                                break;
+                            default:
+                                break;
+                        }
+
+                    },this),
+                    x:x,
+                    y:y,
+                    items:items
+
+                });
+            }
+        });
 	}, // end init
 
     getBoundingBox: function()
@@ -292,7 +361,7 @@ tot.View = draw2d.Canvas.extend({
             ((y*(1/this.zoomFactor)) + this.getAbsoluteY() - $('body').scrollTop()));
     },
 
-        /**
+    /**
      * @method
      * Sent when an event occurs on the command stack. draw2d.command.CommandStackEvent.getDetail()
      * can be used to identify the type of event which has occurred.
@@ -357,6 +426,10 @@ tot.View = draw2d.Canvas.extend({
              var blob = new Blob([JSON.stringify(json,null,2)], {type:"text/plain;charset=utf-8"});
              saveAs(blob, "design.circuit");
         });
+    },
+
+    isSimulationRunning:function() {
+        return this.simulate;
     }
 
 });
