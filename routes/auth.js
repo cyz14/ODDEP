@@ -15,17 +15,13 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-    if (typeof(req.session.token) != 'undefined') {
-        res.redirect('/');
-    }
-    else {
-        res.render('login', { title: '登录'});
-    }
+    res.render('login', { title: '登录'});
 });
 
 router.post('/login', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+    log(username, password);
     md5Salt_auth(username, password, function(err, row) {
         if (err) {
             error(err);

@@ -59,4 +59,29 @@ router.get('/', function(req, res, next) {
     }));
 });
 
+router.get('/:pid/limits', function(req, res, next) {
+    var pid = parseInt(req.params.pid) || 0;
+    var db = dbtop.db();
+    tp.promisify.call(db, 'get'
+    , 'select (limited) from problem where pid = ?'
+    , pid)
+    .then(tp.spread(function(err, row) {
+        if (err) {
+            res.sendStatus(500);
+        } else {
+            if (row) {
+                res.status(200).json({
+                    status: 200,
+                    data: JSON.parse(row.limited)
+                });
+            } else {
+                res.status(200).json({
+                    status: 404,
+                    message: 'problem not found'
+                });
+            }
+        }
+    }))
+});
+
 module.exports = router;

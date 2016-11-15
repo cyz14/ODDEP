@@ -2,7 +2,7 @@
     tiny-promise 测试代码
     (bundle 未测试)
 */
-var tp = require('../tiny-promise');
+var tp = require('../../tiny-promise');
 var assert = require('assert');
 var debug = require('debug');
 var log = debug('prj7_tot:testPreStart:log');

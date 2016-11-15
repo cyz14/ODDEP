@@ -19,14 +19,21 @@ var env = (function() {
     var problem_count = 0;
     var obj = {};
     var dabs = db();
-    dabs.get('select count(*) from submission', function(err, row) {
-        assert.strictEqual(err, null);
-        submission_count = row['count(*)'];
-    });
-    dabs.get('select count(*) from problem', function(err, row) {
-        assert.strictEqual(err, null);
-        problem_count = row['count(*)'];
-    });
+    function fix() {
+        var stmt = dabs.prepare('select count(*) from submission');
+        stmt.get(function(err, row) {
+            assert.strictEqual(err, null);
+            submission_count = row['count(*)'];
+        });
+        stmt.finalize();
+        stmt = dabs.prepare('select count(*) from problem');
+        stmt.get(function(err, row) {
+            assert.strictEqual(err, null);
+            problem_count = row['count(*)'];
+        });
+        stmt.finalize();
+    }
+    fix();
     obj.submit = function() {
         ++ submission_count;
         return submission_count;
@@ -41,6 +48,7 @@ var env = (function() {
     obj.getProblemCount = function() {
         return problem_count;
     }
+    obj.fix = fix;
     return obj;
 }());
 exports.env = env;
@@ -84,7 +92,7 @@ var obj2Stmt = function(op, args, opt) {
             if (str.length) {
                 str += sep;
             }
-            str += key + '=' + funs[key] + ' ';
+            str += key + '=' + funs[key];
         }
     if (str) {
         return ' ' + op + ' ' + str + ' ';
@@ -113,7 +121,7 @@ exports.md5Salt_auth = function(username, password, next) {
     });
 };
 
-// 最简单的明文验证 (已放弃)
+/* 最简单的明文验证 (已放弃)
 // next(row)
 exports.basic_auth = function(username, password, next) {
     dabs = db();
@@ -128,9 +136,9 @@ exports.basic_auth = function(username, password, next) {
         error(err);
         next(null);
     });
-};
+}; // */
 
-// 注册token,uid的提交，已存在则无动作 (计划放弃)
+// 注册token,uid的提交，已存在则无需更新数据库
 // next(err)
 //*
 exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
@@ -145,11 +153,15 @@ exports.submissionRegisterIfNotExists = function(token, uid, pid, tag, next) {
             'insert into submission (token, uid, pid, tag) values (?, ?, ?, ?)',
             token, uid, pid, tag);
         }
+        return true;
     })).then(function(err) {
         if (!err) {
             log('register done.');
             env.submit();
         }
+        next(null);
+    })
+    .catch(function(err) {
         next(err);
     });
 }; // */

@@ -41,12 +41,12 @@ exports.pickle = function() {
     });
 }
 
-/*  !未测试!
+/*  !Promise.all() 已经解决此功能!
     title: 为了进行用户单线程、单束任务转多束任务转单束任务，规定bundle多束包装协议
     >>>
     类型> bundle : promise[]
     promise产生> bundle.bundle() : promise
-// */
+// *
 var bundle = function() {
     var tasks = Array.prototype.slice.call(this);
     return new Promise(function(resolve, reject) {
@@ -66,4 +66,4 @@ var bundle = function() {
         }
     });
 }
-//exports.bundle = bundle.bundle = bundle;
+//exports.bundle = bundle.bundle = bundle; */

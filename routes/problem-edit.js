@@ -39,7 +39,10 @@ router.get('/:pid', function(req, res, next) {
         tp.promisify.call(db, 'get', 'select * from problem where pid = ?', parseInt(pid))
         .then(tp.spread(function(err, row) {
             if (err) throw err;
-            if (!row) throw { message: 'cannot find pid'};
+            if (!row) throw {
+                status: 404,
+                message: 'cannot find problem #' + pid
+            };
             res.render('problem-edit', {
                 limits : JSON.parse(row.limited),
                 title : '编辑' + pid,
@@ -70,7 +73,11 @@ router.post('/:pid', function(req, res, next) {
             if (err) {
                 error(err);
                 res.status(500).send('bad');
-            } else res.send('ok');
+            } else {
+                dbtop.env.addProblem();
+                res.status(200).send(
+                    (dbtop.env.getProblemCount() + 999).toString());
+            }
         });
     } else {
         tp.promisify.call(db, 'run', 'update problem set title = ?, source = ?, limited = ?, description = ? where pid = ?', title, source, limited, description, pid)
@@ -78,7 +85,9 @@ router.post('/:pid', function(req, res, next) {
             if (err) {
                 error(err);
                 res.status(500).send('bad');
-            } else res.send('ok')
+            } else {
+                res.sendStatus(200);
+            }
         });
     }
 });

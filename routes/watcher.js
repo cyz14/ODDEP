@@ -112,7 +112,7 @@ router.get('/download/:type/:token', function(req, res, next) {
         var name = typ + '-' + token.substr(token.indexOf('-') + 1) + filnameEnd[typ];
         res.download(path, name);
     } else {
-        res.status(404);
+        res.sendStatus(404);
     }
 });
 
