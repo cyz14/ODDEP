@@ -2,8 +2,6 @@
  * Created by Chen Yazheng on 16/10/20
  */
 
-//ToDo: add 74ls series chips to support 1 bit adder circuit
-
 // declare the namespace for this prj7
 var tot = {}; // Team of Taoli
 
@@ -23,7 +21,7 @@ tot.Application = Class.extend({
 	 *
 	 * @param {String} canvasId the is of the DOM element to use as paint container
 	 */
-	init: function() {
+	init: function(limits) {
         var _this = this;
         this.localStorage = [];
         this.loggedIn = true;
@@ -42,7 +40,7 @@ tot.Application = Class.extend({
 
         this.view    = new tot.View(this, "draw2dCanvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
-		this.palette = new tot.Palette("navigation", this);
+		this.palette = new tot.Palette("navigation", limits, this);
 	},
 
     /**
@@ -80,13 +78,6 @@ tot.Application = Class.extend({
 	    conn.setRadius(5);
 	    conn.setColor('#00A8F0');
 	    return conn;
-	},
-
-    fileSave: function()
-    {
-        var _this = this;
-
-        
-    },
+	}
 
 });

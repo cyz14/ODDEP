@@ -215,7 +215,6 @@ tot.View = draw2d.Canvas.extend({
                         "label":   {name: "Add Label"        , icon :"x ion-ios-pricetag-outline"     },
                         "delete":  {name: "Delete"           , icon :"x ion-ios-close-outline"        },
                      };
-                     console.log("ContextMenu: " + items);
                 }
 
                 $.contextMenu({
@@ -226,7 +225,6 @@ tot.View = draw2d.Canvas.extend({
                     },
                     callback: $.proxy(function(key, options)
                     {
-                        console.log(key+" Selected.");
                         switch(key){
                             case "label":
                                 var text = prompt("Label");

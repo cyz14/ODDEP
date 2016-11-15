@@ -69,8 +69,17 @@ block addscript
   script.
     var app;
     var showJSON = false;
+    var pid= #{ pid }; // Get Problem ID from router render call
+    // Get Problem Limit of Chips
+    var limits = {};
+    $.get("/problem/"+ pid +"/limits", function onSuccess(res, status, xhr) {
+        console.log(pid);
+        console.log(res.data);
+        limits = res.data;
+    }, "json");
+
     $(window).load( function(){
-      app = new tot.Application();
+      app = new tot.Application(limits);
       //- app.load(circuit_adder_1bit);
       if (showJSON === true) {
         displayJSON(app.view);
