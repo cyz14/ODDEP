@@ -14,8 +14,8 @@ var conf={
         url:"http://freegroup.github.io/draw2d_js.app.shape_designer/"
     },
     backend: {
-        oauth     : "http://draw2d.org/backend/oauth2.php",
-        isLoggedIn: "http://draw2d.org/backend/isLoggedIn.php",
+        oauth     : "",//"http://draw2d.org/backend/oauth2.php",
+        isLoggedIn: "",//http://draw2d.org/backend/isLoggedIn.php",
         file:{
             list  : "http://draw2d.org/backend/file_list.php",
             get   : "http://draw2d.org/backend/file_get.php",

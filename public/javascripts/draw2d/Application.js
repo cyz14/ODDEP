@@ -26,10 +26,19 @@ tot.Application = Class.extend({
 	init: function() {
         var _this = this;
         this.localStorage = [];
+        this.loggedIn = true;
 
         this.currentFileHandle= {
             title: "Untitled"+conf.fileSuffix // conf is in draw2d/settings/backend.js
         };
+
+        try {
+            if( 'localStorage' in window && window.localStorage !== null){
+                this.localStorage = localStorage;
+            }
+        } catch (e) {
+
+        }
 
         this.view    = new tot.View(this, "draw2dCanvas");
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
