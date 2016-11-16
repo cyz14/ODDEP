@@ -9,11 +9,14 @@ tot.View = draw2d.Canvas.extend({
 	/**
 	 * @constructor
 	 */
-	init: function(app, id) {
+	init: function(app, id, limits) {
 	    var _this = this;
 		this._super(id);
+        this.app = app;
 
         this.simulate = false;
+        this.number = {};
+        this.limits = limits;
 
         this.setScrollArea(scrollAreaId);
 
@@ -304,10 +307,32 @@ tot.View = draw2d.Canvas.extend({
     onDrop : function(droppedDomNode, x, y, shiftKey, ctrlKey)
     {
         var type = $(droppedDomNode).data("shape");
-        var figure = eval("new "+type+"();");
-        // create a command for the undo/redo support
-        var command = new draw2d.command.CommandAdd(this, figure, x, y);
-        this.getCommandStack().execute(command);
+        var isAllowed = this.checkLimit(type); 
+        if (isAllowed) {
+            var figure = eval("new "+type+"();");
+            this.updateUsage(type);
+            // create a command for the undo/redo support
+            var command = new draw2d.command.CommandAdd(this, figure, x, y);
+            this.getCommandStack().execute(command);
+        } else {
+            alert("Usage is limited.");
+        }
+    },
+
+    checkLimit:function(type) {
+        var number = this.getNumber(type);
+        console.log(type + " has " + number);
+        return true;
+    },
+
+    updateUsage:function(type) {
+        
+    },
+
+    getNumber:function(type) {
+        if(this.number[type] != null)
+            return this.number[type];
+        return 0;
     },
 
     /**

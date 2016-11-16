@@ -38,9 +38,9 @@ tot.Application = Class.extend({
 
         }
 
-        this.view    = new tot.View(this, "draw2dCanvas");
+        this.view    = new tot.View(this, "draw2dCanvas", limits);
 		this.toolbar = new tot.Toolbar("toolbar", this, this.view);
-		this.palette = new tot.Palette("navigation", limits, this);
+		this.palette = new tot.Palette("navigation", this, limits);
 	},
 
     /**

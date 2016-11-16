@@ -72,14 +72,22 @@ block addscript
     var pid= #{ pid }; // Get Problem ID from router render call
     // Get Problem Limit of Chips
     var limits = {};
-    $.get("/problem/"+ pid +"/limits", function onSuccess(res, status, xhr) {
-        console.log(pid);
-        console.log(res.data);
-        limits = res.data;
-    }, "json");
+    var elements = {};
 
     $(window).load( function(){
-      app = new tot.Application(limits);
+      $.get("/problem/"+ pid +"/limits", function onSuccess(res, status, xhr) {
+        limits = res.data;
+        if (limits == null) {
+            alert("Error: no problem limit got");
+            return;
+        }
+        for (element in limits) {
+            elements[element] = {};
+            elements[element].limit = limits[element];
+        }
+        app = new tot.Application(elements);
+      }, "json");
+      
       //- app.load(circuit_adder_1bit);
       if (showJSON === true) {
         displayJSON(app.view);

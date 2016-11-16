@@ -8,12 +8,12 @@ tot.Palette = Class.extend({
 	 * 
 	 * @param {String} canvasId the id of the DOM element to use as paint container
 	 */
-	init: function(id, limits, app)
+	init: function(id, app, limits)
 	{
 		var _this = this;
         this.limits = limits;
         for (i in limits) {
-            $("span.badge#" + i).html(limits[i]);
+            $("span.badge#" + i).html(limits[i].limit);
         }
 	}
 });

@@ -14,7 +14,20 @@ router.all('*', function(req, res, next) {
     }
 });
 
-var limitNames = ['74LS00', '74LS04'];
+var limitNames = [
+    'Switch', 
+    'Led', 
+    '74LS00', 
+    '74LS04', 
+    '74LS11', 
+    '74LS14', 
+    '74LS20', 
+    '74LS27',
+    '74LS86',
+    '74LS90',
+    '74LS161',
+    '7Segment'
+    ];
 
 function isSandBox(pid)
 {
