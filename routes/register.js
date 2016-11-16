@@ -28,6 +28,7 @@ router.get('/nameexists', function(req, res, next) {
         }
     }))
     .catch(function(err) {
+        res.sendStatus(500);
         error(err);
     });
 });

@@ -19,3 +19,5 @@ var t2 = require('./problem-edit-test');
 var t3 = require('./profile-test');
 var t4 = require('./watcher-test');
 var t5 = require('./upload-test');
+var t6 = require('./consumer-test');
+var t7 = require('./admin-test');
