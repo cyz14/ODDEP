@@ -7,6 +7,33 @@ var debug = require('debug');
 var log = debug('prj7_tot:register:log');
 var error = debug('prj7_tot:register:error');
 
+var regSwitch = false;
+
+router.get('/state', function(req, res, next) {
+    res.status(200).send(regSwitch ? 'open' : 'close');
+});
+
+router.post('/toggle', function(req, res, next) {
+    var power = req.session.power || 0;
+    if (power >= 2) {
+        regSwitch = !regSwitch;
+        res.sendStatus(200);
+    } else {
+        res.status(200).send('Permission denied');
+    }
+});
+
+router.all('*', function(req, res, next) {
+    if (regSwitch) {
+        next();
+    } else {
+        next({
+            status: 403,
+            message: '注册已关闭，请向管理员申请账户或等待注册开放'
+        });
+    }
+});
+
 router.get('/', function(req, res, next) {
     res.render('register');
 });

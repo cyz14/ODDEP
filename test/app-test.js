@@ -65,6 +65,55 @@ describe('前端响应', function() {
 
     describe('注册模块', function() {
 
+        describe('开关功能', function() {
+
+            describe('查看状态', function() {
+                it('GET /register/state 200', function(done) {
+                    request(app)
+                    .get('/register/state')
+                    .expect(200, 'close', done);
+                });
+            });
+
+            describe('开关操作', function() {
+
+                describe('权限不足', function() {
+                    it('POST /register/toggle Permission denied', function(done) {
+                        request(app)
+                        .post('/register/toggle')
+                        .expect(200, 'Permission denied', done);
+                    });
+                });
+
+                describe('开关测试', function() {
+                    
+                    before(function(done) {
+                        auth.login(session, auth.root, done);
+                    });
+
+                    it('关闭下注册页面无法访问', function(done) {
+                        request(app)
+                        .get('/register')
+                        .expect(403, done);
+                    });
+
+                    it('应切换为开放注册', function(done) {
+                        session.post('/register/toggle')
+                        .expect(200, 'OK', done);
+                    });
+
+                    it('切换结果检测', function(done) {
+                        request(app)
+                        .get('/register/state')
+                        .expect(200, 'open', done);
+                    });
+
+                });
+
+            });
+
+        });
+
         describe('页面响应', function() {
             it('GET /register', function(done) {
                 request(app)
