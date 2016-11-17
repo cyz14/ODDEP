@@ -1,7 +1,5 @@
 $(function() {
-    console.log(1);
     function getState(msg) {
-        console.log('getState:', msg);
         if (!msg) {
             $.get('/register/state', function(data, status) {
                 console.log(data, status);
@@ -28,13 +26,18 @@ $(function() {
         if (waiting) {
             $('#regswitchbtn').attr('disabled', null);
             $('#regswitchbtn').text('切换重试');
+            getState('超时');
         }
     }
     $('#regswitchbtn').click(function() {
         $(this).attr('disabled', true);
         $(this).text('等待响应...');
         waiting = true;
+        setTimeout(function() {
+            toggleTo();
+        }, 2000);
         $.post('/register/toggle', function(data, status) {
+            waiting = false;
             if (data === 'OK') {
                 getState();
             } else {
