@@ -15,8 +15,10 @@ tot.View = draw2d.Canvas.extend({
         this.app = app;
 
         this.simulate = false;
-        this.number = {};
         this.limits = limits;
+        for (element in limits) {
+            this.limits[element].remain = limits[element].limit;
+        }
 
         this.setScrollArea(scrollAreaId);
 
@@ -320,19 +322,23 @@ tot.View = draw2d.Canvas.extend({
     },
 
     checkLimit:function(type) {
-        var number = this.getNumber(type);
-        console.log(type + " has " + number);
-        return true;
+        if (type == null) return false;
+        var remain = this.getRemain(type);
+        if (remain > 0)
+            return true;
+        else 
+            return false;
     },
 
     updateUsage:function(type) {
-        
+        this.limits[type].remain--;
+        $("#"+type).html(this.limits[type].remain);
     },
 
-    getNumber:function(type) {
-        if(this.number[type] != null)
-            return this.number[type];
-        return 0;
+    getRemain:function(type) {
+        if(this.limits[type] != null)
+            return this.limits[type].remain;
+        return 99;
     },
 
     /**

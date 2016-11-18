@@ -15,18 +15,18 @@ router.all('*', function(req, res, next) {
 });
 
 var limitNames = [
-    'Switch', 
-    'Led', 
-    '74LS00', 
-    '74LS04', 
-    '74LS11', 
-    '74LS14', 
-    '74LS20', 
-    '74LS27',
-    '74LS86',
-    '74LS90',
-    '74LS161',
-    '7Segment'
+    'draw2d_circuit_switch_HighLow', 
+    'draw2d_circuit_display_Led', 
+    'C74LS00', 
+    'C74LS04', 
+    'C74LS11', 
+    'C74LS14', 
+    'C74LS20', 
+    'C74LS27',
+    'C74LS86',
+    'C74LS90',
+    'C74LS161',
+    'draw2d_circuit_display_7Segment'
     ];
 
 function isSandBox(pid)
