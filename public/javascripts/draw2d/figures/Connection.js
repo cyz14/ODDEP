@@ -149,32 +149,43 @@ var Connection = draw2d.Connection.extend({
             },
             callback: $.proxy(function(key, options) 
             {
-               switch(key){
-               case "red":
-                   this.setColor('#f3546a');
-                   break;
-               case "green":
-                   this.setColor('#b9dd69');
-                   break;
-               case "blue":
-                   this.setColor('#00A8F0');
-                   break;
-               case "delete":
-                   // without undo/redo support
-                   //     this.getCanvas().remove(this);
+                switch(key){
+                    case "label":
+                        var text = prompt("Label");
+                        if(text) {
+                            var label = new draw2d.shape.basic.Label({text:text, stroke:0, x:-20, y:-40});
+                            var locator = new draw2d.layout.locator.ManhattanMidpointLocator(); // SmartDraggableLocator()
+                            label.installEditor(new draw2d.ui.LabelInplaceEditor());
+                            this.add(label,locator);
+                        }
+                        break;
+                    case "red":
+                        this.setColor('#f3546a');
+                        break;
+                    case "green":
+                        this.setColor('#b9dd69');
+                        break;
+                    case "blue":
+                        this.setColor('#00A8F0');
+                        break;
+                    case "delete":
+                        // without undo/redo support
+                        //     this.getCanvas().remove(this);
                    
-                   // with undo/redo support
-                   var cmd = new draw2d.command.CommandDelete(this);
-                   this.getCanvas().getCommandStack().execute(cmd);
-               default:
-                   break;
-               }
+                        // with undo/redo support
+                        var cmd = new draw2d.command.CommandDelete(this);
+                        this.getCanvas().getCommandStack().execute(cmd);
+                    default:
+                        break;
+                }
             
             },this),
             x:x,
             y:y,
             items: 
             {
+                "label":  {name: "Add Label",   icon :"x ion-ios--pricetag-outline" },
+                "sep0":   "---------",
                 "red":    {name: "Red"},
                 "green":  {name: "Green"},
                 "blue":   {name: "Blue"},

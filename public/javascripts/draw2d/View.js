@@ -33,6 +33,7 @@ tot.View = draw2d.Canvas.extend({
             }
         });
 
+        this.fileHandler = new draw2d.storage.LocalFileStorage();
 
         var router = new ConnectionRouter();
         router.abortRoutingOnFirstVertexNode=false;
@@ -200,8 +201,28 @@ tot.View = draw2d.Canvas.extend({
         });
 
         // Have to use addEventListener("change") here because input element is special
-        document.querySelector(".toolbar").addEventListener("change", function(){
-            _this.fileUpload();
+        // document.querySelector(".toolbar").addEventListener("change", function(){
+        //     _this.fileUpload();
+        // });
+
+
+        $('.toolbar').delegate("#fileUpload:not(.disabled)", "click", function() {
+            _this.fileHandler.pickFileAndLoad(".circuit", 
+                function(file, fileData){
+                // save the fileHandle for further save operations
+                _this.file = file;
+
+                // cleanup the canvas 
+                _this.clear();
+
+                // load the JSON into the canvas
+                var reader = new draw2d.io.json.Reader();
+                reader.unmarshal(_this, JSON.parse(fileData));
+                _this.centerDocument();
+                }, errorCallBack = function() {
+                    alert("Failed: File error.");
+                }
+            );
         });
 
         $('.toolbar').delegate("#fileSaveAs:not(.disabled)", "click", function(){
@@ -460,6 +481,7 @@ tot.View = draw2d.Canvas.extend({
         }
     },
 
+    // deprecated, use draw2d.storage.LocalFileStorage instead
     fileUpload:function() {
         var file_uri = window.URL.createObjectURL($("#file_input").get(0).files[0]);
         if (typeof file_uri === 'undefined') { file_uri = default_file_uri; }
@@ -477,9 +499,15 @@ tot.View = draw2d.Canvas.extend({
 
     canvasSaveAs:function(canvas) {
         var writer = new draw2d.io.json.Writer();
+        var _this = this;
         writer.marshal(canvas, function(json){
-             var blob = new Blob([JSON.stringify(json,null,2)], {type:"text/plain;charset=utf-8"});
-             saveAs(blob, "design.circuit");
+            var content = JSON.stringify(json,null,2);
+            
+            //  var blob = new Blob([content], {type:"text/plain;charset=utf-8"});
+            //  saveAs(blob, "design.circuit");
+            _this.fileHandler.saveFile("design.circuit", content, "false", function(title) {
+                // alert(title.fileName + " saved succesfully.");
+            });
         });
     },
 
