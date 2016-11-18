@@ -13,8 +13,11 @@ tot.View = draw2d.Canvas.extend({
 	    var _this = this;
 		this._super(id);
         this.app = app;
+        
+        this.changed = false;
 
         this.simulate = false;
+
         this.limits = limits;
         for (element in limits) {
             this.limits[element].remain = limits[element].limit;
@@ -24,6 +27,12 @@ tot.View = draw2d.Canvas.extend({
 
         // add commandStack support
         this.getCommandStack().addEventListener(this);
+        this.getCommandStack().addEventListener(function(e) {
+            if (e.isPostChangeEvent()) {
+                this.changed = true;
+            }
+        });
+
 
         var router = new ConnectionRouter();
         router.abortRoutingOnFirstVertexNode=false;
@@ -91,6 +100,9 @@ tot.View = draw2d.Canvas.extend({
             }
             return false;
         },this));
+        Mousetrap.bind(['ctrl+s', 'command+s'], $.proxy(function (event) {
+            // localStorage['canvas'] 
+        }));
 
 
         Mousetrap.bind(['left'],function (event) {
@@ -157,6 +169,10 @@ tot.View = draw2d.Canvas.extend({
                 var cmd = figure.createCommand(new draw2d.command.CommandType(draw2d.command.CommandType.DELETE));
                 if(cmd!==null){
                     _this.getCommandStack().execute(cmd);
+                    console.log(figure.cssClass+" deleted.");
+                    type = figure.cssClass;
+                    _this.updateRemain(type, +1);
+                    $("#"+figure.cssClass).html();
                 }
             });
             // execute all single commands at once.
@@ -312,7 +328,7 @@ tot.View = draw2d.Canvas.extend({
         var isAllowed = this.checkLimit(type); 
         if (isAllowed) {
             var figure = eval("new "+type+"();");
-            this.updateUsage(type);
+            this.updateRemain(type, -1);
             // create a command for the undo/redo support
             var command = new draw2d.command.CommandAdd(this, figure, x, y);
             this.getCommandStack().execute(command);
@@ -330,8 +346,18 @@ tot.View = draw2d.Canvas.extend({
             return false;
     },
 
-    updateUsage:function(type) {
-        this.limits[type].remain--;
+    updateRemain:function(type, delta) {
+        if (delta < 0) {
+            this.limits[type].remain = Math.max(
+                this.limits[type].remain + delta, 
+                0
+            );
+        } else {
+            this.limits[type].remain = Math.min(
+                this.limits[type].remain + delta, 
+                this.limits[type].limit
+            );
+        }
         $("#"+type).html(this.limits[type].remain);
     },
 
@@ -459,6 +485,10 @@ tot.View = draw2d.Canvas.extend({
 
     isSimulationRunning:function() {
         return this.simulate;
+    },
+
+    isChanged: function() {
+        return this.changed;
     }
 
 });
