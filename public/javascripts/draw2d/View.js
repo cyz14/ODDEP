@@ -19,9 +19,7 @@ tot.View = draw2d.Canvas.extend({
         this.simulate = false;
 
         this.limits = limits;
-        for (element in limits) {
-            this.limits[element].remain = limits[element].limit;
-        }
+        this.initRemain();
 
         this.setScrollArea(scrollAreaId);
 
@@ -214,10 +212,20 @@ tot.View = draw2d.Canvas.extend({
 
                 // cleanup the canvas 
                 _this.clear();
+                _this.initRemain();
+
+                var circuit = JSON.parse(fileData);
+                $(circuit).each(function(index, item) {
+                    console.log(index + " " + item.type);
+                    // checkLimit
+                    if (_this.checkLimit(item.type)) {
+                        _this.updateRemain(item.type, -1);        
+                    }
+                }); 
 
                 // load the JSON into the canvas
                 var reader = new draw2d.io.json.Reader();
-                reader.unmarshal(_this, JSON.parse(fileData));
+                reader.unmarshal(_this, circuit);
                 _this.centerDocument();
                 }, errorCallBack = function() {
                     alert("Failed: File error.");
@@ -367,7 +375,15 @@ tot.View = draw2d.Canvas.extend({
             return false;
     },
 
+    initRemain:function() {
+        for (element in this.limits) {
+            this.limits[element].remain = this.limits[element].limit;
+        }
+    },
+
     updateRemain:function(type, delta) {
+        if (this.limits[type] == null) 
+            return;
         if (delta < 0) {
             this.limits[type].remain = Math.max(
                 this.limits[type].remain + delta, 
