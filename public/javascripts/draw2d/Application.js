@@ -21,8 +21,9 @@ tot.Application = Class.extend({
 	 *
 	 * @param {String} canvasId the is of the DOM element to use as paint container
 	 */
-	init: function(limits) {
+	init: function(pid, limits) {
         var _this = this;
+        this.pid = pid;
         this.localStorage = [];
         this.loggedIn = true;
 

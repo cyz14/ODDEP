@@ -86,7 +86,10 @@ block addscript
             elements[element] = {};
             elements[element].limit = limits[element];
         }
-        app = new tot.Application(elements);
+        app = new tot.Application(pid, elements);
+        if (defaultCircuit !== null) {
+            app.load(defaultCircuit);
+        }
       }, "json");
       
       //- app.load(circuit_adder_1bit);

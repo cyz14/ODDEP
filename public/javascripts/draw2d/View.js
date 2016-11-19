@@ -25,13 +25,9 @@ tot.View = draw2d.Canvas.extend({
 
         // add commandStack support
         this.getCommandStack().addEventListener(this);
-        this.getCommandStack().addEventListener(function(e) {
-            if (e.isPostChangeEvent()) {
-                this.changed = true;
-            }
-        });
 
-        this.fileHandler = new draw2d.storage.LocalFileStorage();
+        this.fileStorage = new draw2d.storage.LocalFileStorage();
+        this.fileHandle = null;
 
         var router = new ConnectionRouter();
         router.abortRoutingOnFirstVertexNode=false;
@@ -99,8 +95,13 @@ tot.View = draw2d.Canvas.extend({
             }
             return false;
         },this));
+        // ToDo: localStorage['canvas']
         Mousetrap.bind(['ctrl+s', 'command+s'], $.proxy(function (event) {
-            // localStorage['canvas'] 
+            if (this.fileHandle == null) {
+                this.canvasSaveAs(this);
+            } else {
+                this.canvasSave(this);
+            }
         }));
 
 
@@ -151,6 +152,48 @@ tot.View = draw2d.Canvas.extend({
             setZoom(_this.getZoom()*0.8);
         });
 
+        // Have to use addEventListener("change") here because input element is special
+        // document.querySelector(".toolbar").addEventListener("change", function(){
+        //     _this.fileUpload();
+        // });
+
+
+        $('.toolbar').delegate("#fileUpload:not(.disabled)", "click", function() {
+            _this.fileStorage.pickFileAndLoad(".circuit", 
+                function(file, fileData){
+                // save the fileHandle for further save operations
+                _this.fileHandle = file;
+
+                // cleanup the canvas 
+                _this.clear();
+                _this.initRemain();
+
+                var circuit = JSON.parse(fileData);
+                $(circuit).each(function(index, item) {
+                    // checkLimit
+                    if (_this.checkLimit(item.type)) {
+                        _this.updateRemain(item.type, -1);        
+                    }
+                }); 
+
+                // load the JSON into the canvas
+                var reader = new draw2d.io.json.Reader();
+                reader.unmarshal(_this, circuit);
+                _this.centerDocument();
+                }, errorCallBack = function() {
+                    alert("Failed: File error.");
+                }
+            );
+        });
+
+        $('.toolbar').delegate("#fileSaveAs:not(.disabled)", "click", function(){
+            _this.canvasSaveAs(_this);
+        });
+
+        $('.toolbar').delegate("#fileSave:not(.disabled)", "click", function() {
+            _this.canvasSave(_this);
+        });
+
         $(".toolbar").delegate("#editDelete:not(.disabled)","click", function(){
             var selection = _this.getSelection();
             _this.getCommandStack().startTransaction(draw2d.Configuration.i18n.command.deleteShape);
@@ -168,7 +211,6 @@ tot.View = draw2d.Canvas.extend({
                 var cmd = figure.createCommand(new draw2d.command.CommandType(draw2d.command.CommandType.DELETE));
                 if(cmd!==null){
                     _this.getCommandStack().execute(cmd);
-                    console.log(figure.cssClass+" deleted.");
                     type = figure.cssClass;
                     _this.updateRemain(type, +1);
                     $("#"+figure.cssClass).html();
@@ -196,45 +238,6 @@ tot.View = draw2d.Canvas.extend({
 
         $(".toolbar").delegate("#editRedo:not(.disabled)","click", function(){
             _this.getCommandStack().redo();
-        });
-
-        // Have to use addEventListener("change") here because input element is special
-        // document.querySelector(".toolbar").addEventListener("change", function(){
-        //     _this.fileUpload();
-        // });
-
-
-        $('.toolbar').delegate("#fileUpload:not(.disabled)", "click", function() {
-            _this.fileHandler.pickFileAndLoad(".circuit", 
-                function(file, fileData){
-                // save the fileHandle for further save operations
-                _this.file = file;
-
-                // cleanup the canvas 
-                _this.clear();
-                _this.initRemain();
-
-                var circuit = JSON.parse(fileData);
-                $(circuit).each(function(index, item) {
-                    console.log(index + " " + item.type);
-                    // checkLimit
-                    if (_this.checkLimit(item.type)) {
-                        _this.updateRemain(item.type, -1);        
-                    }
-                }); 
-
-                // load the JSON into the canvas
-                var reader = new draw2d.io.json.Reader();
-                reader.unmarshal(_this, circuit);
-                _this.centerDocument();
-                }, errorCallBack = function() {
-                    alert("Failed: File error.");
-                }
-            );
-        });
-
-        $('.toolbar').delegate("#fileSaveAs:not(.disabled)", "click", function(){
-            _this.canvasSaveAs(_this);
         });
 
         this.on("contextmenu", function(emitter, event){
@@ -474,6 +477,8 @@ tot.View = draw2d.Canvas.extend({
         if(event.getStack().canRedo()) {
             $("#editRedo").removeClass("disabled");
         }
+
+        this.changed = true;
     },
 
     centerDocument:function()
@@ -521,9 +526,20 @@ tot.View = draw2d.Canvas.extend({
             
             //  var blob = new Blob([content], {type:"text/plain;charset=utf-8"});
             //  saveAs(blob, "design.circuit");
-            _this.fileHandler.saveFile("design.circuit", content, "false", function(title) {
+            _this.fileStorage.saveFile(_this.app.currentFileHandle.title, content, "false", function(title) {
                 // alert(title.fileName + " saved succesfully.");
             });
+            _this.canvasSave(_this);
+        });
+    },
+
+    canvasSave:function (canvas) { 
+        var writer = new draw2d.io.json.Writer();
+        var _this = this;
+        writer.marshal(canvas, function (json) {  
+            var content = JSON.stringify(json, null, 2);
+            _this.app.localStorage.setItem(_this.app.pid+"canvas", content);
+            _this.changed = false; 
         });
     },
 
