@@ -18,6 +18,8 @@ tot.View = draw2d.Canvas.extend({
 
         this.simulate = false;
 
+        this.enableShortcut = false;
+
         this.limits = limits;
         this.initRemain();
 
@@ -76,34 +78,34 @@ tot.View = draw2d.Canvas.extend({
         this.installEditPolicy( new draw2d.policy.canvas.SnapToCenterEditPolicy());
         this.installEditPolicy( new draw2d.policy.canvas.SnapToInBetweenEditPolicy());
 
-        // Enable Copy&Past for figures
-        //
-        Mousetrap.bind(['ctrl+c', 'command+c'], $.proxy(function (event) {
-            var primarySelection = this.getSelection().getPrimary();
-            if(primarySelection!==null){
-                this.clippboardFigure = primarySelection.clone({excludePorts:true});
-                this.clippboardFigure.translate(5,5);
-            }
-            return false;
-        },this));
-        Mousetrap.bind(['ctrl+v', 'command+v'], $.proxy(function (event) {
-            if(this.clippboardFigure!==null){
-                var cloneToAdd = this.clippboardFigure.clone({excludePorts:true});
-                var command = new draw2d.command.CommandAdd(this, cloneToAdd, cloneToAdd.getPosition());
-                this.getCommandStack().execute(command);
-                this.setCurrentSelection(cloneToAdd);
-            }
-            return false;
-        },this));
-        // ToDo: localStorage['canvas']
-        Mousetrap.bind(['ctrl+s', 'command+s'], $.proxy(function (event) {
-            if (this.fileHandle == null) {
-                this.canvasSaveAs(this);
-            } else {
-                this.canvasSave(this);
-            }
-        }));
-
+        // disable shortcut because there is a bug because of #filter after load 
+        if (this.enableShortcut) {
+            // Enable Copy&Past for figures
+            //
+            Mousetrap.bind(['ctrl+c', 'command+c'], $.proxy(function (event) {
+                var primarySelection = this.getSelection().getPrimary();
+                if(primarySelection!==null){
+                    this.clippboardFigure = primarySelection.clone({excludePorts:true});
+                    this.clippboardFigure.translate(5,5);
+                }
+                return false;
+            },this));
+            Mousetrap.bind(['ctrl+v', 'command+v'], $.proxy(function (event) {
+                if(this.clippboardFigure!==null){
+                    var cloneToAdd = this.clippboardFigure.clone({excludePorts:true});
+                    var command = new draw2d.command.CommandAdd(this, cloneToAdd, cloneToAdd.getPosition());
+                    this.getCommandStack().execute(command);
+                    this.setCurrentSelection(cloneToAdd);
+                }
+                return false;
+            },this));
+            Mousetrap.bind(['ctrl+s', 'command+s'], $.proxy(function (event) {
+                var canvas = _this;
+                console.log("Save canvas by shortcut");
+                _this.canvasSave(canvas);
+                return false;
+            }, this));
+        }
 
         Mousetrap.bind(['left'],function (event) {
             var diff = _this.getZoom()<0.5?0.5:1;
@@ -160,27 +162,13 @@ tot.View = draw2d.Canvas.extend({
 
         $('.toolbar').delegate("#fileUpload:not(.disabled)", "click", function() {
             _this.fileStorage.pickFileAndLoad(".circuit", 
-                function(file, fileData){
-                // save the fileHandle for further save operations
-                _this.fileHandle = file;
-
-                // cleanup the canvas 
-                _this.clear();
-                _this.initRemain();
-
-                var circuit = JSON.parse(fileData);
-                $(circuit).each(function(index, item) {
-                    // checkLimit
-                    if (_this.checkLimit(item.type)) {
-                        _this.updateRemain(item.type, -1);        
-                    }
-                }); 
-
-                // load the JSON into the canvas
-                var reader = new draw2d.io.json.Reader();
-                reader.unmarshal(_this, circuit);
-                _this.centerDocument();
-                }, errorCallBack = function() {
+                successCallback = function(file, fileData){
+                    // save the fileHandle for further save operations
+                    _this.fileHandle = file;
+                    var jsonDocument = JSON.parse(fileData);
+                    _this.load(jsonDocument);
+                },
+                errorCallBack = function() {
                     alert("Failed: File error.");
                 }
             );
@@ -479,6 +467,27 @@ tot.View = draw2d.Canvas.extend({
         }
 
         this.changed = true;
+    },
+
+    load:function (jsonDocument) {  
+        // cleanup the canvas 
+        this.clear();
+        this.initRemain();
+        var _this = this;
+
+        $(jsonDocument).each(function(index, item) {
+            // checkLimit
+            if (_this.checkLimit(item.type)) {
+                _this.updateRemain(item.type, -1);        
+            } else {
+                alert("Error: " + item.type + " usage is limited.");
+            }
+        });
+
+        // load the JSON into the canvas
+        var reader = new draw2d.io.json.Reader();
+        reader.unmarshal(this, jsonDocument);
+        this.centerDocument();
     },
 
     centerDocument:function()

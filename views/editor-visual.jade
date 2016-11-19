@@ -88,7 +88,8 @@ block addscript
         }
         app = new tot.Application(pid, elements);
         if (defaultCircuit !== null) {
-            app.load(defaultCircuit);
+            var jsonDocument = JSON.parse(defaultCircuit);
+            app.view.load(jsonDocument);
         }
       }, "json");
       
