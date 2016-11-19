@@ -12,7 +12,6 @@ router.all('*', function(req, res, next) {
     if (req.session.power && req.session.power > 1) {
         next();
     } else {
-        //res.send('Permission denied.');
         next({
             status: 403,
             message: 'Permission denied'
@@ -52,9 +51,9 @@ router.get('/search/user', function(req, res, next) {
 });
 
 router.post('/power', function(req, res, next) {
-    var uid = req.body.uid;
+    var uid = parseInt(req.body.uid) || -1;
     var oper = parseInt(req.body.oper);
-    if (uid <= 1 || (oper < 0 || oper > 2)) {
+    if (uid <= 1 || (oper < 0 || oper > 2 || oper === NaN)) {
         res.sendStatus(403);
     } else {
         var db = dbtop.db();

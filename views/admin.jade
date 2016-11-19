@@ -8,6 +8,7 @@ block addscript
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/fileinput.min.js")
   script(src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js")
   script(src="/javascripts/admin-userimport.js")
+  script(src="/javascripts/admin-regswitch.js")
 
 block content
   div.container-fluid
@@ -15,6 +16,7 @@ block content
       ul#tabtab.nav.nav-tabs
         li: a(href="#power", data-toggle="tab") 权限管理
         li: a(href="#userimport", data-toggle="tab") 用户导入
+        li: a(href="#regswitch", data-toggle="tab") 注册开关
     div.tab-content
       div#first.tab-pane.in.active
         h2 欢迎来到后台管理系统
@@ -53,3 +55,8 @@ block content
               div.col-sm-2
                 iframe(name="userimportuplres")
           button#userimportbtn.btn.btn-danger.hidden 导入至数据库
+      div#regswitch.tab-pane
+        p#regswitchstate
+        p#regswitchstaterqtime
+        button#regswitchf5btn.btn.btn-lg.btn-info 刷新
+        button#regswitchbtn.btn.btn-lg.btn-primary 切换
