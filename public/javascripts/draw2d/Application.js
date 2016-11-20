@@ -24,7 +24,7 @@ tot.Application = Class.extend({
 	init: function(pid, limits) {
         var _this = this;
         this.pid = pid;
-        this.localStorage = [];
+        this.sessionStorage = [];
         this.loggedIn = true;
 
         this.currentFileHandle= {
@@ -32,8 +32,8 @@ tot.Application = Class.extend({
         };
 
         try {
-            if( 'localStorage' in window && window.localStorage !== null){
-                this.localStorage = localStorage;
+            if( 'sessionStorage' in window && window.sessionStorage !== null){
+                this.sessionStorage = sessionStorage;
             }
         } catch (e) {
 

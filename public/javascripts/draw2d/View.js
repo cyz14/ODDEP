@@ -547,7 +547,7 @@ tot.View = draw2d.Canvas.extend({
         var _this = this;
         writer.marshal(canvas, function (json) {  
             var content = JSON.stringify(json, null, 2);
-            _this.app.localStorage.setItem(_this.app.pid+"canvas", content);
+            _this.app.sessionStorage.setItem(_this.app.pid+"canvas", content);
             _this.changed = false; 
         });
     },

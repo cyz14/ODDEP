@@ -8,8 +8,8 @@ window.onbeforeunload = function() {
 
 // ToDo: Load saved circuit in localstrorage
 window.onload = function() {
-    if (this.localStorage !== null) {
-        var content = this.localStorage.getItem(pid + "canvas");
+    if (this.sessionStorage !== null) {
+        var content = this.sessionStorage.getItem(pid + "canvas");
         if (content !== null) {
             // app.load(content);
             defaultCircuit = content;
