@@ -1,6 +1,11 @@
 /**
  * Created by Chen Yazheng on 16/10/20
  */
+
+// ToDo: overwite CommandStack's command DELETE ADD etc., to support updateRemain
+// e.g.: draw2d.command.CommandDelete
+// ToDO: check limit condition in server side
+
 var scrollAreaId = "#draw2dCanvasWrapper";
 var defaultRouter = new ConnectionRouter();//new draw2d.layout.connection.InteractiveManhattanConnectionRouter(); 
 
@@ -548,7 +553,8 @@ tot.View = draw2d.Canvas.extend({
         writer.marshal(canvas, function (json) {  
             var content = JSON.stringify(json, null, 2);
             _this.app.sessionStorage.setItem(_this.app.pid+"canvas", content);
-            _this.changed = false; 
+            _this.changed = false;
+            _this.getCommandStack().markSaveLocation(); 
         });
     },
 
