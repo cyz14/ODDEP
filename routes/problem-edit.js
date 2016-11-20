@@ -26,6 +26,7 @@ var limitNames = [
     'C74LS86',
     'C74LS90',
     'C74LS161',
+    'draw2d_circuit_decoder_BCDto7Seg',
     'draw2d_circuit_display_7Segment'
     ];
 
