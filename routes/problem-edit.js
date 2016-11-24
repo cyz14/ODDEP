@@ -16,7 +16,8 @@ router.all('*', function(req, res, next) {
 
 var limitNames = [
     'draw2d_circuit_switch_HighLow', 
-    'draw2d_circuit_display_Led', 
+    'draw2d_circuit_display_Led',
+    'draw2d_circuit_switch_PushButton',
     'C74LS00', 
     'C74LS04', 
     'C74LS11', 
