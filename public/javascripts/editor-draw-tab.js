@@ -9,6 +9,7 @@ $(function() {
             $('#modalVHDL').modal({
                 keyboard: true
             });
+            prettyPrint();
         });
     });
 });
