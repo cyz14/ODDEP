@@ -1,12 +1,13 @@
 var C74LS20 = draw2d.SetFigure.extend({
 
-   NAME: "C74LS20",
+   NAME: "C74LS20",   // 芯片名称
 
    init:function(attr, setter, getter)
    {
      this._super( $.extend({stroke:0, bgColor:null, width:219,height:116},attr), setter, getter);
-     this.attr({resizeable:false});
+     this.attr({resizeable:false}); // 固定芯片大小
      var port;
+     // 以下为端口定义
      // Port
      port = this.createPort("hybrid", new draw2d.layout.locator.XYRelPortLocator(13.698630136986301, 18.103448275862068));
      port.setConnectionDirection(0);
