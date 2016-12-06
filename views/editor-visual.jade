@@ -11,6 +11,7 @@ html
     //- ToDo: Customize vhdl editor's UI with bootstrap to adapt to more device size
     link(rel="stylesheet", href="http://cdn.bootcss.com/bootstrap-fileinput/4.3.5/css/fileinput.min.css")
     link(rel="stylesheet", href="/stylesheets/contextmenu.css")
+    link(rel="stylesheet", href="/stylesheets/sunburst.css")
 
 
 body(role="document")
@@ -114,3 +115,5 @@ block addscript
           $("#json").html("<pre>"+JSON.stringify(json,null,2)+"<pre>");
       });
     }
+  script(src="//cdn.bootcss.com/prettify/r298/prettify.min.js")
+  script(src="//cdn.bootcss.com/prettify/r298/lang-vhdl.min.js")

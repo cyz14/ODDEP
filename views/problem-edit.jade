@@ -43,7 +43,7 @@ block content
         form#form4visual.form-horizontal
           each name in limitNames
             div.form-group
-              label.col-sm-2.control-label(for="limit#{name}") #{name}：
+              label.col-sm-4.control-label(for="limit#{name}") #{name}：
               div.col-sm-6
                 input.form-control(id="limit#{name}", type="number", placeholder="默认99", name="#{name}", data-type="limit", value="#{limits[name]||''}")
     - if (check)

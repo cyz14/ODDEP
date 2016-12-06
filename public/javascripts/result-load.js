@@ -195,6 +195,7 @@ $(function() {
     $.get('/tmp/code/' + token + '.vhd', function(data, status) {
         console.log('code preview:', status);
         $('#codePre').text(data);
+        prettyPrint();
     });
     $.get('/tmp/log/' + token + '.log', function(data, status) {
         console.log('log preview:', status);

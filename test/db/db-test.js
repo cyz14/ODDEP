@@ -66,8 +66,8 @@ describe('db/dbtop.js', function() {
         var token = 'mocha-test';
         var tag = '!test in mocha!'
         var submitReg = dbtop.submissionRegisterIfNotExists;
-        after(function() {
-            db.run('delete from submission where uid = ?', -1);
+        after(function(done) {
+            db.run('delete from submission where uid = ?', -1, done);
         });
         it('注册提交记录', function() {
             return tp.promisify.call(dbtop
@@ -88,12 +88,12 @@ describe('db/dbtop.js', function() {
     describe('updStatPromise()', function() {
         var token = 'mocha-test';
         var tag = '!test in mocha!'
-        before(function() {
+        before(function(done) {
             db.run('insert into submission (token, uid, pid, tag, status) values (?, ?, ?, ?, ?)'
-            , token, -1, 1000, tag, 'failed');
+            , token, -1, 1000, tag, 'failed', done);
         });
-        after(function() {
-            db.run('delete from submission where uid = ?', -1);
+        after(function(done) {
+            db.run('delete from submission where uid = ?', -1, done);
         });
         it('更新提交状态', function() {
             return dbtop.updStatPromise(token, 'done')
