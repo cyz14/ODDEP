@@ -373,5 +373,7 @@ C74LS161 = C74LS161.extend({
      *  Called if the simulation mode is stopping
      *  @required
      **/
-    onStop: function() {}
+    onStop: function() {},
+
+    note: "4 bit binary sync counter"
 });

@@ -351,5 +351,7 @@ C74LS90 = C74LS90.extend({
      *  Called if the simulation mode is stopping
      *  @required
      **/
-    onStop: function() {}
+    onStop: function() {},
+
+    note: "2-5-10-based counter"
 });

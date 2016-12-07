@@ -351,5 +351,7 @@ C74LS86 = C74LS86.extend({
      *  Called if the simulation mode is stopping
      *  @required
      **/
-    onStop: function() {}
+    onStop: function() {},
+
+    note: "Y = A xor B"
 });

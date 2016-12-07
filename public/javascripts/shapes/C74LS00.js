@@ -351,5 +351,7 @@ C74LS00 = C74LS00.extend({
      *  Called if the simulation mode is stopping
      *  @required
      **/
-    onStop: function() {}
+    onStop: function() {},
+
+    note: "Y = not (A and B)"
 });
