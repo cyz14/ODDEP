@@ -28,7 +28,9 @@ var VHDLCode = {
             "libraries": [],
             "entity": {
                 "name": "main",
-                "ports": []
+                "ports": [],
+                "inports": [],
+                "outports": []
             },
             "architecture": {
                 "components": [],
@@ -47,10 +49,22 @@ var VHDLCode = {
         code.addLibrary = function(library) { code.libraries.push(library); }
         code.setName = function(name) { code.entity.name = name; }
         code.addPort = function(port) {
-            if (port.type == "in" || port.type == "out" || port.type == "hybrid")
+            if (port.type == "in") {
+                code.entity.inports.push(port);
                 code.entity.ports.push(port);
+            } else if (port.type == "out") {
+                code.entity.outports.push(port);
+                code.entity.ports.push(port);
+            } else if (port.type == "hybrid") {
+                code.entity.ports.push(port);
+            }
         }
-        code.clearPorts = function() { code.entity.ports = []; }
+        code.clearPorts = function() {
+            code.entity.ports 
+            = code.entity.inports 
+            = code.entity.outports 
+            = [];
+        }
 
         code.marshal = function() {
             var vhdl = "";
@@ -77,26 +91,52 @@ var VHDLCode = {
             return result;
         }
 
-        code.marshalEntity = function() {
-            var result = "";
-            result += ["ENTITY", code.entity.name, "IS", "PORT("].join(" ") + "\n";
-            code.incIndent();
-            // result += code.indentStr + "\n";
-            var first = true;
-            for (var ip in code.entity.ports) {
-                var port = code.entity.ports[ip];
-                if (first) first = false;
+        code.marshalEntity = function() {yyyyyyyyy      
+            code.prepareEntity();
+            var iw = IndentWriter.createNew();
+            iw.writeLine(["ENTITY", code.entity.name, "IS", "PORT("].join(" "));
+            iw.incIndent();
+            // var result = "";
+            // result += ["ENTITY", code.entity.name, "IS", "PORT("].join(" ") + "\n";
+            // code.incIndent();
+            code.entity.ports.sort(sortByName);
+            var end = code.entity.ports.length - 1;
+            for (var i in code.entity.ports) {
+                var port = code.entity.ports[i];
+                var line = [port.name, ":", port.type, "STD_LOGIC"].join(" ");
+                if (i == end) ;
                 else {
-                    result += ";\n"
+                    line += ";";
                 }
-                result += code.indentStr + [port.name, ":", port.type, "STD_LOGIC"].join(" ");
+                iw.writeLine(line);
             }
-            result += "\n";
-            code.decIndent();
-            result += code.indent + ");\n"
-            result += code.indent + "END ENTITY;";
-            // code.decIndent();
+            iw.decIndent();
+            iw.writeLine(");")
+            iw.writeLine("END ENTITY;");
+            result = iw.getContent();
+            iw.flush();
             return result;
+        }
+
+        /**
+         * Find all inports and outports and add to entity
+         */
+        code.prepareEntity = function () {
+            var inports_num = 0;
+            var outports_num = 0;
+            for (var i in code.circuit.components) {
+                var comp = code.circuit.components[i];
+                if (comp.type == "draw2d_circuit_switch_HighLow") {
+                    code.addPort(Port.createNew(name= comp.name || "input_"+inports_num++
+                    ,type = "in"));
+                } else if (comp.type == "draw2d_circuit_switch_PushButton") {
+                    code.addPort(Port.createNew(name= comp.name || "input_"+inports_num++
+                    ,type = "in"));
+                } else if (comp.type == "draw2d_circuit_display_Led") {
+                    code.addPort(Port.createNew(name= comp.name || "output_"+outports_num++
+                    ,type = "out"));
+                }
+            }
         }
 
         code.marshalArchitecture = function() {
@@ -172,10 +212,10 @@ var VHDLCode = {
             "name": "IEEE",
             "uses": ["IEEE.STD_LOGIC_1164.ALL", "IEEE.STD_LOGIC_ARITH.ALL", "IEEE.STD_LOGIC_UNSIGNED.ALL"]
         });
-        code.addPort(Port.createNew("a", "in"));
-        code.addPort(Port.createNew("b", "in"));
-        code.addPort(Port.createNew("s", "out"));
-        code.addPort(Port.createNew("c", "out"));
+        // code.addPort(Port.createNew("a", "in"));
+        // code.addPort(Port.createNew("b", "in"));
+        // code.addPort(Port.createNew("s", "out"));
+        // code.addPort(Port.createNew("c", "out"));
 
         return code;
     }

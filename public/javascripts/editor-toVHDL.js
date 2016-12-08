@@ -543,7 +543,7 @@ function simplifyJSON(circuit) {
                 v.type = value.type;
                 v.id = value.id;
                 components.push(v);
-                if (value.labels > 0) {
+                if (value.labels.length > 0) {
                     v.name = value.labels[0].text;
                     console.log(value.labels[0].text);
                 }
@@ -552,7 +552,7 @@ function simplifyJSON(circuit) {
                 v.type = value.type;
                 v.id = value.id;
                 components.push(v);
-                if (value.labels > 0) {
+                if (value.labels.length > 0) {
                     v.name = value.labels[0].text;
                     console.log(value.labels[0].text);
                 }
@@ -560,7 +560,7 @@ function simplifyJSON(circuit) {
                 var v = {};
                 v.type = value.type;
                 v.id = value.id;
-                if (value.labels > 0) {
+                if (value.labels.length > 0) {
                     v.name = value.labels[0].text;
                     console.log(value.labels[0].text);
                 }
@@ -611,7 +611,6 @@ function getComponentInfo(comp) {
         line += [inports.data[ip].name, ":", "in ", "STD_LOGIC"].join(" ");
         if (ip == inports.data.length - 1 && outports.data.length == 0) ;
         else { line += ";" }
-        // result += line;
         iw.writeLine(line);
     }
     for (var ip in outports.data) {
@@ -619,12 +618,10 @@ function getComponentInfo(comp) {
         line += [outports.data[ip].name, ":", "out", "STD_LOGIC"].join(" ");
         if (ip == outports.data.length - 1) ;
         else { line += ";" }
-        // result += line;
         iw.writeLine(line);
     }
     iw.decIndent();
     iw.writeLine(");");
-    // result += ["END", "Component;"].join(" ") + "\n";
     iw.writeLine(["END", "Component;"].join(" "));
     result = iw.getContent();
     iw.flush();

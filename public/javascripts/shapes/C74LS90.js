@@ -338,7 +338,9 @@ C74LS90 = C74LS90.extend({
      *  loop
      *  @required
      **/
-    calculate: function() {},
+    calculate: function() {
+        
+    },
 
 
     /**

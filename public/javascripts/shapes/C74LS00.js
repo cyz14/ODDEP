@@ -5,261 +5,280 @@
 // Go to the Designer http://www.draw2d.org               
 // to design your own shape or download user generated    
 //                                                        
-var C74LS00 = draw2d.SetFigure.extend({
+var C74LS00 = draw2d.SetFigure.extend({            
 
-    NAME: "C74LS00",
+   NAME: "C74LS00",
 
-    init: function(attr, setter, getter) {
-        this._super($.extend({ stroke: 0, bgColor: null, width: 100, height: 173 }, attr), setter, getter);
-        var port;
-        // Port_Vcc
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(101, 11.560693641618498));
-        port.setConnectionDirection(1);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_Vcc");
-        port.setMaxFanOut(20);
-        // Port_4A
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(101, 23.69942196531792));
-        port.setConnectionDirection(1);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_4A");
-        port.setMaxFanOut(20);
-        // Port_4B
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(101, 34.971098265895954));
-        port.setConnectionDirection(1);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_4B");
-        port.setMaxFanOut(20);
-        // Port_4Y
-        port = this.createPort("output", new draw2d.layout.locator.XYRelPortLocator(101, 46.820809248554916));
-        port.setConnectionDirection(1);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_4Y");
-        port.setMaxFanOut(20);
-        // Port_3Y
-        port = this.createPort("output", new draw2d.layout.locator.XYRelPortLocator(101, 58.95953757225434));
-        port.setConnectionDirection(1);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_3Y");
-        port.setMaxFanOut(20);
-        // Port_3B
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(101, 70.8092485549133));
-        port.setConnectionDirection(1);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_3B");
-        port.setMaxFanOut(20);
-        // Port_3A
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(101, 82.65895953757226));
-        port.setConnectionDirection(1);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_3A");
-        port.setMaxFanOut(20);
-        // Port_1A
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-1, 11.560693641618498));
-        port.setConnectionDirection(3);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_1A");
-        port.setMaxFanOut(20);
-        // Port_1B
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-1, 23.121387283236995));
-        port.setConnectionDirection(3);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_1B");
-        port.setMaxFanOut(20);
-        // Port_1Y
-        port = this.createPort("output", new draw2d.layout.locator.XYRelPortLocator(-1, 34.971098265895954));
-        port.setConnectionDirection(3);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_1Y");
-        port.setMaxFanOut(20);
-        // Port_2Y
-        port = this.createPort("output", new draw2d.layout.locator.XYRelPortLocator(-1, 46.53179190751445));
-        port.setConnectionDirection(3);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_2Y");
-        port.setMaxFanOut(20);
-        // Port_2B
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-1, 58.67052023121388));
-        port.setConnectionDirection(3);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_2B");
-        port.setMaxFanOut(20);
-        // Port_2A
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-1, 70.8092485549133));
-        port.setConnectionDirection(3);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_2A");
-        port.setMaxFanOut(20);
-        // Port_GND
-        port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-1, 82.65895953757226));
-        port.setConnectionDirection(3);
-        port.setBackgroundColor("#37B1DE");
-        port.setName("Port_GND");
-        port.setMaxFanOut(20);
-        this.persistPorts = false;
-    },
+   init:function(attr, setter, getter)
+   {
+     this._super( $.extend({stroke:0, bgColor:null, width:100,height:176},attr), setter, getter);
+     var port;
+     // Port_Vcc
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(100, 11.647727272727273));
+     port.setConnectionDirection(1);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_Vcc");
+     port.setMaxFanOut(20);
+     // Port_4A
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(100, 23.011363636363637));
+     port.setConnectionDirection(1);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_4A");
+     port.setMaxFanOut(20);
+     // Port_4B
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(100, 35.51136363636364));
+     port.setConnectionDirection(1);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_4B");
+     port.setMaxFanOut(20);
+     // Port_4Y
+     port = this.createPort("output", new draw2d.layout.locator.XYRelPortLocator(100, 46.30681818181819));
+     port.setConnectionDirection(1);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_4Y");
+     port.setMaxFanOut(20);
+     // Port_3A
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(100, 57.102272727272734));
+     port.setConnectionDirection(1);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_3A");
+     port.setMaxFanOut(20);
+     // Port_3B
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(100, 68.75));
+     port.setConnectionDirection(1);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_3B");
+     port.setMaxFanOut(20);
+     // Port_3Y
+     port = this.createPort("output", new draw2d.layout.locator.XYRelPortLocator(100, 80.68181818181819));
+     port.setConnectionDirection(1);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_3Y");
+     port.setMaxFanOut(20);
+     // Port_1A
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-2.21875, 11.647727272727273));
+     port.setConnectionDirection(3);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_1A");
+     port.setMaxFanOut(20);
+     // Port_1B
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-2.21875, 23.011363636363637));
+     port.setConnectionDirection(3);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_1B");
+     port.setMaxFanOut(20);
+     // Port_1Y
+     port = this.createPort("output", new draw2d.layout.locator.XYRelPortLocator(-2, 35.51136363636364));
+     port.setConnectionDirection(3);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_1Y");
+     port.setMaxFanOut(20);
+     // Port_2A
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-2, 45.73863636363637));
+     port.setConnectionDirection(3);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_2A");
+     port.setMaxFanOut(20);
+     // Port_2B
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-2.21875, 57.102272727272734));
+     port.setConnectionDirection(3);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_2B");
+     port.setMaxFanOut(20);
+     // Port_2Y
+     port = this.createPort("output", new draw2d.layout.locator.XYRelPortLocator(-2, 68.75));
+     port.setConnectionDirection(3);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_2Y");
+     port.setMaxFanOut(20);
+     // Port_GND
+     port = this.addPort(new DecoratedInputPort(), new draw2d.layout.locator.XYRelPortLocator(-2, 80.68181818181819));
+     port.setConnectionDirection(3);
+     port.setBackgroundColor("#37B1DE");
+     port.setName("Port_GND");
+     port.setMaxFanOut(20);
+     this.persistPorts=false;
+   },
 
-    createShapeElement: function() {
-        var shape = this._super();
-        this.originalWidth = 100;
-        this.originalHeight = 173;
-        return shape;
-    },
+   createShapeElement : function()
+   {
+      var shape = this._super();
+      this.originalWidth = 100;
+      this.originalHeight= 176;
+      return shape;
+   },
 
-    createSet: function() {
-        this.canvas.paper.setStart();
+   createSet: function()
+   {
+       this.canvas.paper.setStart();
 
         // BoundingBox
-        shape = this.canvas.paper.path("M0,0 L100,0 L100,173 L0,173");
-        shape.attr({ "stroke": "none", "stroke-width": 0, "fill": "none" });
-        shape.data("name", "BoundingBox");
-
+        shape = this.canvas.paper.path("M0,0 L100,0 L100,176 L0,176");
+        shape.attr({"stroke":"none","stroke-width":0,"fill":"none"});
+        shape.data("name","BoundingBox");
+        
         // Rectangle
-        shape = this.canvas.paper.path('M25.087488663525903 0L0 0L0 170L100 170L100 0L72.9125113364741 0L72.63538607229299 3.3035862876139532L71.55262289886178 7.518050213305088L69.78460969082653 11.472392638036808L67.38506663485549 15.04646286822748L64.42690263247692 18.131664588499575L61 20.63425550577L57.208483439816064 22.478195661389606L53.16755626400635 23.60745786680863L49 23.987730061349694L44.83244373599365 23.60745786680863L40.791516560183936 22.478195661389606L37 20.63425550577L33.573097367523076 18.131664588499575L30.61493336514451 15.046462868227493L28.215390309173472 11.472392638036808L26.447377101138215 7.518050213305088L25.364613927707012 3.3035862876139532L25.087488663525903 0Z');
-        shape.attr({ "stroke": "#303030", "stroke-width": 1, "fill": "#FFFFFF", "dasharray": null, "opacity": 1 });
-        shape.data("name", "Rectangle");
-
+        shape = this.canvas.paper.path('M30.087488663526074 0L0 0L0 173L100 173L100 0L69.91251133647393 0L70 1L69.69615506024411 4.472963553338559L68.79385241571799 7.840402866513614L67.32050807568885 11L65.32088886237943 13.85575219373095L62.85575219373095 16.320888862379434L60 18.32050807568885L56.840402866513614 19.793852415717993L53.47296355333856 20.69615506024411L50 21L46.52703644666144 20.69615506024411L43.159597133486386 19.793852415717993L40 18.32050807568885L37.14424780626905 16.320888862379434L34.679111137620566 13.85575219373095L32.67949192431115 11L31.206147584282007 7.840402866513614L30.30384493975589 4.472963553338559L30 1L30.087488663526074 0Z');
+        shape.attr({"stroke":"#303030","stroke-width":1,"fill":"#FFFFFF","dasharray":null,"opacity":1});
+        shape.data("name","Rectangle");
+        
         // Label_Name
-        shape = this.canvas.paper.text(0, 0, '74LS00');
-        shape.attr({ "x": 22.421875, "y": 159.5, "text-anchor": "start", "text": "74LS00", "font-family": "\"Arial\"", "font-size": 16, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_Name");
-
-        // Label_4A
-        shape = this.canvas.paper.text(0, 0, '4A');
-        shape.attr({ "x": 75.78125, "y": 39.5, "text-anchor": "start", "text": "4A", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_4A");
-
-        // Label_4B
-        shape = this.canvas.paper.text(0, 0, '4B');
-        shape.attr({ "x": 76, "y": 59, "text-anchor": "start", "text": "4B", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_4B");
-
-        // Label_4Y
-        shape = this.canvas.paper.text(0, 0, '4Y');
-        shape.attr({ "x": 76, "y": 78.5, "text-anchor": "start", "text": "4Y", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_4Y");
-
-        // Label_3Y
-        shape = this.canvas.paper.text(0, 0, '3Y');
-        shape.attr({ "x": 75.78125, "y": 101.5, "text-anchor": "start", "text": "3Y", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_3Y");
-
-        // Label_3B
-        shape = this.canvas.paper.text(0, 0, '3B');
-        shape.attr({ "x": 75.78125, "y": 122.5, "text-anchor": "start", "text": "3B", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_3B");
-
-        // Label_3A
-        shape = this.canvas.paper.text(0, 0, '3A');
-        shape.attr({ "x": 75.78125, "y": 140.5, "text-anchor": "start", "text": "3A", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_3A");
-
+        shape = this.canvas.paper.text(0,0,'74LS00');
+        shape.attr({"x":21.421875,"y":163.5,"text-anchor":"start","text":"74LS00","font-family":"\"Arial\"","font-size":16,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_Name");
+        
         // Label_1A
-        shape = this.canvas.paper.text(0, 0, '1A');
-        shape.attr({ "x": 9.9921875, "y": 20, "text-anchor": "start", "text": "1A", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_1A");
-
+        shape = this.canvas.paper.text(0,0,'1A');
+        shape.attr({"x":8,"y":20.5,"text-anchor":"start","text":"1A","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_1A");
+        
         // Label_1B
-        shape = this.canvas.paper.text(0, 0, '1B');
-        shape.attr({ "x": 9.9921875, "y": 39.5, "text-anchor": "start", "text": "1B", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_1B");
-
+        shape = this.canvas.paper.text(0,0,'1B');
+        shape.attr({"x":7.78125,"y":40.5,"text-anchor":"start","text":"1B","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_1B");
+        
         // Label_1Y
-        shape = this.canvas.paper.text(0, 0, '1Y');
-        shape.attr({ "x": 9.9921875, "y": 60.5, "text-anchor": "start", "text": "1Y", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_1Y");
-
-        // Label_2Y
-        shape = this.canvas.paper.text(0, 0, '2Y');
-        shape.attr({ "x": 10.0078125, "y": 78.5, "text-anchor": "start", "text": "2Y", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_2Y");
-
-        // Label_2B
-        shape = this.canvas.paper.text(0, 0, '2B');
-        shape.attr({ "x": 9.9921875, "y": 101.5, "text-anchor": "start", "text": "2B", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_2B");
-
+        shape = this.canvas.paper.text(0,0,'1Y');
+        shape.attr({"x":7.7734375,"y":60,"text-anchor":"start","text":"1Y","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_1Y");
+        
         // Label_2A
-        shape = this.canvas.paper.text(0, 0, '2A');
-        shape.attr({ "x": 9.9921875, "y": 122.5, "text-anchor": "start", "text": "2A", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_2A");
-
+        shape = this.canvas.paper.text(0,0,'2A');
+        shape.attr({"x":7.78125,"y":80.5,"text-anchor":"start","text":"2A","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_2A");
+        
+        // Label_2B
+        shape = this.canvas.paper.text(0,0,'2B');
+        shape.attr({"x":8,"y":100.5,"text-anchor":"start","text":"2B","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_2B");
+        
+        // Label_2Y
+        shape = this.canvas.paper.text(0,0,'2Y');
+        shape.attr({"x":8,"y":119.5,"text-anchor":"start","text":"2Y","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_2Y");
+        
         // Label_GND
-        shape = this.canvas.paper.text(0, 0, 'GND');
-        shape.attr({ "x": 9.9921875, "y": 140.5, "text-anchor": "start", "text": "GND", "font-family": "\"Arial\"", "font-size": 7, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_GND");
-
+        shape = this.canvas.paper.text(0,0,'GND');
+        shape.attr({"x":7.78125,"y":144.5,"text-anchor":"start","text":"GND","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_GND");
+        
+        // Label_3B
+        shape = this.canvas.paper.text(0,0,'3B');
+        shape.attr({"x":73.3125,"y":119.5,"text-anchor":"start","text":"3B","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_3B");
+        
+        // Label_3Y
+        shape = this.canvas.paper.text(0,0,'3Y');
+        shape.attr({"x":73.3125,"y":142,"text-anchor":"start","text":"3Y","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_3Y");
+        
+        // Label_4Y
+        shape = this.canvas.paper.text(0,0,'4Y');
+        shape.attr({"x":73.3125,"y":80.5,"text-anchor":"start","text":"4Y","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_4Y");
+        
+        // Label_3A
+        shape = this.canvas.paper.text(0,0,'3A');
+        shape.attr({"x":73.3125,"y":100.5,"text-anchor":"start","text":"3A","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_3A");
+        
+        // Label_4A
+        shape = this.canvas.paper.text(0,0,'4A');
+        shape.attr({"x":73.3125,"y":40.5,"text-anchor":"start","text":"4A","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_4A");
+        
+        // Label_4B
+        shape = this.canvas.paper.text(0,0,'4B');
+        shape.attr({"x":73.3125,"y":62.5,"text-anchor":"start","text":"4B","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_4B");
+        
         // Label_Vcc
-        shape = this.canvas.paper.text(0, 0, 'Vcc');
-        shape.attr({ "x": 70.671875, "y": 20, "text-anchor": "start", "text": "Vcc", "font-family": "\"Arial\"", "font-size": 8, "stroke": "none", "fill": "#080808", "stroke-scale": true, "font-weight": "normal", "stroke-width": 0, "opacity": 1 });
-        shape.data("name", "Label_Vcc");
-
+        shape = this.canvas.paper.text(0,0,'Vcc');
+        shape.attr({"x":68,"y":20.5,"text-anchor":"start","text":"Vcc","font-family":"\"Arial\"","font-size":8,"stroke":"none","fill":"#080808","stroke-scale":true,"font-weight":"normal","stroke-width":0,"opacity":1});
+        shape.data("name","Label_Vcc");
+        
 
         return this.canvas.paper.setFinish();
-    },
+   },
 
-    applyAlpha: function() {},
+   applyAlpha: function()
+   {
+   },
 
-    layerGet: function(name, attributes) {
-        if (this.svgNodes === null) return null;
+   layerGet: function(name, attributes)
+   {
+      if(this.svgNodes===null) return null;
 
-        var result = null;
-        this.svgNodes.some(function(shape) {
-            if (shape.data("name") === name) {
-                result = shape;
-            }
-            return result !== null;
-        });
+      var result=null;
+      this.svgNodes.some(function(shape){
+         if(shape.data("name")===name){
+            result=shape;
+         }
+         return result!==null;
+      });
 
-        return result;
-    },
+      return result;
+   },
 
-    layerAttr: function(name, attributes) {
-        if (this.svgNodes === null) return;
+   layerAttr: function(name, attributes)
+   {
+     if(this.svgNodes===null) return;
 
-        this.svgNodes.forEach(function(shape) {
-            if (shape.data("name") === name) {
-                shape.attr(attributes);
-            }
-        });
-    },
+     this.svgNodes.forEach(function(shape){
+             if(shape.data("name")===name){
+                  shape.attr(attributes);
+             }
+     });
+   },
 
-    layerShow: function(name, flag, duration) {
-        if (this.svgNodes === null) return;
+   layerShow: function(name, flag, duration)
+   {
+      if(this.svgNodes===null) return;
 
-        if (duration) {
-            this.svgNodes.forEach(function(node) {
-                if (node.data("name") === name) {
-                    if (flag) {
-                        node.attr({ opacity: 0 }).show().animate({ opacity: 1 }, duration);
-                    } else {
-                        node.animate({ opacity: 0 }, duration, function() { this.hide() });
-                    }
+      if(duration){
+        this.svgNodes.forEach(function(node){
+            if(node.data("name")===name){
+                if(flag){
+                    node.attr({ opacity : 0 }).show().animate({ opacity : 1 }, duration);
                 }
-            });
-        } else {
-            this.svgNodes.forEach(function(node) {
-                if (node.data("name") === name) {
-                    if (flag) { node.show(); } else { node.hide(); }
+                else{
+                    node.animate({ opacity : 0 }, duration, function () { this.hide() });
                 }
-            });
-        }
+            }
+        });
+      }
+      else{
+          this.svgNodes.forEach(function(node){
+              if(node.data("name")===name){
+                   if(flag){node.show();}
+                   else{node.hide();}
+               }
+           });
+      }
+   },
+
+    calculate: function()
+    {
     },
 
-    calculate: function() {},
+    onStart: function()
+    {
+    },
 
-    onStart: function() {},
+    onStop:function()
+    {
+    },
 
-    onStop: function() {},
-
-    getParameterSettings: function() {
+    getParameterSettings: function()
+    {
         return [];
     },
 
     /**
      * @method
      */
-    addPort: function(port, locator) {
+    addPort: function(port, locator)
+    {
         this._super(port, locator);
         return port;
     },
@@ -270,15 +289,16 @@ var C74LS00 = draw2d.SetFigure.extend({
      *
      * @returns {Object}
      */
-    getPersistentAttributes: function() {
+    getPersistentAttributes : function()
+    {
         var memento = this._super();
 
         // add all decorations to the memento
         //
         memento.labels = [];
-        this.children.each(function(i, e) {
+        this.children.each(function(i,e){
             var labelJSON = e.figure.getPersistentAttributes();
-            labelJSON.locator = e.locator.NAME;
+            labelJSON.locator=e.locator.NAME;
             memento.labels.push(labelJSON);
         });
 
@@ -292,7 +312,8 @@ var C74LS00 = draw2d.SetFigure.extend({
      * @param {Object} memento
      * @returns
      */
-    setPersistentAttributes: function(memento) {
+    setPersistentAttributes : function(memento)
+    {
         this._super(memento);
 
         // remove all decorations created in the constructor of this element
@@ -301,19 +322,19 @@ var C74LS00 = draw2d.SetFigure.extend({
 
         // and add all children of the JSON document.
         //
-        $.each(memento.labels, $.proxy(function(i, json) {
+        $.each(memento.labels, $.proxy(function(i,json){
             // create the figure stored in the JSON
-            var figure = eval("new " + json.type + "()");
+            var figure =  eval("new "+json.type+"()");
 
             // apply all attributes
             figure.attr(json);
 
             // instantiate the locator
-            var locator = eval("new " + json.locator + "()");
+            var locator =  eval("new "+json.locator+"()");
 
             // add the new figure as child to this figure
             this.add(figure, locator);
-        }, this));
+        },this));
     }
 });
 
@@ -327,10 +348,12 @@ var C74LS00 = draw2d.SetFigure.extend({
  */
 C74LS00 = C74LS00.extend({
 
-    init: function(attr, setter, getter) {
-        this._super(attr, setter, getter);
+    init: function(attr, setter, getter){
+         this._super(attr, setter, getter);
 
-        // your special code here
+         // your special code here
+         this.attr({resizeable:false});
+         this.installEditPolicy(new draw2d.policy.figure.AntSelectionFeedbackPolicy());
     },
 
     /**
@@ -338,20 +361,45 @@ C74LS00 = C74LS00.extend({
      *  loop
      *  @required
      **/
-    calculate: function() {},
+    calculate:function()
+    {
+        var A1 = this.getInputPort("Port_1A");
+        var B1 = this.getInputPort("Port_1B");
+        var Y1 = this.getOutputPort("Port_1Y");
+        Y1.setValue(!(A1.getValue() && B1.getValue()));
+
+        var A2 = this.getInputPort("Port_2A");
+        var B2 = this.getInputPort("Port_2B");
+        var Y2 = this.getOutputPort("Port_2Y");
+        Y2.setValue(!(A2.getValue() && B2.getValue()));
+
+        var A3 = this.getInputPort("Port_3A");
+        var B3 = this.getInputPort("Port_3B");
+        var Y3 = this.getOutputPort("Port_3Y");
+        Y3.setValue(!(A3.getValue() && B3.getValue()));
+
+        var A4 = this.getInputPort("Port_4A");
+        var B4 = this.getInputPort("Port_4B");
+        var Y4 = this.getOutputPort("Port_4Y");
+        Y4.setValue(!(A4.getValue() && B4.getValue()));
+    },
 
 
     /**
      *  Called if the simulation mode is starting
      *  @required
      **/
-    onStart: function() {},
+    onStart:function()
+    {
+    },
 
     /**
      *  Called if the simulation mode is stopping
      *  @required
      **/
-    onStop: function() {},
+    onStop:function()
+    {
+    },
 
     note: "Y = not (A and B)"
 });
