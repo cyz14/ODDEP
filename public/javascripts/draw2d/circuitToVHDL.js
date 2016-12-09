@@ -1,10 +1,11 @@
 // Created by Chen Yazheng on 2016/11/02
 
 var Port = {
-    createNew: function(name, type) {
+    createNew: function(id, name, type) {
         var port = {
+            "id": id,
             "name": name || "port",
-            "type": type || "out", // "in", "out" 
+            "type": type || "out", // "in", "out"
         };
         port.setName = function(name) { port.name = name; }
         port.getName = function() { return port.name; }
@@ -37,7 +38,8 @@ var VHDLCode = {
                 "signals": [],
                 "constants": [],
                 "behaviour": {
-                    "name": "bhv"
+                    "name": "bhv",
+                    "devices": []
                 }
             },
             "indent": "",
@@ -91,7 +93,7 @@ var VHDLCode = {
             return result;
         }
 
-        code.marshalEntity = function() {yyyyyyyyy      
+        code.marshalEntity = function() {
             code.prepareEntity();
             var iw = IndentWriter.createNew();
             iw.writeLine(["ENTITY", code.entity.name, "IS", "PORT("].join(" "));
@@ -127,28 +129,35 @@ var VHDLCode = {
             for (var i in code.circuit.components) {
                 var comp = code.circuit.components[i];
                 if (comp.type == "draw2d_circuit_switch_HighLow") {
-                    code.addPort(Port.createNew(name= comp.name || "input_"+inports_num++
+                    code.addPort(Port.createNew(id=comp.id, name= comp.name || "input_"+inports_num++
                     ,type = "in"));
                 } else if (comp.type == "draw2d_circuit_switch_PushButton") {
-                    code.addPort(Port.createNew(name= comp.name || "input_"+inports_num++
+                    code.addPort(Port.createNew(id=comp.id, name= comp.name || "input_"+inports_num++
                     ,type = "in"));
                 } else if (comp.type == "draw2d_circuit_display_Led") {
-                    code.addPort(Port.createNew(name= comp.name || "output_"+outports_num++
+                    code.addPort(Port.createNew(id=comp.id, name= comp.name || "output_"+outports_num++
                     ,type = "out"));
                 }
             }
         }
 
         code.marshalArchitecture = function() {
-            var result = "";
-            result +=
-                code.indentStr + ["ARCHITECTURE", code.architecture.behaviour.name, "OF",
-                    code.entity.name, "IS"
-                ].join(" ") + "\n";
-            result += code.marshalArchitectureComponents();
-            result += code.marshalArchitectureConstants();
-            result += code.marshalArchitectureSignals();
-            result += code.marshalArchitectureBehaviour();
+            var iw = IndentWriter.createNew();
+            
+            iw.writeLine(["ARCHITECTURE", code.architecture.behaviour.name, 
+                "OF", code.entity.name, "IS"].join(" "));
+
+            code.prepareComponents();
+            iw.writeLine(code.marshalArchitectureComponents());
+            iw.writeLine(code.marshalArchitectureConstants());
+            
+            code.prepareSignals();
+            iw.writeLine(code.marshalArchitectureSignals());
+            
+            iw.writeLine(code.marshalArchitectureBehaviour());
+
+            var result = iw.getContent();
+            iw.flush();
             return result;
         }
 
@@ -156,39 +165,159 @@ var VHDLCode = {
             var result = "\n";
             code.incIndent();
             var circuit = code.circuit;
-            for (var ic in circuit.components) {
-                var component = circuit.components[ic];
-                if (code.getComponentInfo(component) != null)
-                    result += code.getComponentInfo(component) + "\n"; // info need to be prepared for every component
+            var components = code.architecture.components       
+            for (var ic in components) {
+                var component = components[ic];
+                result += code.getComponentInfo(component).info + "\n"; // info need to be prepared for every component
             }
             code.decIndent();
             return result;
         }
 
+        code.prepareComponents = function () {
+            var circuit = code.circuit;
+            var components = code.architecture.components = []; 
+            code.architecture.behaviour.devices = [];
+            for (var ic in circuit.components) {
+                var component = circuit.components[ic];
+                if (component.type.startsWith("C74LS")) {
+                    component.name = component.type + "_" + ic;
+                    var ports = component.componentInfo.ports.data;
+                    for (var pi in ports) {
+                        // if OPEN
+                        var port = ports[pi];
+                        if (port.cssClass === "DecoratedInputPort") {
+                            port.connectTo = {"name": "LOW"};
+                        } else if (port.cssClass === "draw2d_OutputPort") {
+                            port.connectTo = {"name": "OPEN"};
+                        }
+                    }
+                    code.architecture.behaviour.devices.push(component);
+                }
+
+                if (code.getComponentInfo(component) != null) {
+                    if (components.indexOf(component.type) >= 0) {
+                        continue;
+                    }
+                    components.push(component);
+                }
+            }
+        }
+
+        code.prepareSignals = function () {
+            var connections = code.circuit.connections;
+            var signals = code.architecture.signals
+            var devices = code.architecture.behaviour.devices; 
+            for (var si in connections) {
+                var conn = connections[si];
+                var signal = code.addSignal(signals, conn);
+                var src = conn.source;
+                var tgt = conn.target;
+                if (src.type.startsWith("C74LS")) {
+                    var srcDevice = devices.find(function (value) {
+                        return value.id === this.node;
+                    }, src);
+                    var ports = srcDevice.componentInfo.ports.data;
+                    var port = ports.find(function (value) {
+                        return value.name === this.port;
+                    }, src);
+                    port.connectTo = signal;
+                } else {
+                    var port = code.entity.inports.find(function (value) {
+                        return value.id === this.node;
+                    }, src);
+                    port.connectTo = signal;
+                }
+
+                if (tgt.type.startsWith("C74LS")) {
+                    var tgtDevice = devices.find(function (value) {
+                        return value.id === this.node;
+                    }, tgt);
+                    var ports = tgtDevice.componentInfo.ports.data;
+                    var port = ports.find(function (value) {
+                        return value.name === this.port;
+                    }, tgt);
+                    port.connectTo = signal;
+                } else {
+                    var port = code.entity.outports.find(function (value) {
+                        return value.id === this.node;
+                    }, tgt);
+                    port.connectTo = signal;
+                }
+            }
+        }
+
+        code.addSignal = function (signalList, connection) {
+            var src = connection.source;
+            var tgt = connection.target;
+            var i = 1;
+            var signal = {
+                "name": "" 
+            };
+            var name = "signal_" + signalList.length;
+            // findByName
+            signal.name = name;
+            signalList.push(signal);
+            return signal;
+        }
+
         code.marshalArchitectureSignals = function() {
             var result = "";
             var iw = IndentWriter.createNew();
-            var connections = code.circuit.connections; 
-            for (var si in connections) {
-                var conn = connections[si];
-                var src = conn.source;
-                var tgt = conn.targer;
+            var signals = code.architecture.signals;
+            for (var si in signals) {
+                var signal = signals[si];
+                iw.writeLine(["signal", signal.name, ":", "STD_LOGIC"].join(" ") + ";");
             }
+            result = iw.getContent();
+            iw.flush();
             return result;
         }
 
         code.marshalArchitectureConstants = function() {
             var result = "";
-            result += ["HIGH", ":", "STD_LOGIC:=","1;"].join(" ") + "\n";
-            result += ["LOW ", ":", "STD_LOGIC:=","0;"].join(" ") + "\n";
+            result += ["CONSTANT", "HIGH", ":", "STD_LOGIC:=","1;"].join(" ") + "\n";
+            result += ["CONSTANT", "LOW ", ":", "STD_LOGIC:=","0;"].join(" ") + "\n";
             return result;
         }
 
         code.marshalArchitectureBehaviour = function() {
             var result = "";
-            result += code.indentStr + "BEGIN" + "\n";
+            var iw = IndentWriter.createNew();
+            iw.writeLine("BEGIN");
+            iw.incIndent();
+            // Entity I/O ports
+            for (var ip in code.entity.inports) {
+                var port = code.entity.inports[ip];
+                iw.writeLine([port.name, "<=", port.connectTo.name].join(" ") + ";");
+            }
 
-            result += code.indentStr + ["END", code.architecture.behaviour.name].join(" ") + ";\n";
+            for (var op in code.entity.outports) {
+                var port = code.entity.outports[op];
+                iw.writeLine([port.name, "<=", port.connectTo.name].join(" ") + ";");
+            }
+
+            iw.writeLine();
+
+            // Devices 
+            var devices = code.architecture.behaviour.devices;
+            for (ci in devices) {
+                var device = devices[ci];
+                iw.writeLine(["u_" + device.name, ":", "PORT", "MAP", "("].join(" "));
+
+                var ports = device.componentInfo.ports.data;
+                for (var pi in ports) {
+                    var port = ports[pi];
+                    iw.writeLine([port.name, "=>", port.connectTo.name, ","].join(" "));
+                }
+                iw.writeLine(");");
+                iw.writeLine();
+            }
+
+            iw.decIndent();
+            iw.writeLine(["END", code.architecture.behaviour.name].join(" ") + ";");
+            result = iw.getContent();
+            iw.flush();
             return result;
         }
         code.getComponentInfo = function(comp) {
@@ -205,17 +334,12 @@ var VHDLCode = {
         }
         code.setIndentStr = function(indentStr) {
             code.indentStr = indentStr;
-            // code.indent = "";
         }
 
         code.addLibrary({
             "name": "IEEE",
             "uses": ["IEEE.STD_LOGIC_1164.ALL", "IEEE.STD_LOGIC_ARITH.ALL", "IEEE.STD_LOGIC_UNSIGNED.ALL"]
         });
-        // code.addPort(Port.createNew("a", "in"));
-        // code.addPort(Port.createNew("b", "in"));
-        // code.addPort(Port.createNew("s", "out"));
-        // code.addPort(Port.createNew("c", "out"));
 
         return code;
     }

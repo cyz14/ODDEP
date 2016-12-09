@@ -7,7 +7,7 @@ var IndentWriter = {
             "indent": ""
         };
         writer.write = function(data) { writer.buffer += writer.indent + data; }
-        writer.writeLine = function(line) { writer.buffer += writer.indent + line + "\n"; }
+        writer.writeLine = function(line) { line = line || ""; writer.buffer += writer.indent + line + "\n"; }
         writer.getContent = function () { return writer.buffer; }
         writer.flush = function () { writer.buffer = ""; }
         writer.incIndent = function() {

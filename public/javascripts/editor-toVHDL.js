@@ -515,7 +515,7 @@ function toVHDL(circuit) {
     arch = archBegin(arch);
     arch = arch + "end eo_digital;";
     var s = lib + entity + arch;
-    return s;
+    return code; //s;
 }
 
 function logCanvas(canvas) {
@@ -525,7 +525,7 @@ function logCanvas(canvas) {
     });
 }
 
-function simplifyJSON(circuit) {
+function simplifyJSON(canvas, circuit) {
     var newCircuit = {};
     var components = [];
     var connections = [];
@@ -535,7 +535,9 @@ function simplifyJSON(circuit) {
             v.type = "draw2d.Connection";
             v.id = value.id;
             v.source = value.source;
+            v.source.type = canvas.getFigure(v.source.node).cssClass;
             v.target = value.target;
+            v.target.type = canvas.getFigure(v.target.node).cssClass;
             connections.push(v);
         } else {
             if (value.type === "draw2d_circuit_switch_HighLow") {
@@ -545,7 +547,6 @@ function simplifyJSON(circuit) {
                 components.push(v);
                 if (value.labels.length > 0) {
                     v.name = value.labels[0].text;
-                    console.log(value.labels[0].text);
                 }
             } else if (value.type === "draw2d_circuit_switch_PushButton") {
                 var v = {};
@@ -554,7 +555,6 @@ function simplifyJSON(circuit) {
                 components.push(v);
                 if (value.labels.length > 0) {
                     v.name = value.labels[0].text;
-                    console.log(value.labels[0].text);
                 }
             } else if (value.type === "draw2d_circuit_display_Led") {
                 var v = {};
@@ -562,14 +562,16 @@ function simplifyJSON(circuit) {
                 v.id = value.id;
                 if (value.labels.length > 0) {
                     v.name = value.labels[0].text;
-                    console.log(value.labels[0].text);
                 }
                 components.push(v);
             } else if (value.type.startsWith("C74LS")) {
                 var v = {};
-                v.type = "chips." + value.type;
+                v.type = value.type; // "chips." + 
                 v.id = value.id;
                 v.componentInfo = getComponentInfo(value);
+                if (value.labels.length > 0) {
+                    v.name = value.labels[0].text;
+                }
                 components.push(v);
             } else {
                 console.log(value.type + " is not in circuit.");
@@ -625,7 +627,10 @@ function getComponentInfo(comp) {
     iw.writeLine(["END", "Component;"].join(" "));
     result = iw.getContent();
     iw.flush();
-    return result;
+    var info = {};
+    info.info = result;
+    info.ports = ports;
+    return info;
 }
 
 //-----------------------------------------------------------------------------
