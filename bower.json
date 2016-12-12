@@ -29,6 +29,8 @@
     "draw2d-shapes": "^1.0.178",
     "mousetrap": "^1.6.0",
     "bootstrap": "^3.3.7",
-    "jstree": "^3.3.3"
+    "jstree": "^3.3.3",
+    "d3": "^3.5.17",
+    "locstor": "^1.0.7"
   }
 }

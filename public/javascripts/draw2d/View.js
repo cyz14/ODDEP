@@ -21,7 +21,13 @@ tot.View = draw2d.Canvas.extend({
         
         this.changed = false;
 
+        this.probeWindow = new ProbeWindow(this);
+
         this.simulate = false;
+        this.animationFrameFunc = $.proxy(this._calculate,this);
+
+
+        this.timerBase = 10; // ms calculate every 10ms all elements
 
         this.enableShortcut = false;
 
@@ -447,6 +453,84 @@ tot.View = draw2d.Canvas.extend({
         return new draw2d.geo.Point(
             ((x*(1/this.zoomFactor)) + this.getAbsoluteX()),
             ((y*(1/this.zoomFactor)) + this.getAbsoluteY() - $('body').scrollTop()));
+    },
+
+    simulationToggle:function()
+    {
+        if(this.simulate===true){
+            this.simulationStop();
+        } else {
+            this.simulationStart();
+        }
+    },
+
+    simulationStart:function()
+    {
+        if(this.simulate===true){
+            return; // silently
+        }
+
+        this.simulate=true;
+
+        this.installEditPolicy(new SimulationEditPolicy());
+        this.uninstallEditPolicy(this.connectionPolicy);
+        this.uninstallEditPolicy(this.coronaFeedback);
+        this.commonPorts.each(function(i,p){
+            p.setVisible(false);
+        });
+
+        this._calculate();
+
+        $("#simulationStartStop").addClass("pause");
+        $("#simulationStartStop").removeClass("play");
+        $(".simulationBase" ).fadeIn( "slow" );
+        $("#paletteElementsOverlay" ).fadeIn( "fast" );
+        $("#paletteElementsOverlay").height($("#paletteElements").height());
+        this.slider.slider("setValue",100);
+
+        this.probeWindow.show();
+    },
+
+    simulationStop:function()
+    {
+        this.simulate = false;
+        this.commonPorts.each(function(i,p){
+            p.setVisible(true);
+        });
+        this.installEditPolicy(new EditEditPolicy());
+        this.installEditPolicy(this.connectionPolicy);
+        this.installEditPolicy(this.coronaFeedback);
+
+        $("#simulationStartStop").addClass("play");
+        $("#simulationStartStop").removeClass("pause");
+        $(".simulationBase" ).fadeOut( "slow" );
+        $("#paletteElementsOverlay" ).fadeOut( "fast" );
+        this.probeWindow.hide();
+    },
+
+    _calculate:function()
+    {
+        // call the "calculate" method if given to calculate the output-port values
+        //
+        this.getFigures().each(function(i,figure){
+            figure.calculate();
+        });
+
+        // transport the value from oututPort to inputPort
+        //
+        this.getLines().each(function(i,line){
+            var outPort = line.getSource();
+            var inPort  = line.getTarget();
+            inPort.setValue(outPort.getValue());
+            line.setColor(outPort.getValue()?conf.color.high:conf.color.low);
+        });
+
+        if(this.simulate===true){
+       //     setImmediate(this.animationFrameFunc);
+            setTimeout(this.animationFrameFunc,this.timerBase);
+        }
+
+        this.probeWindow.tick(this.timerBase);
     },
 
     /**
