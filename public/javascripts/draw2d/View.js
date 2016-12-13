@@ -78,6 +78,11 @@ tot.View = draw2d.Canvas.extend({
                 ]);
         this.installEditPolicy(this.connectionPolicy);
 
+        // show the ports of the elements only if the mouse cursor is close to the shape.
+        //
+        this.coronaFeedback = new draw2d.policy.canvas.CoronaDecorationPolicy({diameterToBeVisible:50});
+        this.installEditPolicy(this.coronaFeedback);
+
         // nice grid decoration for the canvas paint area
         //
         this.grid =  new draw2d.policy.canvas.ShowGridEditPolicy(20);
@@ -239,6 +244,10 @@ tot.View = draw2d.Canvas.extend({
             _this.getCommandStack().redo();
         });
 
+        $("#simulationStartStop").on("click", function(){
+            _this.simulationToggle();
+        });
+
         this.on("contextmenu", function(emitter, event){
             var figure = _this.getBestFigure(event.x, event.y);
 
@@ -303,6 +312,28 @@ tot.View = draw2d.Canvas.extend({
                 });
             }
         });
+
+        this.slider= $('#simulationBaseTimer')
+            .slider({
+                id:"simulationBaseTimerSlider"
+            })
+            .on("slide",function(event){
+                // min = 50     => 100ms
+                // norm= 100    => 10ms ticks
+                // max = 500    =>  2ms ticks
+                //
+                // To map between the different intervals
+                // [A, B] --> [a, b]
+                // use this formula
+                // (val - A)*(b-a)/(B-A) + a
+
+                if(event.value<100){
+                    _this.timerBase = parseInt(100-((event.value-50)*(100-10)/(100-50)+10));
+                }
+                else{
+                    _this.timerBase = parseInt(11-((event.value-100)*(10-2)/(500-100)+2));
+                }
+            });
 	}, // end init
 
     getBoundingBox: function()
