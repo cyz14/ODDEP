@@ -338,7 +338,25 @@ C74LS11 = C74LS11.extend({
      *  loop
      *  @required
      **/
-    calculate: function() {},
+    calculate: function() {
+        var A1 = this.getInputPort("Port_1A");
+        var B1 = this.getInputPort("Port_1B");
+        var C1 = this.getInputPort("Port_1C");
+        var Y1 = this.getOutputPort("Port_1Y");
+        Y1.setValue((A1.getValue() && B1.getValue() && C1.getValue()));
+
+        var A2 = this.getInputPort("Port_2A");
+        var B2 = this.getInputPort("Port_2B");
+        var C2 = this.getInputPort("Port_2C");
+        var Y2 = this.getOutputPort("Port_2Y");
+        Y2.setValue((A2.getValue() && B2.getValue() && C2.getValue()));
+
+        var A3 = this.getInputPort("Port_3A");
+        var B3 = this.getInputPort("Port_3B");
+        var C3 = this.getInputPort("Port_3C");
+        var Y3 = this.getOutputPort("Port_3Y");
+        Y3.setValue((A3.getValue() && B3.getValue() && C3.getValue()));
+    },
 
 
     /**

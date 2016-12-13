@@ -338,7 +338,27 @@ C74LS86 = C74LS86.extend({
      *  loop
      *  @required
      **/
-    calculate: function() {},
+    calculate: function() {
+        var A1 = this.getInputPort("Port_1A");
+        var B1 = this.getInputPort("Port_1B");
+        var Y1 = this.getOutputPort("Port_1Y");
+        Y1.setValue(!!(A1.getValue() ^ B1.getValue()));
+
+        var A2 = this.getInputPort("Port_2A");
+        var B2 = this.getInputPort("Port_2B");
+        var Y2 = this.getOutputPort("Port_2Y");
+        Y2.setValue(!!(A2.getValue() ^ B2.getValue()));
+
+        var A3 = this.getInputPort("Port_3A");
+        var B3 = this.getInputPort("Port_3B");
+        var Y3 = this.getOutputPort("Port_3Y");
+        Y3.setValue(!!(A3.getValue() ^ B3.getValue()));
+
+        var A4 = this.getInputPort("Port_4A");
+        var B4 = this.getInputPort("Port_4B");
+        var Y4 = this.getOutputPort("Port_4Y");
+        Y4.setValue(!!(A4.getValue() ^ B4.getValue()));
+    },
 
 
     /**

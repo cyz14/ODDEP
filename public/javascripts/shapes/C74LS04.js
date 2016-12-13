@@ -338,7 +338,31 @@ C74LS04 = C74LS04.extend({
      *  loop
      *  @required
      **/
-    calculate: function() {},
+    calculate: function() {
+        var A1 = this.getInputPort("Port_1A");
+        var Y1 = this.getOutputPort("Port_1Y");
+        Y1.setValue(!(A1.getValue()));
+
+        var A2 = this.getInputPort("Port_2A");
+        var Y2 = this.getOutputPort("Port_2Y");
+        Y2.setValue(!(A2.getValue()));
+
+        var A3 = this.getInputPort("Port_3A");
+        var Y3 = this.getOutputPort("Port_3Y");
+        Y3.setValue(!(A3.getValue()));
+
+        var A4 = this.getInputPort("Port_4A");
+        var Y4 = this.getOutputPort("Port_4Y");
+        Y4.setValue(!(A4.getValue()));
+
+        var A5 = this.getInputPort("Port_5A");
+        var Y5 = this.getOutputPort("Port_5Y");
+        Y5.setValue(!(A5.getValue()));
+
+        var A6 = this.getInputPort("Port_6A");
+        var Y6 = this.getOutputPort("Port_6Y");
+        Y6.setValue(!(A6.getValue()));
+    },
 
 
     /**
