@@ -223,9 +223,11 @@ var ProbeWindow = Class.extend({
         $label.click(function() {
 
             var $replaceWith = $('<input type="input" class="inplaceEdit" value="'+probeFigure.getText()+'" />');
-            $label.hide();
-            $label.after($replaceWith);
-            $replaceWith.focus();
+            if ($label) {
+                $label.hide();
+                $label.after($replaceWith);
+                $replaceWith.focus();    
+            }
 
             var fire=function() {
                 var newLabel = $replaceWith.val();
