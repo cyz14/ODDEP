@@ -7,13 +7,14 @@
 }
 #probe_window {
   background: #009DAC;
-  bottom: 0;
+  bottom: 100;
   height: 0;
   display: none;
   color: white;
   position: absolute;
   right: 0;
   left: 250px;
+  overflow: scroll;
 }
 #probe_window span {
   font-size: 45px;
