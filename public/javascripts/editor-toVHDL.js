@@ -564,6 +564,31 @@ function simplifyJSON(canvas, circuit) {
                     v.name = value.labels[0].text;
                 }
                 components.push(v);
+            } else if (value.type === "draw2d_circuit_pulse_50hz") {
+                var v = {};
+                v.type = value.type;
+                v.id = value.id;
+                if (value.labels.length > 0) {
+                    v.name = value.labels[0].text;
+                }
+                components.push(v);
+            } else if (value.type === "draw2d_circuit_pulse_10hz") {
+                var v = {};
+                v.type = value.type;
+                v.id = value.id;
+                if (value.labels.length > 0) {
+                    v.name = value.labels[0].text;
+                }
+                components.push(v);
+            } else if (value.type.startsWith("draw2d_circuit_")) {
+                var v = {};
+                v.type = value.type;
+                v.id = value.id;
+                v.componentInfo = getComponentInfo(value);
+                if (value.labels.length > 0) {
+                    v.name = value.labels[0].text;
+                }
+                components.push(v);
             } else if (value.type.startsWith("C74LS")) {
                 var v = {};
                 v.type = value.type; // "chips." + 
@@ -590,7 +615,7 @@ function sortByName(a, b) {
 
 function getComponentInfo(comp) {
     var result = "";
-    if (!comp.type.startsWith("C74LS")) {
+    if (!comp.type.startsWith("C74LS") && !comp.type.startsWith("draw2d_circuit_")) {
         return result;
     }
     var iw = IndentWriter.createNew();

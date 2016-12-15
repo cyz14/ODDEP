@@ -137,6 +137,12 @@ var VHDLCode = {
                 } else if (comp.type == "draw2d_circuit_display_Led") {
                     code.addPort(Port.createNew(id=comp.id, name= comp.name || "output_"+outports_num++
                     ,type = "out"));
+                } else if (comp.type == "draw2d_circuit_pulse_50hz") {
+                    code.addPort(Port.createNew(id=comp.id, name= comp.name || "input_"+(inports_num++)
+                    ,type = "in"));
+                } else if (comp.type == "draw2d_circuit_pulse_10hz") {
+                    code.addPort(Port.createNew(id=comp.id, name= comp.name || "input_"+(inports_num++)
+                    ,type = "in"));
                 }
             }
         }
@@ -180,7 +186,11 @@ var VHDLCode = {
             code.architecture.behaviour.devices = [];
             for (var ic in circuit.components) {
                 var component = circuit.components[ic];
-                if (component.type.startsWith("C74LS")) {
+                if (component.type.startsWith("C74LS") 
+                    || component.type.startsWith("draw2d_circuit_display_7Segment")
+                    || component.type.startsWith("draw2d_circuit_counter_")
+                    || component.type.startsWith("draw2d_circuit_decoder_")
+                    ) {
                     component.name = component.type + "_" + ic;
                     var ports = component.componentInfo.ports.data;
                     for (var pi in ports) {
@@ -222,6 +232,33 @@ var VHDLCode = {
                         return value.name === this.port;
                     }, src);
                     port.connectTo = signal;
+                } else if (src.type.startsWith("draw2d_circuit_decoder_BCDto7Seg")) {
+                    var srcDevice = devices.find(function (value) { 
+                        return value.id === this.node;
+                    }, src);
+                    var ports = srcDevice.componentInfo.ports.data;
+                    var port = ports.find(function (value) {  
+                        return value.name === this.port;
+                    }, src);
+                    port.connectTo = signal;
+                } else if (src.type.startsWith("draw2d_circuit_display_7Segment")) {
+                    var srcDevice = devices.find(function (value) { 
+                        return value.id === this.node;
+                    }, src);
+                    var ports = srcDevice.componentInfo.ports.data;
+                    var port = ports.find(function (value) {  
+                        return value.name === this.port;
+                    }, src);
+                    port.connectTo = signal;
+                } else if (src.type.startsWith("draw2d_circuit_counter_BCDCounter")) {
+                    var srcDevice = devices.find(function (value) { 
+                        return value.id === this.node;
+                    }, src);
+                    var ports = srcDevice.componentInfo.ports.data;
+                    var port = ports.find(function (value) {  
+                        return value.name === this.port;
+                    }, src);
+                    port.connectTo = signal;
                 } else {
                     var port = code.entity.inports.find(function (value) {
                         return value.id === this.node;
@@ -235,6 +272,33 @@ var VHDLCode = {
                     }, tgt);
                     var ports = tgtDevice.componentInfo.ports.data;
                     var port = ports.find(function (value) {
+                        return value.name === this.port;
+                    }, tgt);
+                    port.connectTo = signal;
+                } else if (tgt.type.startsWith("draw2d_circuit_decoder_BCDto7Seg")) {
+                    var tgtDevice = devices.find(function (value) { 
+                        return value.id === this.node;
+                    }, tgt);
+                    var ports = tgtDevice.componentInfo.ports.data;
+                    var port = ports.find(function (value) {  
+                        return value.name === this.port;
+                    }, tgt);
+                    port.connectTo = signal;
+                } else if (tgt.type.startsWith("draw2d_circuit_display_7Segment")) {
+                    var tgtDevice = devices.find(function (value) { 
+                        return value.id === this.node;
+                    }, tgt);
+                    var ports = tgtDevice.componentInfo.ports.data;
+                    var port = ports.find(function (value) {  
+                        return value.name === this.port;
+                    }, tgt);
+                    port.connectTo = signal;
+                } else if (tgt.type.startsWith("draw2d_circuit_counter_BCDCounter")) {
+                    var tgtDevice = devices.find(function (value) { 
+                        return value.id === this.node;
+                    }, tgt);
+                    var ports = tgtDevice.componentInfo.ports.data;
+                    var port = ports.find(function (value) {  
                         return value.name === this.port;
                     }, tgt);
                     port.connectTo = signal;
