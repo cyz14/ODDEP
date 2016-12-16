@@ -1,6 +1,6 @@
 $(function() {
     var editor = ace.edit("vhdlACE");
-    editor.setTheme("ace/theme/monokai");//white
+    editor.setTheme("ace/theme/white");//white monokai
     editor.getSession().setMode("ace/mode/vhdl");
     editor.setOptions({
         enableBasicAutocompletion: true,
