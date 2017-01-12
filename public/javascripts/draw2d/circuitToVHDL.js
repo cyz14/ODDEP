@@ -1,14 +1,37 @@
 // Created by Chen Yazheng on 2016/11/02
 
 var Port = {
+    /**
+     * 
+     * 
+     * @param {any} id
+     * @param {any} name
+     * @param {any} type
+     * @returns
+     */
     createNew: function(id, name, type) {
         var port = {
             "id": id,
             "name": name || "port",
             "type": type || "out", // "in", "out"
         };
+        /**
+         * 
+         * 
+         * @param {any} name
+         */
         port.setName = function(name) { port.name = name; }
+        /**
+         * 
+         * 
+         * @returns
+         */
         port.getName = function() { return port.name; }
+        /**
+         * 
+         * 
+         * @param {any} type
+         */
         port.setType = function(type) {
             if (type == "in" || type == "out")
                 port.type = type;
@@ -16,6 +39,11 @@ var Port = {
                 port.type = "inout";
             }
         }
+        /**
+         * 
+         * 
+         * @returns
+         */
         port.getType = function() { return port.type; }
         return port;
     }
@@ -23,6 +51,12 @@ var Port = {
 
 var VHDLCode = {
 
+    /**
+     * Create a new object to manage code structure
+     * 
+     * @param {any} circuit
+     * @returns
+     */
     createNew: function(circuit) {
 
         var code = {
@@ -47,9 +81,33 @@ var VHDLCode = {
             "circuit": circuit
         };
         code.writer = IndentWriter.createNew();
+        
+        /**
+         * Set json format circuit
+         * 
+         * @param {any} circuit
+         */
         code.setCircuit = function(circuit) { code.circuit = circuit; }
+        
+        /**
+         * Add library for VHDL code
+         * 
+         * @param {any} library
+         */
         code.addLibrary = function(library) { code.libraries.push(library); }
+        
+        /**
+         * Set name for the entity name
+         * 
+         * @param {any} name
+         */
         code.setName = function(name) { code.entity.name = name; }
+        
+        /**
+         * Add port for the entity 
+         * 
+         * @param {any} port
+         */
         code.addPort = function(port) {
             if (port.type == "in") {
                 code.entity.inports.push(port);
@@ -61,6 +119,9 @@ var VHDLCode = {
                 code.entity.ports.push(port);
             }
         }
+        /**
+         * Remove all ports from entity
+         */
         code.clearPorts = function() {
             code.entity.ports 
             = code.entity.inports 
@@ -68,6 +129,11 @@ var VHDLCode = {
             = [];
         }
 
+        /**
+         * Generate code for the entity
+         * 
+         * @returns
+         */
         code.marshal = function() {
             var vhdl = "";
             vhdl += code.marshalLibrary();
@@ -78,6 +144,11 @@ var VHDLCode = {
             return vhdl;
         }
 
+        /**
+         * Generate code for libraries
+         * 
+         * @returns
+         */
         code.marshalLibrary = function() {
             var result = "";
             for (var i in code.libraries) {
@@ -93,6 +164,11 @@ var VHDLCode = {
             return result;
         }
 
+        /**
+         * Generate code for Entity declaration
+         * 
+         * @returns
+         */
         code.marshalEntity = function() {
             code.prepareEntity();
             var iw = IndentWriter.createNew();
@@ -147,6 +223,11 @@ var VHDLCode = {
             }
         }
 
+        /**
+         * Generate code for architecture
+         * 
+         * @returns
+         */
         code.marshalArchitecture = function() {
             var iw = IndentWriter.createNew();
             
@@ -167,6 +248,11 @@ var VHDLCode = {
             return result;
         }
 
+        /**
+         * Generate code for components
+         * 
+         * @returns
+         */
         code.marshalArchitectureComponents = function() {
             var result = "\n";
             code.incIndent();
@@ -180,6 +266,9 @@ var VHDLCode = {
             return result;
         }
 
+        /**
+         * Prepare dependencies for components
+         */
         code.prepareComponents = function () {
             var circuit = code.circuit;
             var components = code.architecture.components = []; 
@@ -214,6 +303,9 @@ var VHDLCode = {
             }
         }
 
+        /**
+         * Prepare dependencies for signals used in connections
+         */
         code.prepareSignals = function () {
             var connections = code.circuit.connections;
             var signals = code.architecture.signals
@@ -311,6 +403,13 @@ var VHDLCode = {
             }
         }
 
+        /**
+         * Add signal to list from a connection
+         * 
+         * @param {any} signalList
+         * @param {any} connection
+         * @returns
+         */
         code.addSignal = function (signalList, connection) {
             var src = connection.source;
             var tgt = connection.target;
@@ -325,6 +424,11 @@ var VHDLCode = {
             return signal;
         }
 
+        /**
+         * Generate declarations for signals in architecture
+         * 
+         * @returns
+         */
         code.marshalArchitectureSignals = function() {
             var result = "";
             var iw = IndentWriter.createNew();
@@ -338,6 +442,11 @@ var VHDLCode = {
             return result;
         }
 
+        /**
+         * Generate code for constants
+         * 
+         * @returns
+         */
         code.marshalArchitectureConstants = function() {
             var result = "";
             result += ["CONSTANT", "HIGH", ":", "STD_LOGIC:=","1;"].join(" ") + "\n";
@@ -345,6 +454,11 @@ var VHDLCode = {
             return result;
         }
 
+        /**
+         * Generate code for behaviour of architecture
+         * 
+         * @returns
+         */
         code.marshalArchitectureBehaviour = function() {
             var result = "";
             var iw = IndentWriter.createNew();
@@ -384,18 +498,36 @@ var VHDLCode = {
             iw.flush();
             return result;
         }
+        
+        /**
+         * 
+         * 
+         * @param {any} comp
+         * @returns
+         */
         code.getComponentInfo = function(comp) {
             return comp.componentInfo;
         }
 
+        /**
+         * 
+         */
         code.incIndent = function() {
             code.indent = code.indent + code.indentStr;
         }
+        /**
+         * 
+         */
         code.decIndent = function() {
             if (code.indent.length - code.indentStr.length < 0) code.indent = "";
             else
                 code.indent = code.indent.substr(0, code.indent.length - code.indentStr.length);
         }
+        /**
+         * 
+         * 
+         * @param {any} indentStr
+         */
         code.setIndentStr = function(indentStr) {
             code.indentStr = indentStr;
         }

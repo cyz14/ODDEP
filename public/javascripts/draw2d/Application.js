@@ -56,6 +56,9 @@ tot.Application = Class.extend({
 	    reader.unmarshal(this.view, jsonDocument);
 	},
 
+	/**
+	 * Output json data of the canvas
+	 */
 	dump:function()
     {
         var writer = new draw2d.io.json.Writer();
@@ -64,13 +67,22 @@ tot.Application = Class.extend({
         });
     },
 
+    /**
+     * 
+     * Set default router for the connections
+     * @param {any} defaultRouterClassName
+     */
     setDefaultRouterClassName: function(defaultRouterClassName){
 	    defaultRouterClassName=  defaultRouterClassName;
         defaultRouter = eval("new "+defaultRouterClassName+"()");
 	},
 
+	/**
+	 * create a new connection with a default router
+	 * 
+	 * @returns a new connection
+	 */
 	createConnection: function(){
-
 	    var conn = new draw2d.Connection();
 	    conn.setRouter(defaultRouter);
 	    conn.setOutlineStroke(1);
