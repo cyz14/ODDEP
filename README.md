@@ -96,17 +96,6 @@ Then in any path, run vlib to test.
 
 ## ToDo 
 
-### Week 8 ToDo
-* 田雨
-    1. 芯片标注
-
-* 陈雅正
-    1. 流程测试
-    2. 编辑界面
-
-* 宁敏行
-    1. file tree
-
 ### Future ToDo
 1. ModelSim 模块化
     a. 请求(文件，激励）
